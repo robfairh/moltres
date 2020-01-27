@@ -6,26 +6,38 @@ import numpy as np
 import math as mt
 import random as rd
 
+
 def add_lines(f, d_x):
     """
     Adds boundary lines
+    Parameters:
+    -----------
+    f:
+    d_x:
     returns:
     c = number of lines
-    l =
-    ns =
+    l = ?
+    ns = ?
+    ls = ?
     """
-    d = d_x/2 * np.tan(np.pi/3)
-    d = round(d, 4)
 
     f.write("//+\n")
     f.write("SetFactory('OpenCASCADE');\n")
     f.write("// Define Points of the assembly boundaries \n")
-    f.write("Point(1) = { "+ str(d_x/2) +", "+ str(d) +", 0, 1.0};\n")
-    f.write("Point(2) = { "+ str(d_x) +", 0, 0, 1.0};\n")
-    f.write("Point(3) = { "+ str(d_x/2) +", "+ str(-d) +", 0, 1.0};\n")
-    f.write("Point(4) = { "+ str(-d_x/2) +", "+ str(-d) +", 0, 1.0};\n")
-    f.write("Point(5) = { "+ str(-d_x) +", 0, 0, 1.0};\n")
-    f.write("Point(6) = { "+ str(-d_x/2) +", "+ str(d) +", 0, 1.0};\n")
+
+    d0 = d_x/2
+    d1 = d_x/np.sqrt(3)
+    d1 = round(d1, 4)
+    d2 = d_x/2/np.sqrt(3)
+    d2 = round(d2, 4)
+
+    f.write("Point(1) = { "+ str(d2) +", "+ str(d0) +", 0, 1.0};\n")
+    f.write("Point(2) = { "+ str(d1) +", 0, 0, 1.0};\n")
+    f.write("Point(3) = { "+ str(d2) +", "+ str(-d0) +", 0, 1.0};\n")
+    f.write("Point(4) = { "+ str(-d2) +", "+ str(-d0) +", 0, 1.0};\n")
+    f.write("Point(5) = { "+ str(-d1) +", 0, 0, 1.0};\n")
+    f.write("Point(6) = { "+ str(-d2) +", "+ str(d0) +", 0, 1.0};\n")
+
     f.write("// Define Lines in the boundary \n")
     f.write("Line(1) = {1, 2};\n")
     f.write("Line(2) = {2, 3};\n")
@@ -36,17 +48,19 @@ def add_lines(f, d_x):
     f.write("// Boundary of the assembly \n")
     f.write("Curve Loop(1) = {1, 2, 3, 4, 5, 6};\n")
     f.write("// Defines fuel channel Assembly\n")
+
     c = 7
     l = 2
     ns = 1
     ls = [1]
-    
+
     return c, l, ns, ls
 
+
 def place_circles(f, r, d_x, d_y, col, row, c, l, ns, ls, type, dict_type):
-    for j in col:
+    for j in row:
         cc = 0
-        for i in row:
+        for i in col:
             f.write("Circle("+ str(cc + c) +") = { "+ str(i*d_x) +", "+ str(j*d_y) +", 0, "+ str(r) +", 0, 2*Pi};\n")
             f.write("Curve Loop("+ str(l) +") = {"+ str(cc + c) +"};\n")
             f.write("Plane Surface("+ str(ns) +") = {"+ str(l) +"};\n")
@@ -69,48 +83,40 @@ def cooling_channels(f, d_x, rc, p_c, c, l, ns, ls, dict_type):
     p = round(3*s, 4)
     p2 = round(3*s/2, 4)
 
-    col = [-3]
-    row = [-1]
-    #c, l, ns, ls, dict_type = place_circles(f, rc, p, p_c, col, row, c, l, ns, ls, 'coolant', dict_type)
-
-    col = [-3, 3]
-    row = [-1, 0, 1]
-    c, l, ns, ls, dict_type = place_circles(f, rc, p, p_c, col, row, c, l, ns, ls, 'coolant', dict_type)
-
-    col = [-3/2, 3/2]
-    row = [-3, -1, 1, 3]
-    c, l, ns, ls, dict_type = place_circles(f, rc, p2, p_c, col, row, c, l, ns, ls, 'coolant', dict_type)
-
     col = [0]
     row = [-2, -1, 0, 1, 2]
-    c, l, ns, ls, dict_type = place_circles(f, rc, p, p_c, col, row, c, l, ns, ls, 'coolant', dict_type)
+    #, l, ns, ls, dict_type = place_circles(f, rc, p, p_c, col, row, c, l, ns, ls, 'coolant', dict_type)
     
     return c, l, ns, ls, dict_type
 
-def fuel_channels(f, d_x, rf, p_c, c, l, ns, ls, dict_type):
-    s = 2 * p_c/2 * np.tan(np.pi/6)
-    p = round(3*s, 4)
-    p2 = round(3*s/2, 4)
+def fuel_channels(f, d_x, rf, fcp, c, l, ns, ls, dict_type):
+    s = fcp*np.sqrt(3)
+    s = round(s, 4)
+    
+    # from the center to the top
+    row = [0]
+    col1 = [1, 2, 4, 5, 7, 8, 10]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    c, l, ns, ls, dict_type = place_circles(f, rf, fcp, s, col, row, c, l, ns, ls, 'fuel', dict_type)
 
-    col = [-1/2]
-    row = [-5]
-    #c, l, ns, ls, dict_type = place_circles(f, rf, p2, p_c, col, row, c, l, ns, ls, 'fuel', dict_type)
+    row = [-2, -1, 1, 2]
+    col1 = [1, 2, 4, 5, 7, 8]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    c, l, ns, ls, dict_type = place_circles(f, rf, fcp, s, col, row, c, l, ns, ls, 'fuel', dict_type)
 
-    col = [-1/2, 1/2]
-    row = [-5, -3, -1, 1, 3, 5]
-    c, l, ns, ls, dict_type = place_circles(f, rf, p2, p_c, col, row, c, l, ns, ls, 'fuel', dict_type)
+    row = [-3, 3]
+    col1 = [1, 2, 4, 5, 7]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    c, l, ns, ls, dict_type = place_circles(f, rf, fcp, s, col, row, c, l, ns, ls, 'fuel', dict_type)
 
-    col = [-7/2, -5/2, 5/2, 7/2]
-    row = [-3, -1, 1, 3]
-    c, l, ns, ls, dict_type = place_circles(f, rf, p2, p_c, col, row, c, l, ns, ls, 'fuel', dict_type)
-
-    col = [-2, -1, 1, 2]
-    row = [-2, -1, 0, 1, 2]
-    c, l, ns, ls, dict_type = place_circles(f, rf, p, p_c, col, row, c, l, ns, ls, 'fuel', dict_type)
-
-    col = [-4, 4]
-    row = [-1, 0, 1]
-    c, l, ns, ls, dict_type = place_circles(f, rf, p, p_c, col, row, c, l, ns, ls, 'fuel', dict_type)
+    row = [-5, -4, 4, 5]
+    col1 = [1, 2, 4, 5]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    c, l, ns, ls, dict_type = place_circles(f, rf, fcp, s, col, row, c, l, ns, ls, 'fuel', dict_type)
 
     return c, l, ns, ls, dict_type
 
@@ -170,19 +176,22 @@ def define_moderator(f, H, ns, ls, dict_type):
 def main():    
     f = open("fuel-assembly.geo","w+")
 
-    d_x = 30  # Side of hexagonal assembly
-    rc = 0.5 # Radius of cooling channel
-    rf = 1.5 # Radius of cooling channel
-    p_c = 5.6 # pitch between channels
-    H = 10 # Fuel assembly height
+    dx = 36      # Block pitch (flat-to-flat ditance)
+    rc = 0.794   # Large cooling channel radius
+    rsc = 0.635  # Small cooling channel radius
+    rf = 0.6223  # Fuel compact radius
+
+    fcp = 1.88   # Fuel/coolant pitch
+    h = 79.3     # Fuel assembly height
+    stf = 1      # Number of fuel elements piled up
+    H = stf*h    # Total height of the fuel column
 
     dict_type = {'fuel': [], 'coolant': [], 'moderator': []}
 
-    c, l, ns, ls = add_lines(f, d_x)
-    c, l, ns, ls, dict_type = cooling_channels(f, d_x, rc, p_c, c, l, ns, ls, dict_type)
-    c, l, ns, ls, dict_type = fuel_channels(f, d_x, rf, p_c, c, l, ns, ls, dict_type)
-
-    ns, ls, dict_type = define_moderator(f, H, ns, ls, dict_type)
+    c, l, ns, ls = add_lines(f, dx)
+    c, l, ns, ls, dict_type = cooling_channels(f, dx, rc, fcp, c, l, ns, ls, dict_type)
+    c, l, ns, ls, dict_type = fuel_channels(f, dx, rf, fcp, c, l, ns, ls, dict_type)
+    #ns, ls, dict_type = define_moderator(f, H, ns, ls, dict_type)
 
     f.close()
 

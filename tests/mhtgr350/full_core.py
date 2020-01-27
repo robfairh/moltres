@@ -191,8 +191,8 @@ def define_moderator(f, H, c, l, ns, dict_type):
     f.write('//+\nPhysical Volume("moderator") = {1};\n')
 
 def main():    
-    f = open("MMR3D_full.geo","w+")
-    f.write('// Gmsh whatever\n')
+    f = open("full.geo","w+")
+    f.write('// Gmsh\n')
     f.write('SetFactory("OpenCASCADE");\n//+\n')
 
     d_x = 30  # Side of hexagonal assembly [cm]
