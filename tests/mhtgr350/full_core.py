@@ -235,15 +235,11 @@ def main():
    
     for i in assemblies['control']:
         c, l, ns, dict_type = place_control_assembly(f, d_x, rc, rf, rcb, H, p_c, x[i], c, l, ns, dict_type)
-    
-    for i in assemblies['fuel']:
-        c, l, ns, dict_type = place_fuel_assembly(f, d_x, rc, rf, H, p_c, x[i], c, l, ns, dict_type)
-
-    c, l, ns, dict_type = place_central_assembly(f, d_x, rcc, H, x[19], c, l, ns, dict_type)
-    c, l, ns, dict_type = place_moderator(f, rr1, H, p, p_c, x[0], c, l, ns, dict_type)
-
-    define_moderator(f, H, c, l, ns, dict_type)
-   
+    #for i in assemblies['fuel']:
+    #    c, l, ns, dict_type = place_fuel_assembly(f, d_x, rc, rf, H, p_c, x[i], c, l, ns, dict_type)
+    #c, l, ns, dict_type = place_central_assembly(f, d_x, rcc, H, x[19], c, l, ns, dict_type)
+    #c, l, ns, dict_type = place_moderator(f, rr1, H, p, p_c, x[0], c, l, ns, dict_type)
+     #define_moderator(f, H, c, l, ns, dict_type)
     f.close()
 
 if __name__ == "__main__":
