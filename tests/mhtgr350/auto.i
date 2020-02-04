@@ -121,39 +121,39 @@ nt_scale=1e13
   #---------------------------------------------------------------------
   # Temperature
   #---------------------------------------------------------------------
-  [./temp_time_derivative]
-    type = MatINSTemperatureTimeDerivative
-    variable = temp
-  [../]
-  [./temp_advection_fuel]
-    type = ConservativeTemperatureAdvection
-    velocity = '0 ${flow_velocity} 0'
-    variable = temp
-    block = 'fuel'
-  [../]
-  [./temp_advection_coolant]
-    type = ConservativeTemperatureAdvection
-    velocity = '0 ${flow_velocity} 0'
-    variable = temp
-    block = 'coolant'
-  [../]
+  #[./temp_time_derivative]
+  #  type = MatINSTemperatureTimeDerivative
+  #  variable = temp
+  #[../]
+  #[./temp_advection_fuel]
+  #  type = ConservativeTemperatureAdvection
+  #  velocity = '0 ${flow_velocity} 0'
+  #  variable = temp
+  #  block = 'fuel'
+  #[../]
+  #[./temp_advection_coolant]
+  #  type = ConservativeTemperatureAdvection
+  #  velocity = '0 ${flow_velocity} 0'
+  #  variable = temp
+  #  block = 'coolant'
+  #[../]
   [./temp_diffusion]
     type = MatDiffusion
     diffusivity = 'k'
     variable = temp
   [../]
-  [./temp_source_fuel]
-    type = TransientFissionHeatSource
-    variable = temp
-    nt_scale=${nt_scale}
-    block = 'fuel'
-  [../]
-  [./temp_source_coolant]
-    type = TransientFissionHeatSource
-    variable = temp
-    nt_scale=${nt_scale}
-    block = 'coolant'
-  [../]
+  #[./temp_source_fuel]
+  #  type = TransientFissionHeatSource
+  #  variable = temp
+  #  nt_scale=${nt_scale}
+  #  block = 'fuel'
+  #[../]
+  #[./temp_source_coolant]
+  #  type = TransientFissionHeatSource
+  #  variable = temp
+  #  nt_scale=${nt_scale}
+  #  block = 'coolant'
+  #[../]
 []
 
 [BCs]
@@ -167,14 +167,14 @@ nt_scale=1e13
     boundary = 'fuel_bottom fuel_top coolant_top coolant_bottom moderator_bottom moderator_top'
     variable = group2
   [../]
-  [./temp_advection_outlet]
-    boundary = 'fuel_bottom coolant_bottom'
-    type = TemperatureOutflowBC
-    variable = temp
-    velocity = '0 ${flow_velocity} 0'
-  [../]
+  #[./temp_advection_outlet]
+  #  boundary = 'fuel_bottom coolant_bottom'
+  #  type = TemperatureOutflowBC
+  #  variable = temp
+  #  velocity = '0 ${flow_velocity} 0'
+  #[../]
   [./temp_diri_cg]
-    boundary = 'fuel_top coolant_top moderator_top'
+    boundary = 'fuel_top fuel_bottom coolant_top coolant_bottom moderator_top moderator_bottom'
     type = DirichletBC
     value = '${diri_temp}'
     variable = temp
