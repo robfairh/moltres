@@ -41,7 +41,7 @@ nt_scale=1e13
 []
 
 [Mesh]
-  file = 'simplified-noreflector.msh'
+  file = 'unit-cell-reflec-h10.msh'
 [../]
 
 [Precursors]
@@ -166,12 +166,12 @@ nt_scale=1e13
 [BCs]
   [./vacuum_group1]
     type = VacuumConcBC
-    boundary = 'fuel_bottom fuel_top coolant_top coolant_bottom moderator_bottom moderator_top'
+    boundary = 'reflector_top reflector_bottom coolant_ref_bottom coolant_ref_top'
     variable = group1
   [../]
   [./vacuum_group2]
     type = VacuumConcBC
-    boundary = 'fuel_bottom fuel_top coolant_top coolant_bottom moderator_bottom moderator_top'
+    boundary = 'reflector_top reflector_bottom coolant_ref_bottom coolant_ref_top'
     variable = group2
   [../]
   #[./temp_advection_outlet]
@@ -181,7 +181,7 @@ nt_scale=1e13
   #  velocity = '0 ${flow_velocity} 0'
   #[../]
   [./temp_diri_cg]
-    boundary = 'fuel_top fuel_bottom coolant_top coolant_bottom moderator_top moderator_bottom'
+    boundary = 'reflector_top reflector_bottom coolant_ref_bottom coolant_ref_top'
     type = DirichletBC
     value = '${diri_temp}'
     variable = temp
@@ -191,7 +191,7 @@ nt_scale=1e13
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs200000-2000-200/htgr_2g_fuel_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
     block = 'fuel'
     prop_names = 'k cp'
@@ -207,7 +207,7 @@ nt_scale=1e13
   [../]
   [./moderator]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs200000-2000-200/htgr_2g_moderator_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_moderator_'
     interp_type = 'linear'
     prop_names = 'k cp'
     prop_values = '.312 1760' # Cammi 2011 at 908 K
@@ -223,7 +223,7 @@ nt_scale=1e13
   [../]
   [./coolant]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs200000-2000-200/htgr_2g_coolant_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
     block = 'coolant'
     prop_names = 'k cp'
