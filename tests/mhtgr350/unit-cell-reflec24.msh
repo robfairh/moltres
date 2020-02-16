@@ -2,11 +2,12 @@ $MeshFormat
 2.2 0 8
 $EndMeshFormat
 $PhysicalNames
-7
+8
 2 1 "ref_coolant_top"
 2 2 "ref_coolant_bot"
 2 3 "reflector_top"
 2 4 "reflector_bottom"
+2 8 "fuel_bottom"
 3 5 "coolant"
 3 6 "moderator"
 3 7 "fuel"

@@ -42,3 +42,5 @@ Physical Surface("reflector_bottom") = {15, 12};
 Physical Volume("coolant") = {7, 4, 1};
 Physical Volume("moderator") = {9, 8, 5, 2, 3};
 Physical Volume("fuel") = {6};
+//+
+Physical Surface("fuel_bottom") = {2};
