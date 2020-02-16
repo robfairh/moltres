@@ -41,7 +41,8 @@ nt_scale=1e13
 []
 
 [Mesh]
-  file = 'unit-cell-reflec-h10.msh'
+  #construct_side_set_from_node_set = true
+  file = 'unit-cell-reflec2-h10.msh'
 [../]
 
 [Precursors]
@@ -166,12 +167,12 @@ nt_scale=1e13
 [BCs]
   [./vacuum_group1]
     type = VacuumConcBC
-    boundary = 'reflector_top reflector_bottom coolant_ref_bottom coolant_ref_top'
+    boundary = 'reflector_top reflector_bottom ref_coolant_top ref_coolant_bot'
     variable = group1
   [../]
   [./vacuum_group2]
     type = VacuumConcBC
-    boundary = 'reflector_top reflector_bottom coolant_ref_bottom coolant_ref_top'
+    boundary = 'reflector_top reflector_bottom ref_coolant_top ref_coolant_bot'
     variable = group2
   [../]
   #[./temp_advection_outlet]
@@ -181,7 +182,7 @@ nt_scale=1e13
   #  velocity = '0 ${flow_velocity} 0'
   #[../]
   [./temp_diri_cg]
-    boundary = 'reflector_top reflector_bottom coolant_ref_bottom coolant_ref_top'
+    boundary = 'reflector_top reflector_bottom ref_coolant_top ref_coolant_bot'
     type = DirichletBC
     value = '${diri_temp}'
     variable = temp
