@@ -1,5 +1,5 @@
 // The gas gap and the pellet are homogenized.
-h = 1.; // element size
+h = 10.; // element size
 H = 793;
 topref = 120;
 botref = 160;
