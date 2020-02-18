@@ -1,0 +1,19 @@
+Geo & Meshes:
+-------------
+* unit-cell.geo: unit cell geometry of the mhtgr-350. It doesn't inlcude the top and bottom reflectors.
+* unit-cell.msh: mesh 4.0 ASCII with h=10.
+
+* unit-cell-reflec.geo: unit cell geometry of the mhtgr-350 that includes the reflector.
+* unit-cell-reflec.msh: mesh 4.0 ASCII with h=10.
+
+* unit-cell-reflecb.geo: unit cell geometry of the mhtgr-350 that includes the reflector. Dimensions reduced.
+* unit-cell-reflecb.msh: mesh 4.0 ASCII with h=1.
+This one was for the purpose of seeing the results, cause the fuel column is very thin.
+
+Python scripts:
+---------------
+
+* full_core.py: Produces full geometry.
+* extend_arc2D.py: Produces 2D geometry of 1/12th (30 degress) of the reactor.
+Then the geometry has to be extruded and add the physical groups by hand to produce the 3D geometry.
+* fuel_assembly.py: Produces geometry of one fuel assembly.

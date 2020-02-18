@@ -1,7 +1,0 @@
-Python scripts:
----------------
-
-* full_core.py: Produces full geometry.
-* extend_arc2D.py: Produces 2D geometry of 1/12th (30 degress) of the reactor.
-Then the geometry has to be extruded and add the physical groups by hand to produce the 3D geometry.
-* fuel_assembly.py: Produces geometry of one fuel assembly.

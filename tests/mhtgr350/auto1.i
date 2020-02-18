@@ -41,15 +41,14 @@ nt_scale=1e13
 []
 
 [Mesh]
-  #construct_side_set_from_node_set = true
-  file = 'unit-cell-reflec2-h10.msh'
+  file = 'meshes/unit-cell-reflec.msh'
 [../]
 
 [Precursors]
   [./pres]
     var_name_base = pre
     block = 'fuel'
-    outlet_boundaries = 'fuel_bottom'
+    outlet_boundaries = 'fuel_bot'
     u_def = 0
     v_def = 0
     w_def = 0
@@ -167,12 +166,12 @@ nt_scale=1e13
 [BCs]
   [./vacuum_group1]
     type = VacuumConcBC
-    boundary = 'reflector_top reflector_bottom ref_coolant_top ref_coolant_bot'
+    boundary = 'ref_top ref_bot cool_top cool_bot'
     variable = group1
   [../]
   [./vacuum_group2]
     type = VacuumConcBC
-    boundary = 'reflector_top reflector_bottom ref_coolant_top ref_coolant_bot'
+    boundary = 'ref_top ref_bot cool_top cool_bot'
     variable = group2
   [../]
   #[./temp_advection_outlet]
@@ -182,7 +181,7 @@ nt_scale=1e13
   #  velocity = '0 ${flow_velocity} 0'
   #[../]
   [./temp_diri_cg]
-    boundary = 'reflector_top reflector_bottom ref_coolant_top ref_coolant_bot'
+    boundary = 'ref_top ref_bot cool_top cool_bot'
     type = DirichletBC
     value = '${diri_temp}'
     variable = temp
@@ -192,7 +191,7 @@ nt_scale=1e13
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs800000-500-100/htgr_2g_fuel_'
+    property_tables_root = 'wrong-density-xs/xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
     block = 'fuel'
     prop_names = 'k cp'
@@ -208,7 +207,7 @@ nt_scale=1e13
   [../]
   [./moderator]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = 'wrong-density-xs/xs800000-500-100/htgr_2g_moderator_'
     interp_type = 'linear'
     prop_names = 'k cp'
     prop_values = '.312 1760' # Cammi 2011 at 908 K
@@ -224,7 +223,7 @@ nt_scale=1e13
   [../]
   [./coolant]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs800000-500-100/htgr_2g_coolant_'
+    property_tables_root = 'wrong-density-xs/xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
     block = 'coolant'
     prop_names = 'k cp'
@@ -306,6 +305,12 @@ nt_scale=1e13
     block = 'moderator'
     outputs = 'exodus console'
   [../]
+  [./temp_cool]
+    type = ElementAverageValue
+    variable = temp
+    block = 'coolant'
+    outputs = 'exodus console'
+  [../]
 []
 
 [Outputs]
@@ -313,7 +318,8 @@ nt_scale=1e13
   print_linear_residuals = true
   [./exodus]
     type = Exodus
-    file_base = 'auto'
+    file_base = 'auto1'
+    #execute_on = 'final'
   [../]
 []
 

@@ -4,29 +4,10 @@ diri_temp=750
 nt_scale=1e13
 
 [GlobalParams]
-  num_groups = 2
-  num_precursor_groups = 8
-  use_exp_form = false
-  group_fluxes = 'group1 group2'
   temperature = temp
-  sss2_input = true
-  pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
-  account_delayed = true
 []
 
 [Variables]
-  [./group1]
-    order = FIRST
-    family = LAGRANGE
-    initial_condition = 1
-    scaling = 1e4
-  [../]
-  [./group2]
-    order = FIRST
-    family = LAGRANGE
-    initial_condition = 1
-    scaling = 1e4
-  [../]
   [./temp]
     initial_condition = ${ini_temp}
     scaling = 1e-4
@@ -34,90 +15,10 @@ nt_scale=1e13
 []
 
 [Mesh]
-  file = 'meshes/unit-cell.msh'
+  file = 'meshes/unit-cell-reflecb.msh'
 [../]
 
-[Precursors]
-  [./pres]
-    var_name_base = pre
-    block = 'fuel'
-    outlet_boundaries = 'fuel_bot'
-    u_def = 0
-    v_def = 0
-    w_def = 0
-    nt_exp_form = false
-    family = MONOMIAL
-    order = CONSTANT
-  [../]
-[]
-
 [Kernels]
-  #---------------------------------------------------------------------
-  # Group 1 Neutronics
-  #---------------------------------------------------------------------
-  [./time_group1]
-    type = NtTimeDerivative
-    variable = group1
-    group_number = 1
-  [../]
-  [./sigma_r_group1]
-    type = SigmaR
-    variable = group1
-    group_number = 1
-  [../]
-  [./diff_group1]
-    type = GroupDiffusion
-    variable = group1
-    group_number = 1
-  [../]
-  [./inscatter_group1]
-    type = InScatter
-    variable = group1
-    group_number = 1
-  [../]
-  [./fission_source_group1]
-    type = CoupledFissionKernel
-    variable = group1
-    group_number = 1
-    block = 'fuel'
-  [../]
-  [./delayed_group1]
-    type = DelayedNeutronSource
-    variable = group1
-    block = 'fuel'
-    group_number=1
-  [../]
-
-  #---------------------------------------------------------------------
-  # Group 2 Neutronics
-  #---------------------------------------------------------------------
-  [./time_group2]
-    type = NtTimeDerivative
-    variable = group2
-    group_number = 2
-  [../]
-  [./sigma_r_group2]
-    type = SigmaR
-    variable = group2
-    group_number = 2
-  [../]
-  [./diff_group2]
-    type = GroupDiffusion
-    variable = group2
-    group_number = 2
-  [../]
-  [./fission_source_group2]
-    type = CoupledFissionKernel
-    variable = group2
-    group_number = 2
-    block = 'fuel'
-  [../]
-  [./inscatter_group2]
-    type = InScatter
-    variable = group2
-    group_number = 2
-  [../]
-
   #---------------------------------------------------------------------
   # Temperature
   #---------------------------------------------------------------------
@@ -157,38 +58,33 @@ nt_scale=1e13
 []
 
 [BCs]
-  [./vacuum_group1]
-    type = VacuumConcBC
-    boundary = 'fuel_bot fuel_top cool_top cool_bot moderator_bot moderator_top'
-    variable = group1
-  [../]
-  [./vacuum_group2]
-    type = VacuumConcBC
-    boundary = 'fuel_bot fuel_top cool_top cool_bot moderator_bot moderator_top'
-    variable = group2
-  [../]
   #[./temp_advection_outlet]
   #  boundary = 'fuel_bottom coolant_bottom'
   #  type = TemperatureOutflowBC
   #  variable = temp
   #  velocity = '0 ${flow_velocity} 0'
   #[../]
-  [./temp_diri_cg]
-    boundary = 'fuel_bot fuel_top cool_top cool_bot moderator_bot moderator_top'
+  [./temp_diri_cg1]
+    boundary = 'cool_bot'
     type = DirichletBC
-    value = '${diri_temp}'
+    value = '750'
     variable = temp
   [../]
+  [./temp_diri_cg2]
+    boundary = 'cool_top'
+    type = DirichletBC
+    value = '900'
+    variable = temp
+  [../]
+
 []
 
 [Materials]
   [./fuel]
-    type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs200000-200-50/htgr_2g_fuel_'
-    interp_type = 'linear'
-    block = 'fuel'
+    type = GenericConstantMaterial
     prop_names = 'k cp'
     prop_values = '.0553 1967'
+    block = 'fuel'
   [../]
   [./rho_fuel]
     type = DerivativeParsedMaterial
@@ -198,12 +94,11 @@ nt_scale=1e13
     derivative_order = 1
     block = 'fuel'
   [../]
-  [./moderator]
-    type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs200000-200-50/htgr_2g_moderator_'
-    interp_type = 'linear'
+
+  [./mdoerator]
+    type = GenericConstantMaterial
     prop_names = 'k cp'
-    prop_values = '.312 1760' # Cammi 2011 at 908 K
+    prop_values = '.312 1760'
     block = 'moderator'
   [../]
   [./rho_moder]
@@ -214,13 +109,12 @@ nt_scale=1e13
     derivative_order = 1
     block = 'moderator'
   [../]
-  [./coolant]
-    type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs200000-200-50/htgr_2g_coolant_'
-    interp_type = 'linear'
-    block = 'coolant'
+  
+  [./coolant3]
+    type = GenericConstantMaterial
     prop_names = 'k cp'
     prop_values = '.0553 1967'
+    block = 'coolant'
   [../]
   [./rho_cool]
     type = DerivativeParsedMaterial
@@ -270,22 +164,6 @@ nt_scale=1e13
 []
 
 [Postprocessors]
-  [./group1_current]
-    type = IntegralNewVariablePostprocessor
-    variable = group1
-    outputs = 'console exodus'
-  [../]
-  [./group1_old]
-    type = IntegralOldVariablePostprocessor
-    variable = group1
-    outputs = 'console exodus'
-  [../]
-  [./multiplication]
-    type = DivisionPostprocessor
-    value1 = group1_current
-    value2 = group1_old
-    outputs = 'console exodus'
-  [../]
   [./temp_fuel]
     type = ElementAverageValue
     variable = temp
@@ -311,7 +189,7 @@ nt_scale=1e13
   print_linear_residuals = true
   [./exodus]
     type = Exodus
-    file_base = 'auto'
+    file_base = 'auto2'
     #execute_on = 'final'
   [../]
 []
