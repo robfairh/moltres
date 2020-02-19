@@ -15,11 +15,13 @@ This one was for the purpose of seeing the results, cause the fuel column is ver
 Python scripts:
 ---------------
 
+* fuel-assembly.py: Produces geometry of one fuel assembly without the top and bottom reflector. It works.
+
+* fuel-assembly-reflector.py: Produces geometry of one fuel assembly with top and bottom reflector. On progress.
+
+
+
 * full-core.py: Produces full geometry. doesn't work. need to clean the code
 
 * extend-arc2D.py: Produces 2D geometry of 1/12th (30 degress) of the reactor. need to clean the code.
 Then the geometry has to be extruded and add the physical groups by hand to produce the 3D geometry.
-
-* fuel-assembly.py: Produces geometry of one fuel assembly without the top and bottom reflector. works. need to clean the code.
-
-* fuel-assembly-reflector.py: Produces geometry of one fuel assembly with top and bottom reflector.
