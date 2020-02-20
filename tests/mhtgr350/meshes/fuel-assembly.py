@@ -1,5 +1,5 @@
 """
-This script produces the 2D geometry of a fuel assembly with
+This script produces the 2D geometry of a fuel assembly without
 top and bottom reflectors.
 """
 
@@ -39,55 +39,6 @@ def define_moderator(f, H, ns, dict_type):
     f.write(" Layers{10}; Recombine;\n}\n")
 
 
-def add_reflector(f, d_x, hbot, htop, c, li, ns, dict_type):
-    """
-    Extrudes initial the surfaces of the moderator to make the reflector.
-
-    Parameters:
-    -----------
-    f: file object
-    hbot: float
-        bottom reflector thickness
-    htop: float
-        top reflector thickness
-    c: int
-        number of lines
-    li: int
-        number of line/curved loops
-    ns: int
-        number of surfaces
-    dict_type: dictionary
-        key='fuel' or 'coolant', value=index of the surfaces
-
-    returns:
-    --------
-    """
-
-    d0 = d_x/2
-    d1 = d_x/np.sqrt(3)
-    d1 = round(d1, 4)
-    d2 = d_x/2/np.sqrt(3)
-    d2 = round(d2, 4)
-    ce = 2*(c-1)+1
-    le = 3*(c-1)+1
-
-    f.write("// Bottom reflector\n")
-    f.write("//+\nExtrude {0, 0, " + str(-hbot) + "} {\n  ")
-    f.write("Surface{" + str(ns) + "}; ")
-    for i in range(1, ns):
-        f.write(" Surface{" + str(i) + "};")
-    f.write("Layers{10}; Recombine;\n}\n")
-    
-    f.write("// Top reflector\n")
-    f.write("//+\nExtrude {0, 0, " + str(htop) + "} {\n  ")
-    f.write("Surface{" + str(2*ns+6) + "}; ")
-    for i in dict_type['fuel']:
-        f.write("Surface{" + str(2*ns+6+i) + "}; ")
-    for i in dict_type['coolant']:
-        f.write("Surface{" + str(2*ns+6+i) + "}; ")
-    f.write("Layers{10}; Recombine;\n}\n")
-
-
 def physical_entities(f, H, ns, dict_type):
     """
     Defines physical volumes and surfaces
@@ -118,38 +69,34 @@ def physical_entities(f, H, ns, dict_type):
         f.write(str(1+i)+', ')
     f.write(str(1+dict_type['fuel'][-1])+'};\n')
 
-    f.write('//+\n')
-    f.write('Physical Surface("ref_bot") = {'
-            + str(2*(2*(ns-1)+6)+3) + '};\n')
-    f.write('Physical Surface("ref_top") = {'
-            + str(3*(2*(ns-1)+6)+4) + '};\n')
-    
-    f.write('Physical Surface("cool_bot") = {')
-    for i in dict_type['coolant'][:-1]:
-        f.write(str(2*(2*(ns-1)+6)+3+i) + ', ')
-    f.write(str(2*(2*(ns-1)+6)+3+dict_type['coolant'][-1])+'};\n')
-    
-    f.write('Physical Surface("cool_top") = {')
-    for i in dict_type['coolant'][:-1]:
-        f.write(str(3*(2*(ns-1)+6)+4+i) + ', ')
-    f.write(str(3*(2*(ns-1)+6)+4+dict_type['coolant'][-1])+'};\n')
+    f.write('//+\nPhysical Surface("moderator_bot") = {'
+            + str(ns) + '};\n')
+    f.write('//+\nPhysical Surface("moderator_top") = {'
+            + str(2*ns+6) + '};\n')
 
-    f.write('Physical Surface("fuel_bot") = {')
+    f.write('//+\nPhysical Surface("coolant_bot") = {')
+    for i in dict_type['coolant'][:-1]:
+        f.write(str(i)+', ')
+    f.write(str(dict_type['coolant'][-1])+'};\n')
+
+    f.write('//+\nPhysical Surface("coolant_top") = {')
+    for i in dict_type['coolant'][:-1]:
+        f.write(str(2*ns+6+i)+', ')
+    f.write(str(2*ns+6+dict_type['coolant'][-1])+'};\n')
+
+    f.write('//+\nPhysical Surface("fuel_bot") = {')
     for i in dict_type['fuel'][:-1]:
         f.write(str(i)+', ')
     f.write(str(dict_type['fuel'][-1])+'};\n')
 
-    # To add the fuel_top surface uncomment the following lines
-    """
     f.write('//+\nPhysical Surface("fuel_top") = {')
     for i in dict_type['fuel'][:-1]:
-        f.write(str(2*(ns-1)+2+6+i)+', ')
-    f.write(str(2*(ns-1)+2+6+dict_type['fuel'][-1])+'};\n')
-    """
+        f.write(str(2*ns+6+i)+', ')
+    f.write(str(2*ns+6+dict_type['fuel'][-1])+'};\n')
 
 
 def main():
-    f = open("fuel-assembly-reflector.geo", "w+")
+    f = open("fuel-assembly.geo", "w+")
 
     dx = 36      # Block pitch (flat-to-flat ditance)
     rc = 0.794   # Large cooling channel radius
@@ -157,24 +104,16 @@ def main():
     rf = 0.6223  # Fuel compact radius
 
     fcp = 1.88   # Fuel/coolant pitch
-    h = 30
-    #h = 79.3     # Fuel assembly height
+    h = 79.3     # Fuel assembly height
     stf = 1      # Number of fuel elements piled up
-    H = stf*h    # Total height of the fuel column
-
-    ht = 12.0     # Top reflector height
-    hb = 16.0     # Bottom reflector height
+    H = stf * h  # Total height of the fuel column
 
     dict_type = {'fuel': [], 'coolant': [], 'moderator': []}
 
     c, li, ns = cm.add_lines(f, dx)
     c, li, ns, dict_type = cm.cchannels(f, rc, fcp, c, li, ns, dict_type)
     c, li, ns, dict_type = cm.fchannels(f, rf, fcp, c, li, ns, dict_type)
-    print(ns)
     define_moderator(f, H, ns, dict_type)
-
-    add_reflector(f, dx, hb, ht, c, li, ns, dict_type)
-
     physical_entities(f, H, ns, dict_type)
 
     f.close()
