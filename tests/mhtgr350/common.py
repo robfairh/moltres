@@ -7,7 +7,7 @@ import math as mt
 import random as rd
 
 
-def add_lines(f, d_x):
+def add_lines(f, d_x, h=1.0):
     """
     Adds boundary lines of the fuel assembly.
 
@@ -37,12 +37,16 @@ def add_lines(f, d_x):
     d2 = d_x / 2 / np.sqrt(3)
     d2 = round(d2, 4)
 
-    f.write("Point(1) = { " + str(d2) + ", " + str(d0) + ", 0, 1.0};\n")
-    f.write("Point(2) = { " + str(d1) + ", 0, 0, 1.0};\n")
-    f.write("Point(3) = { " + str(d2) + ", " + str(-d0) + ", 0, 1.0};\n")
-    f.write("Point(4) = { " + str(-d2) + ", " + str(-d0) + ", 0, 1.0};\n")
-    f.write("Point(5) = { " + str(-d1) + ", 0, 0, 1.0};\n")
-    f.write("Point(6) = { " + str(-d2) + ", " + str(d0) + ", 0, 1.0};\n")
+    f.write("Point(1) = { " + str(d2) + ", " + str(d0) + ", 0, " + str(h)
+            + "};\n")
+    f.write("Point(2) = { " + str(d1) + ", 0, 0, " + str(h) + "};\n")
+    f.write("Point(3) = { " + str(d2) + ", " + str(-d0) + ", 0, " + str(h)
+            + "};\n")
+    f.write("Point(4) = { " + str(-d2) + ", " + str(-d0) + ", 0, " + str(h)
+            + "};\n")
+    f.write("Point(5) = { " + str(-d1) + ", 0, 0, " + str(h) + "};\n")
+    f.write("Point(6) = { " + str(-d2) + ", " + str(d0) + ", 0, " + str(h)
+            + "};\n")
 
     f.write("// Define Lines in the boundary \n")
     f.write("Line(1) = {1, 2};\n")
@@ -163,17 +167,16 @@ def cchannels(f, rc, fcp, c, li, ns, dict_type):
     # from the center to the top
     row = [-1, 0, 1]
     col = [-9, -6, -3, 0, 3, 6, 9]
-    #c, li, ns, dict_type = place_circles(
-    #    f, rc, fcp, s, col, row, c, li, ns, 'coolant', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rc, fcp, s, col, row, c, li, ns, 'coolant', dict_type)
 
     row = [-4, -3, -2, 2, 3, 4]
     col = [-6, -3, 0, 3, 6]
-    #c, li, ns, dict_type = place_circles(
-    #    f, rc, fcp, s, col, row, c, li, ns, 'coolant', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rc, fcp, s, col, row, c, li, ns, 'coolant', dict_type)
 
     row = [-5, 5]
-    col = [0]
-    #col = [-3, 0, 3]
+    col = [-3, 0, 3]
     c, li, ns, dict_type = place_circles(
         f, rc, fcp, s, col, row, c, li, ns, 'coolant', dict_type)
 
@@ -181,15 +184,15 @@ def cchannels(f, rc, fcp, c, li, ns, dict_type):
     col1 = [3, 9, 15]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #    f, rc, dx, dy, col, row, c, li, ns, 'coolant', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rc, dx, dy, col, row, c, li, ns, 'coolant', dict_type)
 
     row = [-9, -7, 7, 9]
     col1 = [3, 9]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #    f, rc, dx, dy, col, row, c, li, ns, 'coolant', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rc, dx, dy, col, row, c, li, ns, 'coolant', dict_type)
 
     return c, li, ns, dict_type
 
@@ -236,48 +239,46 @@ def fchannels(f, rf, fcp, c, li, ns, dict_type):
     col1 = [1, 2, 4, 5, 7, 8, 10]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #    f, rf, fcp, s, col, row, c, li, ns, 'fuel', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rf, fcp, s, col, row, c, li, ns, 'fuel', dict_type)
 
     row = [-2, -1, 1, 2]
     col1 = [1, 2, 4, 5, 7, 8]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #   f, rf, fcp, s, col, row, c, li, ns, 'fuel', dict_type)
+    c, li, ns, dict_type = place_circles(
+       f, rf, fcp, s, col, row, c, li, ns, 'fuel', dict_type)
 
     row = [-3, 3]
     col1 = [1, 2, 4, 5, 7]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #    f, rf, fcp, s, col, row, c, li, ns, 'fuel', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rf, fcp, s, col, row, c, li, ns, 'fuel', dict_type)
 
     row = [-5, -4, 4, 5]
     col1 = [1, 2, 4, 5]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #    f, rf, fcp, s, col, row, c, li, ns, 'fuel', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rf, fcp, s, col, row, c, li, ns, 'fuel', dict_type)
 
     row = [-1, 1]
     col1 = [1, 5, 7, 11, 13, 17, 19]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #    f, rf, dx, dy, col, row, c, li, ns, 'fuel', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rf, dx, dy, col, row, c, li, ns, 'fuel', dict_type)
 
     row = [-3, 3]
     col1 = [1, 5, 7, 11, 13, 17]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #    f, rf, dx, dy, col, row, c, li, ns, 'fuel', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rf, dx, dy, col, row, c, li, ns, 'fuel', dict_type)
 
-    row = [-5, 5]
-    #row = [-7, -5, 5, 7]
-    col1 = [1]
-    #col1 = [1, 5, 7, 11, 13]
+    row = [-7, -5, 5, 7]
+    col1 = [1, 5, 7, 11, 13]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
     c, li, ns, dict_type = place_circles(
@@ -287,7 +288,37 @@ def fchannels(f, rf, fcp, c, li, ns, dict_type):
     col1 = [1, 5, 7, 11]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #c, li, ns, dict_type = place_circles(
-    #    f, rf, dx, dy, col, row, c, li, ns, 'fuel', dict_type)
+    c, li, ns, dict_type = place_circles(
+        f, rf, dx, dy, col, row, c, li, ns, 'fuel', dict_type)
 
     return c, li, ns, dict_type
+
+
+def define_moderator(f, H, h, ns, dict_type):
+    """
+    Extrudes initial surfaces and produces the volumes.
+
+    Parameters:
+    -----------
+    f: file object
+    H: float
+        assembly height
+    ns: int
+        number of surfaces
+    dict_type: dictionary
+        key='fuel' or 'coolant', value=index of the surfaces
+
+    returns:
+    --------
+    """
+
+    f.write("Plane Surface("+str(ns)+") = {")
+    for i in range(1, ns):
+        f.write(str(i)+", ")
+    f.write(str(ns) + "};\n")
+
+    f.write("//+\nExtrude {0, 0, " + str(H) + "} {\n  ")
+    f.write("Surface{" + str(ns) + "}; ")
+    for i in range(1, ns):
+        f.write(" Surface{" + str(i) + "};")
+    f.write(" Layers{" + str(H/h) + "}; Recombine;\n}\n")

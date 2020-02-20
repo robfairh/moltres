@@ -9,36 +9,6 @@ import random as rd
 import common as cm
 
 
-def define_moderator(f, H, ns, dict_type):
-    """
-    Extrudes initial surfaces and produces the volumes.
-
-    Parameters:
-    -----------
-    f: file object
-    H: float
-        assembly height
-    ns: int
-        number of surfaces
-    dict_type: dictionary
-        key='fuel' or 'coolant', value=index of the surfaces
-
-    returns:
-    --------
-    """
-
-    f.write("Plane Surface("+str(ns)+") = {")
-    for i in range(1, ns):
-        f.write(str(i)+", ")
-    f.write(str(ns) + "};\n")
-
-    f.write("//+\nExtrude {0, 0, " + str(H) + "} {\n  ")
-    f.write("Surface{" + str(ns) + "}; ")
-    for i in range(1, ns):
-        f.write(" Surface{" + str(i) + "};")
-    f.write(" Layers{10}; Recombine;\n}\n")
-
-
 def physical_entities(f, H, ns, dict_type):
     """
     Defines physical volumes and surfaces
@@ -104,16 +74,18 @@ def main():
     rf = 0.6223  # Fuel compact radius
 
     fcp = 1.88   # Fuel/coolant pitch
-    h = 79.3     # Fuel assembly height
-    stf = 1      # Number of fuel elements piled up
-    H = stf * h  # Total height of the fuel column
+    Ha = 79.3    # Fuel assembly height
+    stf = 10     # Number of fuel elements piled up
+    H = stf*Ha   # Total height of the fuel column
+
+    h = 20.0
 
     dict_type = {'fuel': [], 'coolant': [], 'moderator': []}
 
-    c, li, ns = cm.add_lines(f, dx)
+    c, li, ns = cm.add_lines(f, dx, h)
     c, li, ns, dict_type = cm.cchannels(f, rc, fcp, c, li, ns, dict_type)
     c, li, ns, dict_type = cm.fchannels(f, rf, fcp, c, li, ns, dict_type)
-    define_moderator(f, H, ns, dict_type)
+    define_moderator(f, H, h, ns, dict_type)
     physical_entities(f, H, ns, dict_type)
 
     f.close()
