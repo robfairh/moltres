@@ -1,5 +1,5 @@
 """
-This script produces the 2D geometry of a fuel assembly with
+This script produces the 3D geometry of a fuel assembly with
 top and bottom reflectors.
 """
 
@@ -151,7 +151,7 @@ def main():
 
     Ht = 120   # Top reflector height
     Hb = 160   # Bottom reflector height
-    h = 20.0     # Fineite Element Discretization
+    h = 20.0   # Finite Element Discretization
 
     dict_type = {'fuel': [], 'coolant': [], 'moderator': []}
 

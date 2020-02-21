@@ -1,5 +1,5 @@
 """
-This script produces the 2D geometry of a fuel assembly without
+This script produces the 3D geometry of a fuel assembly without
 top and bottom reflectors.
 """
 
@@ -78,7 +78,7 @@ def main():
     stf = 10     # Number of fuel elements piled up
     H = stf*Ha   # Total height of the fuel column
 
-    h = 20.0
+    h = 20.0     # Finite Element Discretization
 
     dict_type = {'fuel': [], 'coolant': [], 'moderator': []}
 
