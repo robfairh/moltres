@@ -28,14 +28,16 @@ def check_domain(x, y, r, a):
     --------
     inside: boolean
     """
-
+    # print("Check domain")
     beta1 = mt.atan2(y + r * np.cos(a), x - r * np.sin(a))
     print(beta1)
     beta2 = mt.atan2(y, x + r)
     print(beta2)
     if beta1 > a and beta2 < np.pi/2:
+        # print("Inside")
         inside = True
     else:
+        # print("Outside")
         inside = False   
 
     return inside
@@ -123,7 +125,7 @@ def plot_circle(f, r, x, y, li, ns, lp, stype):
     --------
 
     """
-    print("place circle")
+
     f.write("Circle("+ str(li+1) +") = { "+ str(x) +", "+ str(y) +", 0, "
             + str(r) +", 0, 2*Pi};\n")
     stype['circle'].append(li+1)
@@ -159,19 +161,18 @@ def plot_arc_upper(f, r, x, y, li, ns, lp, stype):
     --------
     """
 
-    print('do nothing U')
-    """
+    #print('do nothing U')
+
     alpha = np.pi - mt.acos(x/r)
     f.write("Circle("+ str(li+1) +") = { "+ str(x) +", "+ str(y) +", 0, "
             + str(r) +", "+ str(-alpha) +", "+ str(alpha) +"};\n")
-    dict_type['up_arc'].append(li+1)
+    stype['up_arc'].append(li+1)
     points = []
     points.append(ns + 2)
     points.append(ns + 1)
     lp.append(points)
     li += 1
     ns += 2
-    """
 
     return li, ns, lp, stype
 
@@ -203,23 +204,22 @@ def plot_arc_lower(f, r, a, x, y, li, ns, lp, stype):
     --------
 
     """
-    
+
     print('do nothing L')
-    """
+
     dy = y - x * np.tan(a)
     d = dy * np.cos(a)  # center-line distance
     alpha = mt.acos(d/r)
     alpha2 = 3./2*np.pi - (alpha - a)   
     alpha1 = -1./2*np.pi + (alpha + a)
     f.write("Circle("+ str(li+1) +") = { "+ str(x) +", "+ str(y) +", 0, "+ str(r) +", "+ str(alpha1) +", "+ str(alpha2) +"};\n")
-    dict_type['low_arc'].append(li+1)
+    stype['low_arc'].append(li+1)
     points = []
     points.append(ns + 1)
     points.append(ns + 2)
     lp.append(points)
     li += 1
     ns += 2
-    """
 
     return li, ns, lp, stype
 
@@ -235,20 +235,34 @@ def place_channel(f, r, d_x, d_y, a, col, row, li, ns, type, dict_type, lp, styp
 
     for j in row:
         for i in col:
-            # if check_domain(i*d_x, j*d_y, r, a):
-                #if check_lower(i*d_x, j*d_y, r, a):
-                #    li, ns, lp, stype = plot_arc_lower(f, r, a, i*d_x, j*d_y, li, ns, lp, stype)
-                #elif check_upper(i*d_x, j*d_y, r):
-                #    li, ns, lp, stype = plot_arc_upper(f, r, i*d_x, j*d_y, li, ns, lp, stype)
-                #else:
-            print(check_domain(i*d_x, j*d_y, r, a))
-            li, ns, lp, stype = plot_circle(f, r, i*d_x, j*d_y, li, ns, lp, stype)
-                
+            if check_domain(i*d_x, j*d_y, r, a):
+                if check_lower(i*d_x, j*d_y, r, a):
+                    li, ns, lp, stype = plot_arc_lower(f, r, a, i*d_x, j*d_y, li, ns, lp, stype)
+                elif check_upper(i*d_x, j*d_y, r):
+                    li, ns, lp, stype = plot_arc_upper(f, r, i*d_x, j*d_y, li, ns, lp, stype)
+                else:
+                    li, ns, lp, stype = plot_circle(f, r, i*d_x, j*d_y, li, ns, lp, stype)
+
             if type == 'fuel' or type == 'coolant':
                 dict_type[type].append(li)
             else:
                 print('Wrong type')
                 sys.exit()
+
+    return li, ns, dict_type, lp, stype
+
+
+def place_central(f, r, a, li, ns, dict_type, lp, stype):
+    
+    f.write("Circle("+ str(li+1) +") = { 0, 0, 0, "+ str(r) +", "+ str(a) +", "+ str(np.pi/2) +"};\n")
+    stype['central'].append(li+1)
+    points = []
+    points.append(ns + 1)
+    points.append(ns + 2)
+    lp.append(points)
+    
+    li += 1
+    ns += 2
 
     return li, ns, dict_type, lp, stype
 
@@ -266,34 +280,140 @@ def multiple_channels(f, rc, rf, a, fcp, li, ns, dict_type, lp, stype):
     dy = round(dy, 4)
     s = 2 * dy
 
-    row = [-1, 0, 1]
+    row = [-1, 1]
     col = [-3, 0, 3]
-    #col = [-9, -6, -3, 0, 3, 6, 9]
-    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [-9, -6, -3, 0, 3, 6, 9]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+
+    row = [0]
+    col = [-9, -6, -3, 3, 6, 9]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
 
     row = [-2, 2]
-    #row = [-4, -3, -2, 2, 3, 4]
+    row = [-4, -3, -2, 2, 3, 4]
     col = [-3, 0, 3]
-    #col = [-6, -3, 0, 3, 6]
-    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [-6, -3, 0, 3, 6]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
 
     row = [-5, 5]
     col = [-3, 0, 3]
-    #li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
 
     row = [-5, -3, -1, 1, 3, 5]
     col1 = [3, 9, 15]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    li, ns, dict_type, lp, stype = place_channel(f, rc, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
 
     row = [-9, -7, 7, 9]
     col1 = [3, 9]
     col2 = [x * -1 for x in col1]
     col = col2 + col1
-    #li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    li, ns, dict_type, lp, stype = place_channel(f, rc, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+
+    ## Fuel 
+    row = [0]
+    col1 = [1, 2, 4, 5, 7, 8, 10]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    row = [-2, -1, 1, 2]
+    col1 = [1, 2, 4, 5, 7, 8]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    row = [-3, 3]
+    col1 = [1, 2, 4, 5, 7]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    row = [-5, -4, 4, 5]
+    col1 = [1, 2, 4, 5]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    row = [-1, 1]
+    col1 = [1, 5, 7, 11, 13, 17, 19]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    row = [-3, 3]
+    col1 = [1, 5, 7, 11, 13, 17]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    row = [-7, -5, 5, 7]
+    col1 = [1, 5, 7, 11, 13]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    row = [-9, 9]
+    col1 = [1, 5, 7, 11]
+    col2 = [x * -1 for x in col1]
+    col = col2 + col1
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    li, ns, dict_type, lp, stype = place_central(f, rc, a, li, ns, dict_type, lp, stype)
 
     return li, ns, dict_type, lp, stype
+
+
+def plot_upper_lines(f, dy, li, ns, lp, stype):
+    # X = 0
+    # Y = dy/2
+
+    f.write("Line("+ str(li+1) +") = { "+ str(ns) +", "+ str(lp[stype['central'][-1]][0]) +"};\n")
+    f.write("Line("+ str(li+2) +") = { "+ str(lp[stype['central'][-1]][0]) +", "+ str(lp[stype['up_arc'][0]][0]) +"};\n")
+    cc = 3
+    for i in range(len(stype['up_arc'][:-1])):
+        j0 = stype['up_arc'][i]
+        j1 = stype['up_arc'][i+1]
+        f.write("Line("+ str(li+cc) +") = { "+ str(lp[j0][0]) +", "+ str(lp[j0][1]) +"};\n")
+        cc += 1
+        f.write("Line("+ str(li+cc) +") = { "+ str(lp[j0][1]) +", "+ str(lp[j1][0]) +"};\n")
+        cc += 1
+    
+    i = stype['up_arc'][-1]
+    f.write("Line("+ str(li+cc) +") = { "+ str(lp[i][0]) +", "+ str(lp[i][1]) +"};\n")
+    cc += 1
+    f.write("Line("+ str(li+cc) +") = { "+ str(lp[i][1]) +", "+ str(lp[stype['mod'][-1]][0]) +"};\n")
+    cc += 1
+    li += cc
+
+    return li, ns
+
+
+def plot_lower_lines(f, R, a, li, ns, lp, stype):
+    X = R * np.cos(a)
+    Y = R * np.sin(a)
+
+    f.write("Line("+ str(li+1) +") = { "+ str(ns) +", "+ str(lp[stype['central'][-1]][1]) +"};\n")
+    f.write("Line("+ str(li+2) +") = { "+ str(lp[stype['central'][-1]][1]) +", "+ str(lp[stype['low_arc'][0]][0]) +"};\n")
+    cc = 3
+    for i in range(len(stype['low_arc'][:-1])):
+        j0 = stype['low_arc'][i]
+        j1 = stype['low_arc'][i+1]
+        # print(j0,j1)
+        f.write("Line("+ str(li+cc) +") = { "+ str(lp[j0][0]) +", "+ str(lp[j0][1]) +"};\n")
+        cc += 1
+        f.write("Line("+ str(li+cc) +") = { "+ str(lp[j0][1]) +", "+ str(lp[j1][0]) +"};\n")
+        cc += 1
+    
+    i = stype['low_arc'][-1]
+    f.write("Line("+ str(li+cc) +") = { "+ str(lp[i][0]) +", "+ str(lp[i][1]) +"};\n")
+    cc += 1
+    f.write("Line("+ str(li+cc) +") = { "+ str(lp[i][1]) +", "+ str(lp[stype['mod'][-1]][1]) +"};\n")
+    cc += 1
+    li += cc
+
+    return li, ns
 
 
 def physical_entities(f, H, ns, dict_type):
@@ -373,11 +493,22 @@ def main():
     ns = 1
     dict_type = {'fuel': [], 'coolant': [], 'moderator': []}
     lp = [0] # list of points
-    stype = {'circle':[], 'up_arc':[], 'low_arc':[]}
+    stype = {'circle':[], 'up_arc':[], 'low_arc':[], 'mod':[], 'central':[]}
 
     f.write('// Gmsh\n')
     f.write('SetFactory("OpenCASCADE");\n//+\n')
     li, ns, dict_type, lp, stype = multiple_channels(f, rc, rf, a, fcp, li, ns, dict_type, lp, stype)
+
+    li, ns = plot_lower_lines(f, dx, a, li, ns, lp, stype)
+    li, ns = plot_upper_lines(f, dx, li, ns, lp, stype)
+
+    # print(li, ns)
+    #f.write("Point(" + str(ns) + ") = { " + str(0) + ", " + str(0) + ", 0, 1.0};\n")
+    #f.write("Point(" + str(ns+1) + ") = { " + str(0) + ", " + str(36*np.sin(a)) + ", 0, 1.0};\n")
+    #f.write("Point(" + str(ns+2) + ") = { " + str(36*np.cos(a)) + ", " + str(36*np.sin(a)) + ", 0, 1.0};\n")
+    #f.write("Line(" + str(ns) + ")={" + str(ns) + ", " + str(ns+1) + "};\n")
+    #f.write("Line(" + str(ns+1) + ")={" + str(ns) + ", " + str(ns+2) + "};\n")
+
     # c, li, ns = cm.add_lines(f, dx, h)
     # c, li, ns, dict_type = cm.cchannels(f, rc, fcp, c, li, ns, dict_type)
     # c, li, ns, dict_type = cm.fchannels(f, rf, fcp, c, li, ns, dict_type)
