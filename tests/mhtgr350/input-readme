@@ -17,6 +17,9 @@
   -thermo-hydraulics data not complete either
   -just for the purpose of seing that the mesh works properly on moltres
 
+
+
+
 *autob.i:
   -intends to use the nt action
   -it runs. it seems to take longer. it diverges. why?
@@ -27,4 +30,27 @@
   -intends to not use any action, precursors defined as kernels
   -does it run?
   -it's not complete, uses wrong-density cross sections
+  -thermo-hydraulics data not complete either
+
+*auto1b.i:
+  -intends to use the nt action
+  -it doesn't work: seg fault
+  -it's not complete, uses wrong-density cross sections
+  -thermo-hydraulics data not complete either
+
+
+
+
+*auto3.i:
+  -reduced mesh. just a fuel channel.
+  -it runs and reaches stable steady state
+  -uses the nt action
+  -it's not complete, uses wrong-density cross sections (??) I think the xs are fine here
+  -thermo-hydraulics data not complete either
+
+*auto3b.i:
+  -reduced mesh. just a fuel channel with top and bottom reflectors.
+  -intends to use the nt action
+  -it runs and reaches stable steady state
+  -it's not complete, uses wrong-density cross sections (??) I think the xs are fine here
   -thermo-hydraulics data not complete either
