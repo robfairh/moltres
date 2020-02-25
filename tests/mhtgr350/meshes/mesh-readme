@@ -23,6 +23,12 @@ Geo & Meshes:
 	* fuel-assembly-reflectorb.msh: mesh 4.0 ASCII with h=2.
 	This one was for the purpose of seeing the results, cause the fuel column is very thin.
 
+- Debugging:
+    * fuel.geo: just the fuel.
+    * fuel.msh: mesh 4.0 ASCII.
+    * fuel-reflec.geo: fuel and top and bottom reflectors.
+    * fuel-reflec.msh: mesh 4.0 ASCII.
+
 Python scripts:
 ---------------
 
