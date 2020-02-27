@@ -59,3 +59,4 @@ Physical Surface("ref_top") = {36, 39};
 Physical Surface("cool_bot") = {1};
 Physical Surface("cool_top") = {31};
 Physical Surface("fuel_bot") = {15};
+Physical Surface("fuel_top") = {27};

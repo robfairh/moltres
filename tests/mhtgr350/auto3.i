@@ -4,7 +4,7 @@ diri_temp=750
 nt_scale=1e13
 
 [Mesh]
-  file = 'untitled1.msh'
+  file = 'meshes/fuel.msh'
 [../]
 
 [GlobalParams]
