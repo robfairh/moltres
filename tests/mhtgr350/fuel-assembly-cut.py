@@ -28,16 +28,12 @@ def check_domain(x, y, r, a):
     --------
     inside: boolean
     """
-    # print("Check domain")
+
     beta1 = mt.atan2(y + r * np.cos(a), x - r * np.sin(a))
-    print(beta1)
     beta2 = mt.atan2(y, x + r)
-    print(beta2)
     if beta1 > a and beta2 < np.pi/2:
-        # print("Inside")
         inside = True
     else:
-        # print("Outside")
         inside = False   
 
     return inside
@@ -118,18 +114,21 @@ def plot_circle(f, r, x, y, li, ns, lp, stype):
         number of lines
     ns: int
         number of surfaces
-    dict_type: dictionary
-        key='circle', 'up_arc', or 'low_arc', value=index of the lines
+    lp:
+        list of points
+    stype: dictionary
+        key='circle', 'up_arc', 'low_arc', or 'central' value=index
+        of the lines
 
     returns:
     --------
-
+    li, ns, lp, stype
     """
 
-    f.write("Circle("+ str(li+1) +") = { "+ str(x) +", "+ str(y) +", 0, "
+    f.write("Circle("+ str(li) +") = { "+ str(x) +", "+ str(y) +", 0, "
             + str(r) +", 0, 2*Pi};\n")
-    stype['circle'].append(li+1)
-    lp.append(ns+1)
+    stype['circle'].append(li)
+    lp.append(ns)
     li += 1
     ns += 1
 
@@ -154,22 +153,24 @@ def plot_arc_upper(f, r, x, y, li, ns, lp, stype):
         number of lines
     ns: int
         number of surfaces
-    dict_type: dictionary
-        key='circle', 'up_arc', or 'low_arc', value=index of the lines
+    lp:
+        list of points
+    stype: dictionary
+        key='circle', 'up_arc', 'low_arc', or 'central' value=index
+        of the lines
 
     returns:
     --------
+    li, ns, lp, stype
     """
 
-    #print('do nothing U')
-
     alpha = np.pi - mt.acos(x/r)
-    f.write("Circle("+ str(li+1) +") = { "+ str(x) +", "+ str(y) +", 0, "
+    f.write("Circle("+ str(li) +") = { "+ str(x) +", "+ str(y) +", 0, "
             + str(r) +", "+ str(-alpha) +", "+ str(alpha) +"};\n")
-    stype['up_arc'].append(li+1)
+    stype['up_arc'].append(li)
     points = []
-    points.append(ns + 2)
     points.append(ns + 1)
+    points.append(ns)
     lp.append(points)
     li += 1
     ns += 2
@@ -197,26 +198,27 @@ def plot_arc_lower(f, r, a, x, y, li, ns, lp, stype):
         number of lines
     ns: int
         number of surfaces
-    dict_type: dictionary
-        key='circle', 'up_arc', or 'low_arc', value=index of the lines
+    lp:
+        list of points
+    stype: dictionary
+        key='circle', 'up_arc', 'low_arc', or 'central' value=index
+        of the lines
 
     returns:
     --------
-
+    li, ns, lp, stype
     """
-
-    print('do nothing L')
 
     dy = y - x * np.tan(a)
     d = dy * np.cos(a)  # center-line distance
     alpha = mt.acos(d/r)
     alpha2 = 3./2*np.pi - (alpha - a)   
     alpha1 = -1./2*np.pi + (alpha + a)
-    f.write("Circle("+ str(li+1) +") = { "+ str(x) +", "+ str(y) +", 0, "+ str(r) +", "+ str(alpha1) +", "+ str(alpha2) +"};\n")
-    stype['low_arc'].append(li+1)
+    f.write("Circle("+ str(li) +") = { "+ str(x) +", "+ str(y) +", 0, "+ str(r) +", "+ str(alpha1) +", "+ str(alpha2) +"};\n")
+    stype['low_arc'].append(li)
     points = []
+    points.append(ns)
     points.append(ns + 1)
-    points.append(ns + 2)
     lp.append(points)
     li += 1
     ns += 2
@@ -254,11 +256,11 @@ def place_channel(f, r, d_x, d_y, a, col, row, li, ns, type, dict_type, lp, styp
 
 def place_central(f, r, a, li, ns, dict_type, lp, stype):
     
-    f.write("Circle("+ str(li+1) +") = { 0, 0, 0, "+ str(r) +", "+ str(a) +", "+ str(np.pi/2) +"};\n")
-    stype['central'].append(li+1)
+    f.write("Circle("+ str(li) +") = { 0, 0, 0, "+ str(r) +", "+ str(a) +", "+ str(np.pi/2) +"};\n")
+    stype['central'].append(li)
     points = []
+    points.append(ns)
     points.append(ns + 1)
-    points.append(ns + 2)
     lp.append(points)
     
     li += 1
@@ -280,85 +282,92 @@ def multiple_channels(f, rc, rf, a, fcp, li, ns, dict_type, lp, stype):
     dy = round(dy, 4)
     s = 2 * dy
 
-    row = [-1, 1]
-    col = [-3, 0, 3]
-    col = [-9, -6, -3, 0, 3, 6, 9]
-    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    # First Row
+    row = [1]
+    col = [1, 5, 7, 11, 13, 17, 19]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
 
-    row = [0]
-    col = [-9, -6, -3, 3, 6, 9]
+    # Second Row
+    row = [1]
+    col = [0]
     li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [1]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
 
-    row = [-2, 2]
-    row = [-4, -3, -2, 2, 3, 4]
-    col = [-3, 0, 3]
-    col = [-6, -3, 0, 3, 6]
-    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
-
-    row = [-5, 5]
-    col = [-3, 0, 3]
-    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
-
-    row = [-5, -3, -1, 1, 3, 5]
-    col1 = [3, 9, 15]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
+    # Third Row
+    row = [3]
+    col = [1]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+    col = [3]
     li, ns, dict_type, lp, stype = place_channel(f, rc, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
 
-    row = [-9, -7, 7, 9]
-    col1 = [3, 9]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
+    # Fourth Row
+    row = [2]
+    col = [0]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [1, 2]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    # Fifth Row
+    row = [5]
+    col = [1]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+    col = [3]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [5]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    # Sixth Row
+    row = [3]
+    col = [0]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [1, 2]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+    col = [3]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    
+    # Seventh Row
+    row = [7]
+    col = [1]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+    col = [3]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [5, 7]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    # Eigth Row
+    row = [4]
+    col = [0]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [1, 2]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+    col = [3]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [4]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+
+    # Ninth Row
+    row = [9]
+    col = [1]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+    col = [3]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [5, 7]
+    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
+    col = [9]
     li, ns, dict_type, lp, stype = place_channel(f, rc, dx, dy, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
 
-    ## Fuel 
-    row = [0]
-    col1 = [1, 2, 4, 5, 7, 8, 10]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
+
+    # Tenth Row
+    row = [5]
+    col = [0]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [1, 2]
     li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
-
-    row = [-2, -1, 1, 2]
-    col1 = [1, 2, 4, 5, 7, 8]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
+    col = [3]
+    li, ns, dict_type, lp, stype = place_channel(f, rc, fcp, s, a, col, row, li, ns, 'coolant', dict_type, lp, stype)
+    col = [4, 5]
     li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
-
-    row = [-3, 3]
-    col1 = [1, 2, 4, 5, 7]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
-    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
-
-    row = [-5, -4, 4, 5]
-    col1 = [1, 2, 4, 5]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
-    li, ns, dict_type, lp, stype = place_channel(f, rf, fcp, s, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
-
-    row = [-1, 1]
-    col1 = [1, 5, 7, 11, 13, 17, 19]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
-    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
-
-    row = [-3, 3]
-    col1 = [1, 5, 7, 11, 13, 17]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
-    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
-
-    row = [-7, -5, 5, 7]
-    col1 = [1, 5, 7, 11, 13]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
-    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
-
-    row = [-9, 9]
-    col1 = [1, 5, 7, 11]
-    col2 = [x * -1 for x in col1]
-    col = col2 + col1
-    li, ns, dict_type, lp, stype = place_channel(f, rf, dx, dy, a, col, row, li, ns, 'fuel', dict_type, lp, stype)
 
     li, ns, dict_type, lp, stype = place_central(f, rc, a, li, ns, dict_type, lp, stype)
 
@@ -366,12 +375,10 @@ def multiple_channels(f, rc, rf, a, fcp, li, ns, dict_type, lp, stype):
 
 
 def plot_upper_lines(f, dy, li, ns, lp, stype):
-    # X = 0
-    # Y = dy/2
 
-    f.write("Line("+ str(li+1) +") = { "+ str(ns) +", "+ str(lp[stype['central'][-1]][0]) +"};\n")
-    f.write("Line("+ str(li+2) +") = { "+ str(lp[stype['central'][-1]][0]) +", "+ str(lp[stype['up_arc'][0]][0]) +"};\n")
-    cc = 3
+    f.write("Line("+ str(li) +") = { 1, "+ str(lp[stype['central'][-1]][0]) +"};\n")
+    f.write("Line("+ str(li+1) +") = { "+ str(lp[stype['central'][-1]][0]) +", "+ str(lp[stype['up_arc'][0]][0]) +"};\n")
+    cc = 2
     for i in range(len(stype['up_arc'][:-1])):
         j0 = stype['up_arc'][i]
         j1 = stype['up_arc'][i+1]
@@ -391,16 +398,13 @@ def plot_upper_lines(f, dy, li, ns, lp, stype):
 
 
 def plot_lower_lines(f, R, a, li, ns, lp, stype):
-    X = R * np.cos(a)
-    Y = R * np.sin(a)
 
-    f.write("Line("+ str(li+1) +") = { "+ str(ns) +", "+ str(lp[stype['central'][-1]][1]) +"};\n")
-    f.write("Line("+ str(li+2) +") = { "+ str(lp[stype['central'][-1]][1]) +", "+ str(lp[stype['low_arc'][0]][0]) +"};\n")
-    cc = 3
+    f.write("Line("+ str(li) +") = { 1, "+ str(lp[stype['central'][-1]][1]) +"};\n")
+    f.write("Line("+ str(li+1) +") = { "+ str(lp[stype['central'][-1]][1]) +", "+ str(lp[stype['low_arc'][0]][0]) +"};\n")
+    cc = 2
     for i in range(len(stype['low_arc'][:-1])):
         j0 = stype['low_arc'][i]
         j1 = stype['low_arc'][i+1]
-        # print(j0,j1)
         f.write("Line("+ str(li+cc) +") = { "+ str(lp[j0][0]) +", "+ str(lp[j0][1]) +"};\n")
         cc += 1
         f.write("Line("+ str(li+cc) +") = { "+ str(lp[j0][1]) +", "+ str(lp[j1][0]) +"};\n")
@@ -414,6 +418,27 @@ def plot_lower_lines(f, R, a, li, ns, lp, stype):
     li += cc
 
     return li, ns
+
+
+def moderator_lines(f, dx, h, a, li, ns, lp, stype):
+    c = dx/2
+    d = c/np.sqrt(3)
+
+    f.write("Point(" + str(ns) + ") = { 0, " + str(c) + ", 0, " + str(h) + "};\n")
+    f.write("Point(" + str(ns+1) + ") = { " + str(d) + ", " + str(c) + ", 0, " + str(h) + "};\n")
+    f.write("Line(" + str(li) + ") = { " + str(ns) + ", " + str(ns+1) + "};\n")
+    stype['mod'].append(li)
+    points = []
+    points.append(ns)
+    points.append(ns + 1)
+    lp.append(points)  
+    li += 1
+    ns += 2
+
+    li, ns = plot_lower_lines(f, dx, a, li, ns, lp, stype)
+    li, ns = plot_upper_lines(f, dx, li, ns, lp, stype)
+
+    return li, ns, lp, stype
 
 
 def physical_entities(f, H, ns, dict_type):
@@ -473,7 +498,7 @@ def physical_entities(f, H, ns, dict_type):
 
 
 def main():
-    f = open("cut-30.geo", "w+")
+    f = open("cut-30B.geo", "w+")
 
     dx = 36      # Block pitch (flat-to-flat ditance)
     rc = 0.794   # Large cooling channel radius
@@ -490,17 +515,22 @@ def main():
     a = np.pi/3  # angle of the plane that defines the cut
 
     li = 1
-    ns = 1
+    ns = 2
     dict_type = {'fuel': [], 'coolant': [], 'moderator': []}
     lp = [0] # list of points
     stype = {'circle':[], 'up_arc':[], 'low_arc':[], 'mod':[], 'central':[]}
 
     f.write('// Gmsh\n')
     f.write('SetFactory("OpenCASCADE");\n//+\n')
+    f.write("Point(1) = { 0, 0, 0, " + str(h) + "};\n")
     li, ns, dict_type, lp, stype = multiple_channels(f, rc, rf, a, fcp, li, ns, dict_type, lp, stype)
 
-    li, ns = plot_lower_lines(f, dx, a, li, ns, lp, stype)
-    li, ns = plot_upper_lines(f, dx, li, ns, lp, stype)
+    li, ns, lp, stype = moderator_lines(f, dx, h, a, li, ns, lp, stype)
+
+    print(li)
+    print(ns)
+    print(lp)
+    print(stype)
 
     # print(li, ns)
     #f.write("Point(" + str(ns) + ") = { " + str(0) + ", " + str(0) + ", 0, 1.0};\n")
