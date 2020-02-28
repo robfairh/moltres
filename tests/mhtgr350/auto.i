@@ -1,12 +1,6 @@
-/*
-Description:
-------------
-Uses neutronics kernels.
-This case is for the unit-cell without reflector.
-Results:
---------
-It runs, and gets to k = 1.0.
-*/
+#Uses neutronics kernels.
+#This case is for the unit-cell without reflector.
+#It runs, and gets to k = 1.0.
 
 diri_temp=750
 
