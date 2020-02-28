@@ -3,8 +3,10 @@
 
 *auto.i: 
   -runs neutronics for unit-cell.msh
-  -it's not complete, uses wrong-density cross sections
-  -thermo-hydraulics data not complete either
+  -thermo-hydraulics data not complete
+
+
+
 
 *auto1.i:
   -should run neutronics for unit-cell-reflec.msh
@@ -16,7 +18,6 @@
   -run thermohydraulics for unit-cell-reflecb.msh
   -thermo-hydraulics data not complete either
   -just for the purpose of seing that the mesh works properly on moltres
-
 
 
 

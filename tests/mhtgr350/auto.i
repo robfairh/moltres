@@ -1,7 +1,14 @@
-flow_velocity=20.      # cm/s. See MSRE-properties.ods
-ini_temp=750
+/*
+Description:
+------------
+Uses neutronics kernels.
+This case is for the unit-cell without reflector.
+Results:
+--------
+It runs, and gets to k = 1.0.
+*/
+
 diri_temp=750
-nt_scale=1e13
 
 [GlobalParams]
   num_groups = 2
@@ -28,7 +35,7 @@ nt_scale=1e13
     scaling = 1e4
   [../]
   [./temp]
-    initial_condition = ${ini_temp}
+    initial_condition = ${diri_temp}
     scaling = 1e-4
   [../]
 []
@@ -121,39 +128,11 @@ nt_scale=1e13
   #---------------------------------------------------------------------
   # Temperature
   #---------------------------------------------------------------------
-  #[./temp_time_derivative]
-  #  type = MatINSTemperatureTimeDerivative
-  #  variable = temp
-  #[../]
-  #[./temp_advection_fuel]
-  #  type = ConservativeTemperatureAdvection
-  #  velocity = '0 ${flow_velocity} 0'
-  #  variable = temp
-  #  block = 'fuel'
-  #[../]
-  #[./temp_advection_coolant]
-  #  type = ConservativeTemperatureAdvection
-  #  velocity = '0 ${flow_velocity} 0'
-  #  variable = temp
-  #  block = 'coolant'
-  #[../]
   [./temp_diffusion]
     type = MatDiffusion
     diffusivity = 'k'
     variable = temp
   [../]
-  #[./temp_source_fuel]
-  #  type = TransientFissionHeatSource
-  #  variable = temp
-  #  nt_scale=${nt_scale}
-  #  block = 'fuel'
-  #[../]
-  #[./temp_source_coolant]
-  #  type = TransientFissionHeatSource
-  #  variable = temp
-  #  nt_scale=${nt_scale}
-  #  block = 'coolant'
-  #[../]
 []
 
 [BCs]
@@ -167,12 +146,6 @@ nt_scale=1e13
     boundary = 'fuel_bot fuel_top cool_top cool_bot moderator_bot moderator_top'
     variable = group2
   [../]
-  #[./temp_advection_outlet]
-  #  boundary = 'fuel_bottom coolant_bottom'
-  #  type = TemperatureOutflowBC
-  #  variable = temp
-  #  velocity = '0 ${flow_velocity} 0'
-  #[../]
   [./temp_diri_cg]
     boundary = 'fuel_bot fuel_top cool_top cool_bot moderator_bot moderator_top'
     type = DirichletBC
@@ -184,51 +157,27 @@ nt_scale=1e13
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs200000-200-50/htgr_2g_fuel_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
     block = 'fuel'
-    prop_names = 'k cp'
-    prop_values = '.0553 1967'
-  [../]
-  [./rho_fuel]
-    type = DerivativeParsedMaterial
-    f_name = rho
-    function = '2.146e-3 * exp(-1.8 * 1.18e-4 * (temp - 750))'
-    args = 'temp'
-    derivative_order = 1
-    block = 'fuel'
+    prop_names = 'k'
+    prop_values = '.0553'
   [../]
   [./moderator]
     type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs200000-200-50/htgr_2g_moderator_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_moderator_'
     interp_type = 'linear'
-    prop_names = 'k cp'
-    prop_values = '.312 1760' # Cammi 2011 at 908 K
-    block = 'moderator'
-  [../]
-  [./rho_moder]
-    type = DerivativeParsedMaterial
-    f_name = rho
-    function = '1.86e-3 * exp(-1.8 * 1.0e-5 * (temp - 750))'
-    args = 'temp'
-    derivative_order = 1
+    prop_names = 'k'
+    prop_values = '.312'
     block = 'moderator'
   [../]
   [./coolant]
     type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs200000-200-50/htgr_2g_coolant_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
     block = 'coolant'
-    prop_names = 'k cp'
-    prop_values = '.0553 1967'
-  [../]
-  [./rho_cool]
-    type = DerivativeParsedMaterial
-    f_name = rho
-    function = '2.146e-3 * exp(-1.8 * 1.18e-4 * (temp - 750))'
-    args = 'temp'
-    derivative_order = 1
-    block = 'coolant'
+    prop_names = 'k'
+    prop_values = '.0553'
   [../]
 []
 
@@ -312,7 +261,6 @@ nt_scale=1e13
   [./exodus]
     type = Exodus
     file_base = 'auto'
-    #execute_on = 'final'
   [../]
 []
 
