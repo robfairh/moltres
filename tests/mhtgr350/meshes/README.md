@@ -17,11 +17,13 @@ Geo & Meshes:
 	* fuel-assembly.msh: mesh 4.0 ASCII with h=20.
 
 - Fuel Assembly w/ Reflector:
-	* fuel-assembly-reflector.geo: geometry of the fuel assembly column with reflector.
+	* fuel-assembly-reflector.geo: geometry of the fuel assembly column with reflectors.
 	* fuel-assembly-reflector.msh: mesh 4.0 ASCII with h=20.
-	* fuel-assembly-reflectorb.geo: geometry of the fuel assembly column with reflector. Dimensions reduced.
+	* fuel-assembly-reflectorb.geo: geometry of the fuel assembly column with reflectors. Dimensions reduced.
 	* fuel-assembly-reflectorb.msh: mesh 4.0 ASCII with h=2.
 	This one was for the purpose of seeing the results, cause the fuel column is very thin.
+	* cut-30.geo: 30 deg cut of the fuel assembly column with reflectors.
+	* cut-30.msh: mesh 4.0 ASCII with h=10.
 
 - Debugging:
     * fuel.geo: just the fuel.
@@ -33,12 +35,8 @@ Python scripts:
 ---------------
 
 * fuel-assembly.py: Produces geometry of one fuel assembly without the top and bottom reflector. It works.
-
-* fuel-assembly-reflector.py: Produces geometry of one fuel assembly with top and bottom reflector. On progress.
-
-
+* fuel-assembly-reflector.py: Produces geometry of one fuel assembly with top and bottom reflector. In progress.
 
 * full-core.py: Produces full geometry. doesn't work. need to clean the code
-
 * extend-arc2D.py: Produces 2D geometry of 1/12th (30 degress) of the reactor. need to clean the code.
 Then the geometry has to be extruded and add the physical groups by hand to produce the 3D geometry.
