@@ -34,39 +34,14 @@
   -it doesn't work: seg fault
   -thermo-hydraulics data not complete either
 
-
-
-
-
-
-*auto2.i:
-  -run thermohydraulics for unit-cell-reflecb.msh
-  -thermo-hydraulics data not complete either
-  -just for the purpose of seing that the mesh works properly on moltres
-
-*auto1b.i:
-  -intends to use the nt action
-  -it doesn't work: seg fault
-  -it's not complete, uses wrong-density cross sections
+  -unit-cell-reflec.msh: unit cell w/ reflectors
+  -neutronics kernels
+  -account delayed=true
+  -k=1
   -thermo-hydraulics data not complete either
 
-*auto3.i:
-  -reduced mesh. just a fuel channel.
-  -it runs and reaches stable steady state
-  -uses the nt action
-  -it's not complete, uses wrong-density cross sections (??) I think the xs are fine here
-  -thermo-hydraulics data not complete either
-
-*auto3b.i:
-  -reduced mesh. just a fuel channel with top and bottom reflectors.
-  -intends to use the nt action
-  -it runs and reaches stable steady state
-  -it's not complete, uses wrong-density cross sections (??) I think the xs are fine here
-  -thermo-hydraulics data not complete either
-
-*auto4b.i:
-  -reduced mesh. fuel channel + moderator + top and bottom reflectors.
-  -uses nt action
-  -seg fault
-  -it's not complete, uses wrong-density cross sections (??) I think the xs are fine here
+  -unit-cell-reflec.msh: unit cell w/ reflectors
+  -neutronics kernels
+  -account delayed=false
+  -k=1
   -thermo-hydraulics data not complete either
