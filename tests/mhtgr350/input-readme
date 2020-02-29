@@ -45,3 +45,10 @@
   -account delayed=false
   -k=1
   -thermo-hydraulics data not complete either
+
+*auto1.i:
+  -unit-cell-reflec.msh: unit cell w/ reflectors
+  -NtAction
+  -account delayed=true
+  -scaling=1e-4
+  -thermo-hydraulics data not complete either

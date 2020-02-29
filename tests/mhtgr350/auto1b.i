@@ -8,7 +8,7 @@ diri_temp=750
   temperature = temp
   sss2_input = true
   pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
-  account_delayed = true
+  account_delayed = false
 []
 
 [Variables]
@@ -30,19 +30,19 @@ diri_temp=750
   pre_blocks = 'fuel'
 []
 
-[Precursors]
-  [./pres]
-    var_name_base = pre
-    block = 'fuel'
-    outlet_boundaries = 'fuel_top'
-    u_def = 0
-    v_def = 0
-    w_def = 0
-    nt_exp_form = false
-    family = MONOMIAL
-    order = CONSTANT
-  [../]
-[]
+#[Precursors]
+#  [./pres]
+#    var_name_base = pre
+#    block = 'fuel'
+#    outlet_boundaries = 'fuel_top'
+#    u_def = 0
+#    v_def = 0
+#    w_def = 0
+#    nt_exp_form = false
+#    family = MONOMIAL
+#    order = CONSTANT
+#  [../]
+#[]
 
 [Kernels]
   #---------------------------------------------------------------------
