@@ -38,7 +38,7 @@ diri_temp=750
   [./pres]
     var_name_base = pre
     block = 'fuel'
-    outlet_boundaries = 'fuel_bot'
+    outlet_boundaries = 'fuel_top'
     u_def = 0
     v_def = 0
     w_def = 0
