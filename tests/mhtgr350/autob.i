@@ -19,19 +19,19 @@ diri_temp=750
 [Variables]
   [./temp]
     initial_condition = ${diri_temp}
-    scaling = 1e-4
+    #scaling = 1e-4
   [../]
 []
 
 [Mesh]
-  file = 'meshes/unit-cell.msh'
+  file = 'meshes/fuel.msh'
 [../]
 
 [Nt]
   var_name_base = group
-  vacuum_boundaries = 'fuel_bot fuel_top cool_bot cool_top moderator_bot moderator_top'
+  vacuum_boundaries = 'fuel_bot fuel_top'
   create_temperature_var = false
-  scaling = 1e-4
+  #scaling = 1e-4
   pre_blocks = 'fuel'
 []
 
@@ -59,7 +59,7 @@ diri_temp=750
 
 [BCs]
   [./temp_diri_cg]
-    boundary = 'fuel_bot fuel_top cool_top cool_bot moderator_bot moderator_top'
+    boundary = 'fuel_bot fuel_top'
     type = DirichletBC
     value = '${diri_temp}'
     variable = temp
@@ -75,25 +75,11 @@ diri_temp=750
     prop_values = '.0553'
     block = 'fuel'
   [../]
-  [./moderator]
-    type = GenericMoltresMaterial
-    property_tables_root = 'xs800000-500-100/htgr_2g_moderator_'
-    interp_type = 'linear'
-    prop_names = 'k'
-    prop_values = '.312'
-    block = 'moderator'
-  [../]
-  [./coolant]
-    type = GenericMoltresMaterial
-    property_tables_root = 'xs800000-500-100/htgr_2g_coolant_'
-    interp_type = 'linear'
-    prop_names = 'k'
-    prop_values = '.0553'
-    block = 'coolant'
-  [../]
 []
 
 [Executioner]
+  #automatic_scaling = true
+
   type = Transient
   end_time = 100
 
@@ -146,24 +132,6 @@ diri_temp=750
     value1 = group1_current
     value2 = group1_old
     outputs = 'console exodus'
-  [../]
-  [./temp_fuel]
-    type = ElementAverageValue
-    variable = temp
-    block = 'fuel'
-    outputs = 'exodus console'
-  [../]
-  [./temp_moder]
-    type = ElementAverageValue
-    variable = temp
-    block = 'moderator'
-    outputs = 'exodus console'
-  [../]
-  [./temp_cool]
-    type = ElementAverageValue
-    variable = temp
-    block = 'coolant'
-    outputs = 'exodus console'
   [../]
 []
 
