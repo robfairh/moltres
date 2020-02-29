@@ -225,24 +225,6 @@ diri_temp=750
     value2 = group1_old
     outputs = 'console exodus'
   [../]
-  [./temp_fuel]
-    type = ElementAverageValue
-    variable = temp
-    block = 'fuel'
-    outputs = 'exodus console'
-  [../]
-  [./temp_moder]
-    type = ElementAverageValue
-    variable = temp
-    block = 'moderator'
-    outputs = 'exodus console'
-  [../]
-  [./temp_cool]
-    type = ElementAverageValue
-    variable = temp
-    block = 'coolant'
-    outputs = 'exodus console'
-  [../]
 []
 
 [Outputs]
