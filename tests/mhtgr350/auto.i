@@ -160,7 +160,7 @@ diri_temp=750
 []
 
 [Executioner]
-  #automatic_scaling = true
+  automatic_scaling = true
   
   type = Transient
   end_time = 100
