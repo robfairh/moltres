@@ -1,14 +1,4 @@
-# Input file for one entire fuel column
-# Things to do or modify:
-# - material properties
-# - auto scaling ?
-# - rho * velocity = massflux/A (what A?)
-# - uniform temperature
-
-flow_velocity=20.
-ini_temp=750
 diri_temp=750
-nt_scale=1e13
 
 [GlobalParams]
   num_groups = 2
@@ -35,7 +25,7 @@ nt_scale=1e13
     scaling = 1e4
   [../]
   [./temp]
-    initial_condition = ${ini_temp}
+    initial_condition = ${diri_temp}
     scaling = 1e-4
   [../]
 []
@@ -128,39 +118,11 @@ nt_scale=1e13
   #---------------------------------------------------------------------
   # Temperature
   #---------------------------------------------------------------------
-  #[./temp_time_derivative]
-  #  type = MatINSTemperatureTimeDerivative
-  #  variable = temp
-  #[../]
-  #[./temp_advection_fuel]
-  #  type = ConservativeTemperatureAdvection
-  #  velocity = '0 ${flow_velocity} 0'
-  #  variable = temp
-  #  block = 'fuel'
-  #[../]
-  #[./temp_advection_coolant]
-  #  type = ConservativeTemperatureAdvection
-  #  velocity = '0 ${flow_velocity} 0'
-  #  variable = temp
-  #  block = 'coolant'
-  #[../]
   [./temp_diffusion]
     type = MatDiffusion
     diffusivity = 'k'
     variable = temp
   [../]
-  #[./temp_source_fuel]
-  #  type = TransientFissionHeatSource
-  #  variable = temp
-  #  nt_scale=${nt_scale}
-  #  block = 'fuel'
-  #[../]
-  #[./temp_source_coolant]
-  #  type = TransientFissionHeatSource
-  #  variable = temp
-  #  nt_scale=${nt_scale}
-  #  block = 'coolant'
-  #[../]
 []
 
 [BCs]
@@ -174,12 +136,6 @@ nt_scale=1e13
     boundary = 'ref_top ref_bot cool_top cool_bot'
     variable = group2
   [../]
-  #[./temp_advection_outlet]
-  #  boundary = 'fuel_bottom coolant_bottom'
-  #  type = TemperatureOutflowBC
-  #  variable = temp
-  #  velocity = '0 ${flow_velocity} 0'
-  #[../]
   [./temp_diri_cg]
     boundary = 'ref_top ref_bot cool_top cool_bot'
     type = DirichletBC
@@ -191,50 +147,26 @@ nt_scale=1e13
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs800000-500-100/htgr_2g_fuel_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
-    block = 'fuel'
-    prop_names = 'k cp'
-    prop_values = '.0553 1967'
-  [../]
-  [./rho_fuel]
-    type = DerivativeParsedMaterial
-    f_name = rho
-    function = '2.146e-3 * exp(-1.8 * 1.18e-4 * (temp - 750))'
-    args = 'temp'
-    derivative_order = 1
+    prop_names = 'k'
+    prop_values = '.0553'
     block = 'fuel'
   [../]
   [./moderator]
     type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_moderator_'
     interp_type = 'linear'
-    prop_names = 'k cp'
-    prop_values = '.312 1760' # Cammi 2011 at 908 K
-    block = 'moderator'
-  [../]
-  [./rho_moder]
-    type = DerivativeParsedMaterial
-    f_name = rho
-    function = '1.86e-3 * exp(-1.8 * 1.0e-5 * (temp - 750))'
-    args = 'temp'
-    derivative_order = 1
+    prop_names = 'k'
+    prop_values = '.312'
     block = 'moderator'
   [../]
   [./coolant]
     type = GenericMoltresMaterial
-    property_tables_root = 'wrong-density-xs/xs800000-500-100/htgr_2g_coolant_'
+    property_tables_root = 'xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
-    block = 'coolant'
-    prop_names = 'k cp'
-    prop_values = '.0553 1967'
-  [../]
-  [./rho_cool]
-    type = DerivativeParsedMaterial
-    f_name = rho
-    function = '2.146e-3 * exp(-1.8 * 1.18e-4 * (temp - 750))'
-    args = 'temp'
-    derivative_order = 1
+    prop_names = 'k'
+    prop_values = '.0553'
     block = 'coolant'
   [../]
 []
@@ -319,7 +251,6 @@ nt_scale=1e13
   [./exodus]
     type = Exodus
     file_base = 'auto1'
-    #execute_on = 'final'
   [../]
 []
 

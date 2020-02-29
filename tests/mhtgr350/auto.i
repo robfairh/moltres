@@ -11,8 +11,9 @@ diri_temp=750
   group_fluxes = 'group1 group2'
   temperature = temp
   sss2_input = true
-  pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
-  account_delayed = true
+  #pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
+  account_delayed = false
+  #account_delayed = true
 []
 
 [Variables]
@@ -20,13 +21,13 @@ diri_temp=750
     order = FIRST
     family = LAGRANGE
     initial_condition = 1
-    scaling = 1e4
+    scaling = 1e-4
   [../]
   [./group2]
     order = FIRST
     family = LAGRANGE
     initial_condition = 1
-    scaling = 1e4
+    scaling = 1e-4
   [../]
   [./temp]
     initial_condition = ${diri_temp}
@@ -38,19 +39,19 @@ diri_temp=750
   file = 'meshes/unit-cell.msh'
 [../]
 
-[Precursors]
-  [./pres]
-    var_name_base = pre
-    block = 'fuel'
-    outlet_boundaries = 'fuel_bot'
-    u_def = 0
-    v_def = 0
-    w_def = 0
-    nt_exp_form = false
-    family = MONOMIAL
-    order = CONSTANT
-  [../]
-[]
+#[Precursors]
+#  [./pres]
+#    var_name_base = pre
+#    block = 'fuel'
+#    outlet_boundaries = 'fuel_bot'
+#    u_def = 0
+#    v_def = 0
+#    w_def = 0
+#    nt_exp_form = false
+#    family = MONOMIAL
+#    order = CONSTANT
+#  [../]
+#[]
 
 [Kernels]
   #---------------------------------------------------------------------
@@ -82,12 +83,12 @@ diri_temp=750
     group_number = 1
     block = 'fuel'
   [../]
-  [./delayed_group1]
-    type = DelayedNeutronSource
-    variable = group1
-    block = 'fuel'
-    group_number=1
-  [../]
+  #[./delayed_group1]
+  #  type = DelayedNeutronSource
+  #  variable = group1
+  #  block = 'fuel'
+  #  group_number=1
+  #[../]
 
   #---------------------------------------------------------------------
   # Group 2 Neutronics
@@ -153,9 +154,9 @@ diri_temp=750
     type = GenericMoltresMaterial
     property_tables_root = 'xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
-    block = 'fuel'
     prop_names = 'k'
     prop_values = '.0553'
+    block = 'fuel'
   [../]
   [./moderator]
     type = GenericMoltresMaterial
@@ -169,9 +170,9 @@ diri_temp=750
     type = GenericMoltresMaterial
     property_tables_root = 'xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
-    block = 'coolant'
     prop_names = 'k'
     prop_values = '.0553'
+    block = 'coolant'
   [../]
 []
 
@@ -187,7 +188,7 @@ diri_temp=750
   petsc_options_iname = '-pc_type -pc_factor_shift_type'
   petsc_options_value = 'lu       NONZERO'
   line_search = 'none'
-   # petsc_options_iname = '-snes_type'
+  # petsc_options_iname = '-snes_type'
   # petsc_options_value = 'test'
 
   nl_max_its = 30
