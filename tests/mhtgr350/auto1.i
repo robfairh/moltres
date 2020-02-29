@@ -8,7 +8,7 @@ diri_temp=750
   temperature = temp
   sss2_input = true
   pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
-  account_delayed = true
+  account_delayed = false
 []
 
 [Variables]
@@ -34,19 +34,19 @@ diri_temp=750
   file = 'meshes/unit-cell-reflec.msh'
 [../]
 
-[Precursors]
-  [./pres]
-    var_name_base = pre
-    block = 'fuel'
-    outlet_boundaries = 'fuel_top'
-    u_def = 0
-    v_def = 0
-    w_def = 0
-    nt_exp_form = false
-    family = MONOMIAL
-    order = CONSTANT
-  [../]
-[]
+#[Precursors]
+#  [./pres]
+#    var_name_base = pre
+#    block = 'fuel'
+#    outlet_boundaries = 'fuel_top'
+#    u_def = 0
+#    v_def = 0
+#    w_def = 0
+#    nt_exp_form = false
+#    family = MONOMIAL
+#    order = CONSTANT
+#  [../]
+#[]
 
 [Kernels]
   #---------------------------------------------------------------------
@@ -78,12 +78,12 @@ diri_temp=750
     group_number = 1
     block = 'fuel'
   [../]
-  [./delayed_group1]
-    type = DelayedNeutronSource
-    variable = group1
-    block = 'fuel'
-    group_number=1
-  [../]
+  #[./delayed_group1]
+  #  type = DelayedNeutronSource
+  #  variable = group1
+  #  block = 'fuel'
+  #  group_number=1
+  #[../]
 
   #---------------------------------------------------------------------
   # Group 2 Neutronics
