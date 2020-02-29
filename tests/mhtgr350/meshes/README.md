@@ -14,8 +14,11 @@ Geo & Meshes:
 	* fuel-assembly.msh: mesh 4.0 ASCII with h=20.
 
 - Fuel Assembly w/ Reflector:
-	* fuel-assembly-reflector.geo: geometry of the fuel assembly column with reflector.
+	* fuel-assembly-reflector.geo: geometry of the fuel assembly column with reflectors.
 	* fuel-assembly-reflector.msh: mesh 4.0 ASCII with h=20.
+	This one was for the purpose of seeing the results, cause the fuel column is very thin.
+	* cut-30.geo: 30 deg cut of the fuel assembly column with reflectors.
+	* cut-30.msh: mesh 4.0 ASCII with h=10.
 
 - Geometries to help with the debugging (this files can be deleted eventually):
     * fuel.geo: just the fuel.
