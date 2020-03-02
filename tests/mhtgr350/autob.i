@@ -37,7 +37,7 @@
 []
 
 [Executioner]
-  auto_scaling = true
+  automatic_scaling = true
 
   type = Transient
   end_time = 10
