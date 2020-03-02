@@ -34,11 +34,11 @@
   #---------------------------------------------------------------------
   # Group 1 Neutronics
   #---------------------------------------------------------------------
-  #[./time_group1]
-  #  type = NtTimeDerivative
-  #  variable = group1
-  #  group_number = 1
-  #[../]
+  [./time_group1]
+    type = NtTimeDerivative
+    variable = group1
+    group_number = 1
+  [../]
   [./sigma_r_group1]
     type = SigmaR
     variable = group1
@@ -55,8 +55,8 @@
     group_number = 1
   [../]
   [./fission_source_group1]
-    type = CoupledFissionEigenKernel
-    #type = CoupledFissionKernel
+    #type = CoupledFissionEigenKernel
+    type = CoupledFissionKernel
     variable = group1
     group_number = 1
     block = 'fuel'
@@ -71,11 +71,11 @@
   #---------------------------------------------------------------------
   # Group 2 Neutronics
   #---------------------------------------------------------------------
-  #[./time_group2]
-  #  type = NtTimeDerivative
-  #  variable = group2
-  #  group_number = 2
-  #[../]
+  [./time_group2]
+    type = NtTimeDerivative
+    variable = group2
+    group_number = 2
+  [../]
   [./sigma_r_group2]
     type = SigmaR
     variable = group2
@@ -87,8 +87,8 @@
     group_number = 2
   [../]
   [./fission_source_group2]
-    type = CoupledFissionEigenKernel
-    #type = CoupledFissionKernel
+    #type = CoupledFissionEigenKernel
+    type = CoupledFissionKernel
     variable = group2
     group_number = 2
     block = 'fuel'
@@ -125,20 +125,31 @@
 []
 
 [Executioner]
-  type = InversePowerMethod
-  max_power_iterations = 50
-  xdiff = 'group1diff'
+  auto_scaling = true
 
-  bx_norm = 'bnorm'
-  k0 = 1.5
-  pfactor = 1e-2
-  l_max_its = 100
+  type = Transient
+  end_time = 10
 
-  # solve_type = 'PJFNK'
+  nl_rel_tol = 1e-6
+  nl_abs_tol = 1e-6
+
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
-  petsc_options_iname = '-pc_type -sub_pc_type'
-  petsc_options_value = 'asm lu'
+  petsc_options_iname = '-pc_type -pc_factor_shift_type'
+  petsc_options_value = 'lu       NONZERO'
+  line_search = 'none'
+
+  nl_max_its = 30
+  l_max_its = 100
+
+  dtmin = 1e-5
+  [./TimeStepper]
+    type = IterationAdaptiveDT
+    dt = 1e-3
+    cutback_factor = 0.5
+    growth_factor = 1.5
+    optimal_iterations = 20
+  [../]
 []
 
 [Preconditioning]
@@ -149,45 +160,21 @@
 []
 
 [Postprocessors]
-  [./bnorm]
-    type = ElmIntegTotFissNtsPostprocessor
-    execute_on = linear
-  [../]
-  [./tot_fissions]
-    type = ElmIntegTotFissPostprocessor
-    execute_on = linear
-  [../]
-  [./group1norm]
-    type = ElementIntegralVariablePostprocessor
+  [./group1_current]
+    type = IntegralNewVariablePostprocessor
     variable = group1
-    execute_on = linear
+    outputs = 'console exodus'
   [../]
-  [./group1max]
-    type = NodalMaxValue
+  [./group1_old]
+    type = IntegralOldVariablePostprocessor
     variable = group1
-    execute_on = timestep_end
+    outputs = 'console exodus'
   [../]
-  [./group1diff]
-    type = ElementL2Diff
-    variable = group1
-    execute_on = 'linear timestep_end'
-    use_displaced_mesh = false
-  [../]
-  [./group2norm]
-    type = ElementIntegralVariablePostprocessor
-    variable = group2
-    execute_on = linear
-  [../]
-  [./group2max]
-    type = NodalMaxValue
-    variable = group2
-    execute_on = timestep_end
-  [../]
-  [./group2diff]
-    type = ElementL2Diff
-    variable = group2
-    execute_on = 'linear timestep_end'
-    use_displaced_mesh = false
+  [./multiplication]
+    type = DivisionPostprocessor
+    value1 = group1_current
+    value2 = group1_old
+    outputs = 'console exodus'
   [../]
 []
 
