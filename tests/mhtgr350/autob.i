@@ -10,7 +10,15 @@
   sss2_input = true
   #pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
   account_delayed = false
-  temperature = 750
+  temperature = temp
+[]
+
+[Variables]
+  [./temp]
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = 1
+  [../]
 []
 
 [Mesh]
@@ -22,6 +30,23 @@
   vacuum_boundaries = 'fuel_bot fuel_top'
   create_temperature_var = false
   pre_blocks = 'fuel'
+[]
+
+[Kernels]
+  [./temp_diff]
+    type = MatDiffusion
+    D_name = 'k'
+    variable = temp
+  [../]
+[]
+
+[BCs]
+  [./temp]
+    type = DirichletBC
+    boundary = 'fuel_bot fuel_top'
+    variable = temp
+    value = 750
+  [../]
 []
 
 [Materials]

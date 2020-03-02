@@ -10,7 +10,7 @@
   sss2_input = true
   #pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
   account_delayed = false
-  temperature = 750
+  temperature = temp
 []
 
 [Variables]
@@ -20,6 +20,11 @@
     initial_condition = 1
   [../]
   [./group2]
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = 1
+  [../]
+  [./temp]
     order = FIRST
     family = LAGRANGE
     initial_condition = 1
@@ -96,6 +101,14 @@
     variable = group2
     group_number = 2
   [../]
+  #---------------------------------------------------------------------
+  # Temperature
+  #---------------------------------------------------------------------
+  [./temp_diff]
+    type = MatDiffusion
+    D_name = 'k'
+    variable = temp
+  [../]
 []
 
 [BCs]
@@ -108,6 +121,12 @@
     type = VacuumConcBC
     boundary = 'fuel_bot fuel_top'
     variable = group2
+  [../]
+  [./temp]
+    type = DirichletBC
+    boundary = 'fuel_bot fuel_top'
+    variable = temp
+    value = 750
   [../]
 []
 
