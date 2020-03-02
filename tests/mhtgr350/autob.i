@@ -22,7 +22,6 @@
   vacuum_boundaries = 'fuel_bot fuel_top'
   create_temperature_var = false
   pre_blocks = 'fuel'
-  #eigen = false
 []
 
 [Materials]
@@ -37,7 +36,7 @@
 []
 
 [Executioner]
-  #automatic_scaling = true
+  automatic_scaling = true
 
   type = Transient
   end_time = 10

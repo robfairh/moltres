@@ -8,7 +8,7 @@
   use_exp_form = false
   group_fluxes = 'group1 group2'
   sss2_input = true
-  pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
+  #pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
   account_delayed = false
   temperature = 750
 []
@@ -55,7 +55,6 @@
     group_number = 1
   [../]
   [./fission_source_group1]
-    #type = CoupledFissionEigenKernel
     type = CoupledFissionKernel
     variable = group1
     group_number = 1
@@ -87,7 +86,6 @@
     group_number = 2
   [../]
   [./fission_source_group2]
-    #type = CoupledFissionEigenKernel
     type = CoupledFissionKernel
     variable = group2
     group_number = 2
