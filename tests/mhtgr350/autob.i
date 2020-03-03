@@ -13,6 +13,10 @@
   temperature = temp
 []
 
+[Mesh]
+  file = 'meshes/fuel.msh'
+[../]
+
 [Variables]
   [./temp]
     order = FIRST
@@ -21,16 +25,14 @@
   [../]
 []
 
-[Mesh]
-  file = 'meshes/fuel.msh'
-[../]
-
 [Nt]
   var_name_base = group
   vacuum_boundaries = 'fuel_bot fuel_top'
   create_temperature_var = false
   pre_blocks = 'fuel'
+  dg_for_temperature = false
 []
+
 
 [Kernels]
   [./temp_diff]

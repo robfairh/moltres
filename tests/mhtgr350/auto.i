@@ -54,11 +54,11 @@
     variable = group1
     group_number = 1
   [../]
-  [./inscatter_group1]
-    type = InScatter
-    variable = group1
-    group_number = 1
-  [../]
+  #[./inscatter_group1]
+  #  type = InScatter
+  #  variable = group1
+  #  group_number = 1
+  #[../]
   [./fission_source_group1]
     type = CoupledFissionKernel
     variable = group1
@@ -96,11 +96,11 @@
     group_number = 2
     block = 'fuel'
   [../]
-  [./inscatter_group2]
-    type = InScatter
-    variable = group2
-    group_number = 2
-  [../]
+  #[./inscatter_group2]
+  #  type = InScatter
+  #  variable = group2
+  #  group_number = 2
+  #[../]
   #---------------------------------------------------------------------
   # Temperature
   #---------------------------------------------------------------------
