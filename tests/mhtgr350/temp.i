@@ -1,6 +1,8 @@
-inlet_temp=512
-outlet_temp=992
-average_temp=750
+inlet_temp=512 #K
+outlet_temp=992 #K
+average_temp=750 #K
+
+rho_v=16.88055 #g/cm^2/s
 
 [GlobalParams]
   num_groups = 2
@@ -24,20 +26,26 @@ average_temp=750
 [../]
 
 [Kernels]
-  [./temp_time_derivative]
+  [./time_derivative]
     type = MatINSTemperatureTimeDerivative
     variable = temp
   [../]
-  #[./temp_advection_fuel]
-  #  type = ConservativeTemperatureAdvection
-  #  velocity = '0 ${flow_velocity} 0'
-  #  variable = temp
-  #  block = 'fuel'
-  #[../]
-  [./temp_diffusion]
+  [./advection_coolant]
+    type = ConservativeTemperatureAdvection2
+    velocity = '0 0 ${rho_v}'
+    variable = temp
+    block = 'coolant'
+  [../]
+  [./diffusion]
     type = MatDiffusion
     diffusivity = 'k'
     variable = temp
+  [../]
+  [./vol_source]
+    type = BodyForce
+    variable = temp
+    value = 5.9 #W/cm3
+    block = 'fuel'
   [../]
 []
 
@@ -55,6 +63,13 @@ average_temp=750
     value = '${outlet_temp}'
     variable = temp
   [../]
+
+  [./temp_advection_outlet]
+    boundary = 'cool_bot'
+    type = TemperatureOutflowBC2
+    variable = temp
+    velocity = '0 0 ${rho_v}'
+  [../]
 []
 
 [Materials]
@@ -62,7 +77,7 @@ average_temp=750
     type = GenericMoltresMaterial
     property_tables_root = 'xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
-    prop_names = 'k rho cp'
+    prop_names = 'rho cp k'
     prop_values = '100.0 1.0 1.0'
     block = 'fuel'
   [../]
@@ -70,7 +85,7 @@ average_temp=750
     type = GenericMoltresMaterial
     property_tables_root = 'xs800000-500-100/htgr_2g_moderator_'
     interp_type = 'linear'
-    prop_names = 'k rho cp'
+    prop_names = 'rho cp k'
     prop_values = '100.0 1.0 1.0'
     block = 'moderator'
   [../]
@@ -78,8 +93,8 @@ average_temp=750
     type = GenericMoltresMaterial
     property_tables_root = 'xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
-    prop_names = 'k rho cp'
-    prop_values = '10. 0.1 0.1'
+    prop_names = 'rho cp k'
+    prop_values = '4.056e-3 5.1891 0.0029881' #[g/cm^3][J/g/K][W/cm/K] values for average_temp
     block = 'coolant'
   [../]
 []

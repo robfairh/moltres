@@ -193,6 +193,7 @@ NtAction::act()
 
         std::string kernel_name = "InScatter_" + var_name;
         //_problem->addKernel("InScatter", kernel_name, params);
+
       }
 
       // Set up CoupledFissionKernel
