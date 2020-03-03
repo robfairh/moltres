@@ -10,19 +10,45 @@
   sss2_input = true
   #pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
   account_delayed = false
-  temperature = 750
+  temperature = temp
 []
 
 [Mesh]
   file = 'meshes/fuel.msh'
 [../]
 
+[Variables]
+  [./temp]
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = 1
+  [../]
+[]
+
 [Nt]
   var_name_base = group
   vacuum_boundaries = 'fuel_bot fuel_top'
   create_temperature_var = false
   pre_blocks = 'fuel'
-  #eigen = false
+  dg_for_temperature = false
+[]
+
+
+[Kernels]
+  [./temp_diff]
+    type = MatDiffusion
+    D_name = 'k'
+    variable = temp
+  [../]
+[]
+
+[BCs]
+  [./temp]
+    type = DirichletBC
+    boundary = 'fuel_bot fuel_top'
+    variable = temp
+    value = 750
+  [../]
 []
 
 [Materials]
@@ -37,7 +63,7 @@
 []
 
 [Executioner]
-  #automatic_scaling = true
+  automatic_scaling = true
 
   type = Transient
   end_time = 10

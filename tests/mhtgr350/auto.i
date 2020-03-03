@@ -8,9 +8,9 @@
   use_exp_form = false
   group_fluxes = 'group1 group2'
   sss2_input = true
-  pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
+  #pre_concs = 'pre1 pre2 pre3 pre4 pre5 pre6 pre7 pre8'
   account_delayed = false
-  temperature = 750
+  temperature = temp
 []
 
 [Variables]
@@ -20,6 +20,11 @@
     initial_condition = 1
   [../]
   [./group2]
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = 1
+  [../]
+  [./temp]
     order = FIRST
     family = LAGRANGE
     initial_condition = 1
@@ -49,13 +54,12 @@
     variable = group1
     group_number = 1
   [../]
-  [./inscatter_group1]
-    type = InScatter
-    variable = group1
-    group_number = 1
-  [../]
+  #[./inscatter_group1]
+  #  type = InScatter
+  #  variable = group1
+  #  group_number = 1
+  #[../]
   [./fission_source_group1]
-    #type = CoupledFissionEigenKernel
     type = CoupledFissionKernel
     variable = group1
     group_number = 1
@@ -87,16 +91,23 @@
     group_number = 2
   [../]
   [./fission_source_group2]
-    #type = CoupledFissionEigenKernel
     type = CoupledFissionKernel
     variable = group2
     group_number = 2
     block = 'fuel'
   [../]
-  [./inscatter_group2]
-    type = InScatter
-    variable = group2
-    group_number = 2
+  #[./inscatter_group2]
+  #  type = InScatter
+  #  variable = group2
+  #  group_number = 2
+  #[../]
+  #---------------------------------------------------------------------
+  # Temperature
+  #---------------------------------------------------------------------
+  [./temp_diff]
+    type = MatDiffusion
+    D_name = 'k'
+    variable = temp
   [../]
 []
 
@@ -110,6 +121,12 @@
     type = VacuumConcBC
     boundary = 'fuel_bot fuel_top'
     variable = group2
+  [../]
+  [./temp]
+    type = DirichletBC
+    boundary = 'fuel_bot fuel_top'
+    variable = temp
+    value = 750
   [../]
 []
 
