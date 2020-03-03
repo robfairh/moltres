@@ -16,17 +16,17 @@ diri_temp=750
     order = FIRST
     family = LAGRANGE
     initial_condition = 1
-    scaling = 1e4
+    #scaling = 1e4
   [../]
   [./group2]
     order = FIRST
     family = LAGRANGE
     initial_condition = 1
-    scaling = 1e4
+    #scaling = 1e4
   [../]
   [./temp]
     initial_condition = ${diri_temp}
-    scaling = 1e-4
+    #scaling = 1e-4
   [../]
 []
 
@@ -172,8 +172,10 @@ diri_temp=750
 []
 
 [Executioner]
+  #automatic_scaling = true
+
   type = Transient
-  end_time = 100
+  end_time = 10
 
   nl_rel_tol = 1e-6
   nl_abs_tol = 1e-6
@@ -183,20 +185,16 @@ diri_temp=750
   petsc_options_iname = '-pc_type -pc_factor_shift_type'
   petsc_options_value = 'lu       NONZERO'
   line_search = 'none'
-   # petsc_options_iname = '-snes_type'
-  # petsc_options_value = 'test'
 
   nl_max_its = 30
   l_max_its = 100
 
   dtmin = 1e-5
-  # dtmax = 1
-  # dt = 1e-3
   [./TimeStepper]
     type = IterationAdaptiveDT
     dt = 1e-3
-    cutback_factor = 0.4
-    growth_factor = 1.2
+    cutback_factor = 0.5
+    growth_factor = 1.5
     optimal_iterations = 20
   [../]
 []
