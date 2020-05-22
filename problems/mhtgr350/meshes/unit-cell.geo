@@ -8,8 +8,8 @@ H = 793;
 p = 1.88; // 1.88 cm
 px = p * Cos(Pi/6);
 py = p * Sin(Pi/6);
-rc = 0.794; // Coolant channel radius
-rf = 0.635; // Fuel channel radius
+rc = 0.794; // Large coolant hole radius
+rf = 0.635; // Fuel hole radius
 
 // element size (finite element, not fuel element)
 h = 10;
@@ -50,5 +50,5 @@ Physical Surface("cool_bot") = {1};
 Physical Surface("cool_top") = {7};
 Physical Surface("fuel_bot") = {2};
 Physical Surface("fuel_top") = {15};
-Physical Surface("moderator_bot") = {3};
-Physical Surface("moderator_top") = {12};
+Physical Surface("moder_bot") = {3};
+Physical Surface("moder_top") = {12};

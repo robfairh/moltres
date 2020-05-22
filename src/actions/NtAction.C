@@ -192,7 +192,7 @@ NtAction::act()
         params.set<std::vector<VariableName>>("group_fluxes") = all_var_names;
 
         std::string kernel_name = "InScatter_" + var_name;
-        //_problem->addKernel("InScatter", kernel_name, params);
+        _problem->addKernel("InScatter", kernel_name, params);
 
       }
 
@@ -237,7 +237,7 @@ NtAction::act()
         std::string kernel_name = "CoupledFissionEigenKernel_" + var_name;
         _problem->addKernel("CoupledFissionEigenKernel", kernel_name, params);
       }
-      /*
+
       // Set up DelayedNeutronSource
 
       if (getParam<bool>("account_delayed"))
@@ -278,7 +278,7 @@ NtAction::act()
           std::string kernel_name = "DelayedNeutronEigenSource_" + var_name;
           _problem->addKernel("DelayedNeutronEigenSource", kernel_name, params);
         }
-      }*/
+      }
     }
 
     if (_current_task == "add_bc")
