@@ -20,6 +20,15 @@
   file = '../meshes/1D-fuel-reflec.msh'
 [../]
 
+[MeshModifiers]
+  [./add_side_sets]
+    type = SideSetsFromPoints
+    points = '0    0  0
+              0  1073  0'
+    new_boundary = 'ref_bot ref_top'
+  [../]
+[]
+
 [Kernels]
   [./diff_group1]
     type = GroupDiffusion
@@ -68,17 +77,17 @@
 
 [BCs]
   [./vacuum_group1]
-    # type = VacuumConcBC
-    type = DirichletBC
-    value = 0
-    boundary = 'ref_bots ref_tops'
+    type = VacuumConcBC
+    # type = DirichletBC
+    # value = 0
+    boundary = 'ref_bot ref_top'
     variable = group1
   [../]
   [./vacuum_group2]
-    # type = VacuumConcBC
-    type = DirichletBC
-    value = 0
-    boundary = 'ref_bots ref_tops'
+    type = VacuumConcBC
+    # type = DirichletBC
+    # value = 0
+    boundary = 'ref_bot ref_top'
     variable = group2
   [../]
 []
@@ -86,7 +95,7 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/1/xs800000-500-100/htgr_2g_fuel_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -94,7 +103,7 @@
   [../]
   [./refl1]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/1/xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -102,7 +111,7 @@
   [../]
   [./refl2]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/1/xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -112,13 +121,13 @@
 
 [Executioner]
   type = InversePowerMethod
-  max_power_iterations = 50
+  max_power_iterations = 100
   xdiff = 'group1diff'
 
   bx_norm = 'bnorm'
-  k0 = 1.05
-  pfactor = 1e-3
-  l_max_its = 200
+  k0 = 1.4
+  pfactor = 1e-4
+  l_max_its = 300
 
   # solve_type = 'PJFNK'
   solve_type = 'NEWTON'

@@ -3,41 +3,28 @@
 * 1D-fuel.i
 	- 1D-fuel.msh
 	- Transient problem.
-	- VacuumBC doesn't work on 1D meshes.
-	- VaccumBC is based on IntegratedBC, that works on side sets.
-	- My 1D mesh uses nodal sets.
-	- DirichletBC works on nodal sets, it works on my mesh.
-	- value = 0.
 
 * 1D-fuel-action.i
 	- generated mesh in libmesh
 	- kernels defined using actions
-	- VacuumBC
 
 * 1D-fuel-eig.i
 	- 1D-fuel.msh
 	- Eigenvalue problem: InversePowerMethod
-	- DirichletBC value = 0.
+
 
 * 1D-fuel-reflec.i
 	- 1D-fuel-reflec.msh
 	- Transient problem.
-	- DirichletBC value = 0.
 
 * 1D-fuel-refleci-eig1.i
 	- 1D-fuel-reflec.msh
 	- Eigenvalue problem: InversePowerMethod
-	- DirichletBC value = 0.
 
 * 1D-fuel-reflec-eig2.i
 	- 1D-fuel-reflec.msh
 	- Eigenvalue problem: NonlinearEigen
-	- DirichletBC value = 0.
 
-* 1D-neumann.i
-	- 1D-fuel.msh
-	- Temperature diffusion
-	- Tries to use neumann bc
 
 
 pseudo-1D-neutronics/
@@ -417,5 +404,16 @@ How to define periodic BCs:
        secondary = 'top'
        translation = '0 40 0'
      [../]
+  [../]
+[]
+
+How to make side sets from nodal sets (points in gmsh):
+-------------------------------------------------------
+[MeshModifiers]
+  [./add_side_sets]
+    type = SideSetsFromPoints
+    points = '0    0  0
+              0  793  0'
+    new_boundary = 'fuel_bot fuel_top'
   [../]
 []

@@ -1,4 +1,6 @@
 
+nt_scale = 1e10
+
 [GlobalParams]
   num_groups = 2
   num_precursor_groups = 8
@@ -19,6 +21,15 @@
 [Mesh]
   file = '../meshes/1D-fuel-reflec.msh'
 [../]
+
+[MeshModifiers]
+  [./add_side_sets]
+    type = SideSetsFromPoints
+    points = '0    0  0
+              0  1073  0'
+    new_boundary = 'ref_bot ref_top'
+  [../]
+[]
 
 [Kernels]
   [./diff_group1]
@@ -68,17 +79,17 @@
 
 [BCs]
   [./vacuum_group1]
-    # type = VacuumConcBC
-    type = DirichletBC
-    value = 0
-    boundary = 'ref_bots ref_tops'
+    type = VacuumConcBC
+    # type = DirichletBC
+    # value = 0
+    boundary = 'ref_bot ref_top'
     variable = group1
   [../]
   [./vacuum_group2]
-    # type = VacuumConcBC
-    type = DirichletBC
-    value = 0
-    boundary = 'ref_bots ref_tops'
+    type = VacuumConcBC
+    # type = DirichletBC
+    # value = 0
+    boundary = 'ref_bot ref_top'
     variable = group2
   [../]
 []
@@ -86,7 +97,7 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/1/xs800000-500-100/htgr_2g_fuel_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -94,7 +105,7 @@
   [../]
   [./refl1]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/1/xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -102,7 +113,7 @@
   [../]
   [./refl2]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/1/xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -113,9 +124,9 @@
 [Executioner]
   type = NonlinearEigen
   bx_norm = 'bnorm'
-  free_power_iterations = 2
-  pfactor = 1e-3
-  k0 = 1.05
+  free_power_iterations = 4
+  pfactor = 1e-4
+  k0 = 1.4
 
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
@@ -142,6 +153,7 @@
   print_linear_residuals = true
   [./exodus]
     type = Exodus
+    file_base = '1D-fuel-reflec-eig2'
   [../]
 []
 
