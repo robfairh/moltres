@@ -17,7 +17,7 @@
 []
 
 [Mesh]
-  file = '../meshes/1D-fuel.msh'
+  file = '1D-fuel.msh'
 [../]
 
 [MeshModifiers]

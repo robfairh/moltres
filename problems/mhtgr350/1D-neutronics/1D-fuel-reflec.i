@@ -23,7 +23,7 @@
 []
 
 [Mesh]
-  file = '../meshes/1D-fuel-reflec.msh'
+  file = '1D-fuel-reflec.msh'
 [../]
 
 [MeshModifiers]

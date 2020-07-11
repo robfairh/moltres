@@ -1,5 +1,13 @@
 1D-neutronics/
 --------------
+* 1D-fuel.geo: 
+	- Fuel. 
+
+* 1D-fuel-reflec.geo: 
+	- Fuel, bottom, and top reflectors. 
+	- Bottom and top reflector are different materials.
+
+
 * 1D-fuel.i
 	- 1D-fuel.msh
 	- Transient problem.
@@ -26,63 +34,18 @@
 	- Eigenvalue problem: NonlinearEigen
 
 
-
-pseudo-1D-neutronics/
----------------------
-* 2D-fuel-action.i
-	- 2D-fuel.msh
-	- Transient problem.
-	- Uses NT action instead of kernels.
-
-* 2D-fuel-reflec-action.i
-	- 2D-fuel-reflec.msh
-	- Transient problem.
-	- Uses NT action instead of kernels.
-
-* 2D-fuel-reflec-action-eig.i
-	- 2D-fuel-reflec.msh
-	- Eigenvalue problem.
-	- Uses NT action instead of kernels.
-
-
 2D-neutronics/
 --------------
-* 2D-fullcore-reflec-action.i:
-	- 2D-fullcore-reflec.msh
-	- Transient problem.
-	- Uses NT action instead of kernels.
-
-* 2D-fullcore-reflec-actionB.i:
-	- 2D-fullcore-reflecB.msh
-	- Transient problem.
-	- Uses NT action instead of kernels.
+* 2D-fullcore-reflec.geo:
+	- Full core 2D axisymmetric.
+	- Moderator and reflectors are defined as 5 different materials.
+	- Reflector does not include coolant holes.
 
 * 2D-fullcore-reflec-homo-action.i:
 	- 2D-fullcore-reflec.msh
 	- Transient problem.
 	- Uses NT action instead of kernels.
 	- Uses homogenized cross sections.
-
-* 2D-unitcell-reflec-action.i
-	- 2D-unitcell-reflec.geo
-	- Transient problem.
-	- Uses NT action instead of kernels.
-
-* 2D-unitcell-reflec-actionB.i
-	- 2D-unitcell-reflecB.geo
-	- Transient problem.
-	- Uses NT action instead of kernels.
-
-* 2D-unitcell-reflec-homo-action.i
-	- 2D-unitcell-reflec.geo
-	- Transient problem.
-	- Defines NT action instead of kernels.
-	- Uses homogenized cross sections
-
-* 2D-unitcell-reflec-homo-action-delayed.i
-	- 2D-unitcell-reflec.geo
-	- Transient problem.
-	- Uses NT and Precursors actions instead of kernels.
 
 
 3D-neutronics/
@@ -102,7 +65,6 @@ pseudo-1D-neutronics/
 	- 3D-fullcore-120-homoC.msh
 	- Transient problem
 	- Fuel, moderator, and coolant are homogenized.
-
 
 * 3D-fullcore-120-homo-bc.i
 	- 3D-fullcore-120-homoC.msh
@@ -184,7 +146,6 @@ thermo-hydraulics/
 	- 2D-unitcell-reflec
 
 
-
 benchmark/
 ----------
 * 3D-fullcore-120B.msh:
@@ -241,13 +202,80 @@ benchmark/
 	- can be deleted eventually
 	- Materials: M1, M221, M225, M227, M228
 
+
 Scripts:
 --------
 * define-materials.py
 
-scripts/
---------
-* 
+
+archived/pseudo-1D-neutronics/
+------------------------------
+* 2D-fuel.geo:
+	- Fuel channel, H = 793.
+
+* 2D-fuel-reflec.geo:
+	- Fuel, bottom, and top reflectors.
+	- Both reflectors are the same material.
+
+* 2D-fuel-action.i
+	- 2D-fuel.msh
+	- Transient problem.
+	- Uses NT action instead of kernels.
+
+* 2D-fuel-reflec-action.i
+	- 2D-fuel-reflec.msh
+	- Transient problem.
+	- Uses NT action instead of kernels.
+
+* 2D-fuel-reflec-action-delayed.i
+	- 2D-fuel-reflec.msh
+	- Transient problem.
+	- Uses NT and Precursors actions instead of kernels.
+	- Uses homogenized cross sections
+
+* 2D-fuel-reflec-action-eig.i
+	- 2D-fuel-reflec.msh
+	- Eigenvalue problem.
+	- Uses NT action instead of kernels.
+
+
+archived/2D-neutronics/
+-----------------------
+* 2D-fullcore.geo:
+	- Full core 2D-axisymmetric.
+	- Inner and outer reflectors.
+	- Both reflectors are part of the moderator.
+	- No bottom or top reflector.
+
+* 2D-fullcore-reflec.geo:
+	- Full core 2D axisymmetric.
+	- Moderator and reflectors are defined as 5 different materials.
+	- Reflector does not include coolant holes.
+
+* 2D-fullcore-reflecB.geo:
+	- Full core 2D axisymmetric.
+	- Moderator and reflectors are defined as 5 different materials.
+	- Coolant channel goes across the reflector.
+
+* 2D-fullcore-reflec-action.i:
+	- 2D-fullcore-reflec.msh
+	- Transient problem.
+	- Uses NT action instead of kernels.
+
+* 2D-fullcore-reflec-actionB.i:
+	- 2D-fullcore-reflecB.msh
+	- Transient problem.
+	- Uses NT action instead of kernels.
+
+* 2D-unitcell-reflec-action.i
+	- 2D-unitcell-reflec.geo
+	- Transient problem.
+	- Uses NT action instead of kernels.
+
+* 2D-unitcell-reflec-actionB.i
+	- 2D-unitcell-reflecB.geo
+	- Transient problem.
+	- Uses NT action instead of kernels.
 
 
 save/
@@ -287,6 +315,7 @@ save/
 	- Same material properties as TH-temp.i
 	- Intends to use DG kernels
 	- It doesn't work
+
 
 files that help with the debugging (this files will be eventually deleted):
 ---------------------------------------------------------------------------

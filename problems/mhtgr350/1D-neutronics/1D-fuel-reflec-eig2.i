@@ -19,7 +19,7 @@ nt_scale = 1e10
 []
 
 [Mesh]
-  file = '../meshes/1D-fuel-reflec.msh'
+  file = '1D-fuel-reflec.msh'
 [../]
 
 [MeshModifiers]
