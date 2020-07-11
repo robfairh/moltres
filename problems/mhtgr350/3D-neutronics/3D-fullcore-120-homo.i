@@ -10,7 +10,7 @@
 []
 
 [Mesh]
-  file = '../meshes/3D-fullcore-120-homo.msh'
+  file = '3D-fullcore-120-homo.msh'
 [../]
 
 [Nt]

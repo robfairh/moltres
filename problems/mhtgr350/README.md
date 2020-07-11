@@ -50,9 +50,13 @@
 
 3D-neutronics/
 --------------
-* 3D-assembly-action.i:
-	- Transient problem.
-	- Defines Nt action instead of kernels.
+* 3D-assembly-30deg-reflec.geo:
+	- geometry of 1/6 of the fuel assembly.
+	- coolant channels don't go through the reflector
+
+* 3D-fullcore-120-homo.geo:
+	- 1/3 of the full core geometry.
+	- Fuel, coolant, and moderator are an homogeneous mixture.
 
 * 3D-assembly-homo-action.i:
 	- Transient problem.
@@ -71,17 +75,6 @@
 	- Transient problem
 	- Fuel, moderator, and coolant are homogenized.
 	- Tries adding periodic BCs
-
-
-* 3D-unitcell.i
-	- 3D-unitcell.msh
-	- Transient problem.
-	- Defines Nt action instead of kernels.
-
-* 3D-unitcell-reflec.i:
-	- 3D-unitcell-reflec.msh
-	- Transient problem.
-	- Defines Nt action instead of kernels.
 
 
 thermo-hydraulics/
@@ -276,6 +269,28 @@ archived/2D-neutronics/
 	- 2D-unitcell-reflecB.geo
 	- Transient problem.
 	- Uses NT action instead of kernels.
+
+
+archived/3D-neutronics/
+-----------------------
+* 3D-assembly-action.i:
+	- Transient problem.
+	- Defines Nt action instead of kernels.
+
+* 3D-unitcell.i
+	- 3D-unitcell.msh
+	- Transient problem.
+	- Defines Nt action instead of kernels.
+
+* 3D-unitcell-reflec.i:
+	- 3D-unitcell-reflec.msh
+	- Transient problem.
+	- Defines Nt action instead of kernels.
+
+* 3D-unitcell-reflec-homo.i:
+	- 3D-unitcell-reflec.msh
+	- Transient problem.
+	- Defines Nt action instead of kernels.
 
 
 save/
