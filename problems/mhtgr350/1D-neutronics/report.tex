@@ -90,11 +90,30 @@ Figure \ref{fig:1D-fuel-action} shows the results.
 		\item Eigenvalue problem: InversePowerMethod
 	\end{itemize}
 
-Figure \ref{fig:1D-fuel-eig} shows the results. $k_{eff}$ = 1.415418.
+Figure \ref{fig:1D-fuel-eig} shows the results. 
+FDM $k_{eff}$ = 1.415296. Both fluxes are normalized to the maximum value of the group 1 flux.
+Moltres: $k_{eff}$ = 1.415418.
 
 	\begin{figure}[htbp!]
 		\centering
 		\includegraphics[height=5cm]{1D-fuel-eig}
+		\caption{Steady state Group 1 and 2 fluxes.}
+		\label{fig:1D-fuel-eig}
+	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{1D-fuel-eig-FDM}
+			\caption{FDM.}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{1D-fuel-eig}
+			\caption{Moltres.}
+		\end{subfigure}
+		\hfill
 		\caption{Steady state Group 1 and 2 fluxes.}
 		\label{fig:1D-fuel-eig}
 	\end{figure}
@@ -133,23 +152,20 @@ Figure \ref{fig:1D-fuel-reflec} shows the results.
 		\item Eigenvalue problem: InversePowerMethod and NonlinearEigen.
 	\end{itemize}
 
-Table \ref{tab:eigen} and Figure \ref{fig:1D-fuel-reflec-eig} show the results. 
+Figures \ref{fig:1D-fuel-reflec-eig1} and \ref{fig:1D-fuel-reflec-eig2} show the results.
+FDM $k_{eff}$ = 1.420210. Both fluxes are normalized to the maximum value of the group 1 flux.
+Moltres: 
+\begin{itemize}
+	\item Inverse power method $k_{eff}$ = 1.424621.
+	\item Non linear eigenvalue method $k_{eff}$ = 1.424644.
+\end{itemize}
 
-    \begin{table}[htbp!]
-        \centering
-        \caption{$k_{eff}$.}
-        \label{tab:eigen}
-        \begin{tabular}{lll}
-        \hline
-        Method 	& Power Iterations 	& $k_{eff}$ \\ \hline
-        \multirow{ 3}{*}{Inverse Power} & 10 & 1.424621 \\
-        		& - & - \\ \hline
-
-        \multirow{ 3}{*}{Non Linear} 	& 2 & 1.424658  \\
-        		& 4				& 1.424644			\\ \hline
-
-        \end{tabular}
-    \end{table}
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{1D-fuel-reflec-eig-FDM}
+		\caption{Steady state Group 1 and 2 fluxes using 1D FDM.}
+		\label{fig:1D-fuel-reflec-eig1}
+	\end{figure}
 
 	\begin{figure}[htbp!]
 		\centering
@@ -165,7 +181,7 @@ Table \ref{tab:eigen} and Figure \ref{fig:1D-fuel-reflec-eig} show the results.
 		\end{subfigure}
 		\hfill
 		\caption{Steady state Group 1 and 2 fluxes for different eigenvalue iteration methods.}
-		\label{fig:1D-fuel-reflec-eig}
+		\label{fig:1D-fuel-reflec-eig2}
 	\end{figure}
 
 \pagebreak

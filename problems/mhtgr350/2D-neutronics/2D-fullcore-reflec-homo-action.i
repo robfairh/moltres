@@ -14,7 +14,7 @@
 []
 
 [Mesh]
-  file = 'meshes/2D-fullcore-reflec.msh'
+  file = '2D-fullcore-reflec.msh'
 [../]
 
 [Nt]
@@ -28,43 +28,43 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_homoge_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
     block = 'fuel'
   [../]
   [./moderator]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_homoge_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
     block = 'moderator'
   [../]
   [./coolant]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_homoge_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
     block = 'coolant'
   [../]
   [./breflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_brefl_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
     block = 'breflector'
   [../]
   [./treflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_trefl_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
     block = 'treflector'
   [../]
   [./ireflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_irefl_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_irefl_'
     interp_type = 'linear'
     block = 'ireflector'
   [../]
   [./oreflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_orefl_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_orefl_'
     interp_type = 'linear'
     block = 'oreflector'
   [../]
