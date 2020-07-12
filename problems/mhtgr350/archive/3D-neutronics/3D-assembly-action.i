@@ -24,31 +24,31 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_fuel_'
+    property_tables_root = '../../xs/8/xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
     block = 'fuel'
   [../]
   [./moderator]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = '../../xs/8/xs800000-500-100/htgr_2g_moderator_'
     interp_type = 'linear'
     block = 'moderator'
   [../]
   [./coolant]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_coolant_'
+    property_tables_root = '../../xs/8/xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
     block = 'coolant'
   [../]
   [./breflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_brefl_'
+    property_tables_root = '../../xs/8/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
     block = 'breflector'
   [../]
   [./treflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_trefl_'
+    property_tables_root = '../../xs/8/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
     block = 'treflector'
   [../]

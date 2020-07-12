@@ -34,7 +34,7 @@
 	- Transient problem.
 	- Uses NT action instead of kernels.
 
-* 2D-fullcore-reflec-actionB.i:
+* 2D-fullcore-reflecB-action.i:
 	- 2D-fullcore-reflecB.msh
 	- Transient problem.
 	- Uses NT action instead of kernels.
@@ -44,7 +44,7 @@
 	- Transient problem.
 	- Uses NT action instead of kernels.
 
-* 2D-unitcell-reflec-actionB.i
+* 2D-unitcell-reflecB-action.i
 	- 2D-unitcell-reflecB.geo
 	- Transient problem.
 	- Uses NT action instead of kernels.

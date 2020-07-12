@@ -65,12 +65,12 @@ Figure \ref{fig:3D-unitcell1} shows the results.
 		\centering
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-mesh1}
+			\includegraphics[width=\linewidth]{3D-unitcell-mesh1B}
 			\caption{XY-plane.}
 		\end{subfigure}
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-mesh2}
+			\includegraphics[width=\linewidth]{3D-unitcell-mesh2B}
 			\caption{XZ-plane.}
 		\end{subfigure}
 		\hfill
@@ -110,12 +110,12 @@ Figure \ref{fig:3D-unitcell-reflec1} shows the results.
 		\centering
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-mesh1}
+			\includegraphics[width=\linewidth]{3D-unitcell-mesh1B}
 			\caption{XY-plane at z=400.}
 		\end{subfigure}
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-reflec-mesh}
+			\includegraphics[width=\linewidth]{3D-unitcell-reflec-meshB}
 			\caption{XZ-plane.}
 		\end{subfigure}
 		\hfill
@@ -153,7 +153,7 @@ Figure \ref{fig:3D-unitcell-reflec-homo1} shows the results.
 
 	\begin{figure}[htbp!]
 		\centering
-		\includegraphics[height=5cm]{3D-unitcell-reflec-homo-mesh}
+		\includegraphics[height=5cm]{3D-unitcell-reflec-homo-meshB}
 		\caption{\textit{3D-unitcell-reflec} scaled down geometry.}
 		\label{fig:3D-unitcell-reflec-homo}
 	\end{figure}
@@ -180,12 +180,12 @@ Figure \ref{fig:3D-assembly1} shows the results.
 		\centering
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{3D-assembly-mesh1}
+			\includegraphics[width=\linewidth]{3D-assembly-30deg-reflec-meshB1}
 			\caption{XY-plane.}
 		\end{subfigure}
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{3D-assembly-mesh2}
+			\includegraphics[width=\linewidth]{3D-assembly-30deg-reflec-meshB2}
 			\caption{XZ-plane.}
 		\end{subfigure}
 		\hfill
@@ -208,78 +208,6 @@ Figure \ref{fig:3D-assembly1} shows the results.
 		\hfill
 		\caption{Group 1 and 2 axial fluxes in different locations of the fuel assembly at 1 msec.}
 		\label{fig:3D-assembly1}
-	\end{figure}
-
-\subsection{3D-assembly-homo-action}
-
-	\begin{itemize}
-		\item Input file: \textit{3D-assembly-homo-action.i}
-		\item Mesh: \textit{3D-assembly-30deg-reflec.msh}
-		\item Transient problem.
-		\item Fuel, Moderator, and coolant are homogenized.
-	\end{itemize}
-
-Figure \ref{fig:3D-assembly-homo} displays the geometry.
-Figure \ref{fig:3D-assembly-homo1} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\includegraphics[height=5cm]{3D-assembly-homo-mesh}
-		\caption{\textit{3D-assembly-30deg-reflec} scaled down geometry.}
-		\label{fig:3D-assembly-homo}
-	\end{figure}
-
-	\begin{figure}[htbp!]
-		\centering
-		\includegraphics[height=8cm]{3D-assembly-homo}
-		\caption{Group 1 and 2 axial flux at 1 msec.}
-		\label{fig:3D-assembly-homo1}
-	\end{figure}
-
-
-\subsection{3D-fullcore-120-homo}
-
-	\begin{itemize}
-		\item Input file: \textit{3D-fullcore-120-homo.i}
-		\item Mesh: \textit{3D-fullcore-120-homo.msh}
-		\item Transient problem.
-	\end{itemize}
-
-Figure \ref{fig:3D-fullcore-homo} displays the geometry.
-Figure \ref{fig:3D-fullcore-homo1} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-		\includegraphics[height=5cm]{3D-fullcore-120-homo-mesh}
-			\caption{XZ-plane.}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-		\includegraphics[height=5cm]{3D-fullcore-120-homo-mesh2}
-			\caption{XY-plane.}
-		\end{subfigure}
-		\hfill
-		\caption{\textit{3D-fullcore-120-homo} geometry.}
-		\label{fig:3D-fullcore-homo}
-	\end{figure}
-
-	\begin{figure}[htbp!]
-		\centering
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-fullcore-120-homoC1}
-			\caption{Radial flux between points (0,0,400) and (300,0,400).}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-fullcore-120-homoC2}
-			\caption{Axial flux between points (120,-60,0) and (120,-60,1073).}
-		\end{subfigure}
-		\hfill
-		\caption{Group 1 and 2 axial fluxes in different locations at 1 msec.}
-		\label{fig:3D-fullcore-homo1}
 	\end{figure}
 
 

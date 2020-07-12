@@ -24,19 +24,19 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/6/xs800000-500-100/htgr_2g_fuel_'
+    property_tables_root = '../../xs/8/xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
     block = 'fuel'
   [../]
   [./coolant]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/6/xs800000-500-100/htgr_2g_coolant_'
+    property_tables_root = '../../xs/8/xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
     block = 'coolant'
   [../]
   [./moderator]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/6/xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = '../../xs/8/xs800000-500-100/htgr_2g_moderator_'
     interp_type = 'linear'
     block = 'moderator'
   [../]

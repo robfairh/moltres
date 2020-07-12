@@ -28,7 +28,7 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/1/xs800000-500-100/htgr_2g_fuel_'
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
