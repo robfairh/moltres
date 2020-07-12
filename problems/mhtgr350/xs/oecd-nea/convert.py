@@ -7,12 +7,14 @@ import numpy as np
 
 def getxs(inFile, index):
     """
-    Reads 'OECD-MHTGR350_Simplified.xs' and converts to moltres format.
+    Reads 'OECD-MHTGR350_Simplified.xs'
 
     Parameters:
     -----------
     inFile: file
         path and name of the file
+    index: int
+        material number [1-232]
     """
     with open(inFile, 'r') as i:
         data = i.readlines()
@@ -52,6 +54,7 @@ def getxs(inFile, index):
 
 def tomoltresformat(XS, index):
     '''
+    Creates moltres format cross sections.
     '''
     base = 'oecdxs/htgr_2g_M' + str(index) + '_'
 
@@ -137,11 +140,6 @@ def tomoltresformat(XS, index):
 
 
 def main():
-
-    # index = 1
-    # XS = getxs('reduced.xs', index)
-    # XS = getxs('OECD-MHTGR350_Simplified.xs', index)
-    # tomoltresformat(XS, index)
 
     for index in range(1, 233):
         XS = getxs('OECD-MHTGR350_Simplified.xs', index)
