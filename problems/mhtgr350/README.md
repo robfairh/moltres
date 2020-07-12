@@ -78,6 +78,72 @@
 	- Tries adding periodic BCs
 
 
+benchmark/
+----------
+* 3D-fullcore-120B.msh:
+	- reduced geometry to try continuity between materials
+	- this can be deleted eventually
+
+* 120.geo:
+	- 1/3rd of the reactor
+
+	* 120A.msh: Lb = 20, Lf = 5, Lt = 20, h = 40
+
+	* 120B.msh: Lb = 30, Lf = 10, Lt = 30, h = 20
+
+* small120.geo
+	- reduced geometry for debugging purposes
+	- this can be deleted eventually
+
+* define-materials.py:
+	- Writes the materials block for the moltres input file of the benchmark
+
+
+* try1.i: 
+	- tries continuity between materials
+	- 3D-fullcore-120B.msh
+	- can be deleted eventually
+
+* try2.i: 
+	- tries continuity between materials
+	- 120A.msh
+	- can be deleted eventually
+
+* try3.i: 
+	- 120A.msh
+	- define cross sections for all the materials
+	- transient problem
+	- it crashes for some reason
+	- try-er is the error thrown on the arfc local
+
+* try3-ss.i: 
+	- 120A.msh
+	- eigenvalue problem
+	- define cross sections for all the materials
+
+* try3-ss-k.i: 
+	- 120A.msh
+	- eigenvalue problem
+	- define cross sections for all the materials
+	- defines kernels individually
+
+* try4.i: 
+	- tries continuity between materials
+	- 120A.msh
+	- tries periodic BCs in wall1 and wall2
+	- can be deleted eventually
+
+* try5.i: 
+	- small120.msh
+	- can be deleted eventually
+	- Materials: M1, M221, M225, M227, M228
+
+
+scripts/
+--------
+* 
+
+
 thermo-hydraulics/
 ------------------
 * advec1.i:
@@ -140,77 +206,6 @@ thermo-hydraulics/
 	- 2D-unitcell-reflec
 
 
-benchmark/
-----------
-* 3D-fullcore-120B.msh:
-	- reduced geometry to try continuity between materials
-
-* 120.geo:
-	- 1/3rd of the reactor
-
-* 120A.msh
-	- Lb = 20, Lf = 5, Lt = 20, h = 40
-
-* 120B.msh
-	- Lb = 30, Lf = 10, Lt = 30, h = 20
-
-* define-materials.py:
-	- Writes the materials block for the moltres input file of the benchmark
-
-* try1.i: 
-	- tries continuity between materials
-	- 3D-fullcore-120B.msh
-	- can be deleted eventually
-
-* try2.i: 
-	- tries continuity between materials
-	- 120A.msh
-	- can be deleted eventually
-
-* try3.i: 
-	- 120A.msh
-	- define cross sections for all the materials
-	- transient problem
-	- it crashes for some reason
-	- try-er is the error thrown on the arfc local
-
-* try3-ss.i: 
-	- 120A.msh
-	- eigenvalue problem
-	- define cross sections for all the materials
-
-* try3-ss-k.i: 
-	- 120A.msh
-	- eigenvalue problem
-	- define cross sections for all the materials
-	- defines kernels individually
-
-* try4.i: 
-	- tries continuity between materials
-	- 120A.msh
-	- tries periodic BCs in wall1 and wall2
-	- can be deleted eventually
-
-* try5.i: 
-	- small120.msh
-	- can be deleted eventually
-	- Materials: M1, M221, M225, M227, M228
-
-
-Scripts:
---------
-* define-materials.py
-
-
-files that help with the debugging (this files will be eventually deleted):
----------------------------------------------------------------------------
-- gdb-output.txt
-- input-readme
-- material-properties
-- nodelayed-fuel.png
-- plott.e
-- plot-wdelayed-fuel.png
-- wdelayed.png
 
 
 
