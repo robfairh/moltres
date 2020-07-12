@@ -9,20 +9,98 @@
   temperature = 750
 []
 
+[Variables]
+  [./group1]
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = 1e-4
+  [../]
+  [./group2]
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = 1e-4
+  [../]
+[]
+
 [Problem]
   coord_type = RZ
 []
 
 [Mesh]
-  file = '../meshes/save/2D-unitcell-reflB.msh'
+  file = '../meshes/save/2D-fullcore-reflecB.msh'
 [../]
 
-[Nt]
-  var_name_base = group
-  vacuum_boundaries = 'ref_bot ref_top cool_bot cool_top'
-  create_temperature_var = false
-  pre_blocks = 'fuel'
-  dg_for_temperature = false
+[Kernels]
+  [./time_group1]
+    type = NtTimeDerivative
+    variable = group1
+    group_number = 1
+  [../]
+  [./diff_group1]
+    type = GroupDiffusion
+    variable = group1
+    group_number = 1
+  [../]
+  [./sigma_r_group1]
+    type = SigmaR
+    variable = group1
+    group_number = 1
+  [../]
+  [./inscatter_group1]
+    type = InScatter
+    variable = group1
+    group_number = 1
+  [../]
+  [./fission_source_group1]
+    type = CoupledFissionKernel
+    variable = group1
+    group_number = 1
+    block = 'fuel'
+  [../]
+
+  [./time_group2]
+    type = NtTimeDerivative
+    variable = group2
+    group_number = 2
+  [../]
+  [./diff_group2]
+    type = GroupDiffusion
+    variable = group2
+    group_number = 2
+  [../]
+  [./sigma_r_group2]
+    type = SigmaR
+    variable = group2
+    group_number = 2
+  [../]
+  [./inscatter_group2]
+    type = InScatter
+    variable = group2
+    group_number = 2
+  [../]
+  [./fission_source_group2]
+    type = CoupledFissionKernel
+    variable = group2
+    group_number = 2
+    block = 'fuel'
+  [../]
+[]
+
+[BCs]
+  [./vacuum_group1]
+    type = VacuumConcBC
+    # type = DirichletBC
+    # value = 0
+    boundary = 'ref_bot ref_top cool_bot cool_top'
+    variable = group1
+  [../]
+  [./vacuum_group2]
+    type = VacuumConcBC
+    # type = DirichletBC
+    # value = 0
+    boundary = 'ref_bot ref_top cool_bot cool_top'
+    variable = group2
+  [../]
 []
 
 [Materials]
@@ -62,7 +140,7 @@
   # automatic_scaling = true
 
   type = Transient
-  end_time = 1e-2
+  end_time = 1e-3
 
   nl_rel_tol = 1e-6
   nl_abs_tol = 1e-6
@@ -84,7 +162,7 @@
     growth_factor = 1.2
     optimal_iterations = 20
   [../]
-  dtmax = 1e-4
+  dtmax = 5e-5
 []
 
 [Preconditioning]
