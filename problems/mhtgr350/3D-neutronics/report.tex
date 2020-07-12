@@ -50,121 +50,6 @@ fill=blue!30]
 
 \section{3D-neutronics}
 
-\subsection{3D-unitcell}
-
-	\begin{itemize}
-		\item Input file: \textit{3D-unitcell.i}
-		\item Mesh: \textit{3D-unitcell.msh}
-		\item Transient problem.
-	\end{itemize}
-
-Figure \ref{fig:3D-unitcell} displays the geometry.
-Figure \ref{fig:3D-unitcell1} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-mesh1}
-			\caption{XY-plane.}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-mesh2}
-			\caption{XZ-plane.}
-		\end{subfigure}
-		\hfill
-		\caption{\textit{3D-unitcell} scaled down geometry.}
-		\label{fig:3D-unitcell}
-	\end{figure}
-
-	\begin{figure}[htbp!]
-		\centering
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell1}
-			\caption{Fuel centerline between points (1.628,-0.939,0) and (1.628,-0.939,793).}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell2}
-			\caption{Coolant centerline between points (0,0,0) and (0,0,793).}
-		\end{subfigure}
-		\hfill
-		\caption{Group 1 and 2 axial fluxes in different locations of the unitcell at 10 msec.}
-		\label{fig:3D-unitcell1}
-	\end{figure}
-
-\subsection{3D-unitcell-reflec}
-
-	\begin{itemize}
-		\item Input file: \textit{3D-unitcell-reflec.i}
-		\item Mesh: \textit{3D-unitcell-reflec.msh}
-		\item Transient problem.
-	\end{itemize}
-
-Figure \ref{fig:3D-unitcell-reflec} displays the geometry.
-Figure \ref{fig:3D-unitcell-reflec1} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-mesh1}
-			\caption{XY-plane at z=400.}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-reflec-mesh}
-			\caption{XZ-plane.}
-		\end{subfigure}
-		\hfill
-		\caption{\textit{3D-unitcell-reflec} scaled down geometry.}
-		\label{fig:3D-unitcell-reflec}
-	\end{figure}
-
-	\begin{figure}[htbp!]
-		\centering
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-reflec1}
-			\caption{Fuel centerline between points (1.628,-0.939,0) and (1.628,-0.939,1073).}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{3D-unitcell-reflec2}
-			\caption{Coolant centerline between points (1.628,-0.939,0) and (1.628,-0.939,1073).}
-		\end{subfigure}
-		\hfill
-		\caption{Group 1 and 2 axial fluxes in different locations of the unitcell at 10 msec.}
-		\label{fig:3D-unitcell-reflec1}
-	\end{figure}
-
-\subsection{3D-unitcell-reflec-homo}
-
-	\begin{itemize}
-		\item Input file: \textit{3D-unitcell-reflec-homo.i}
-		\item Mesh: \textit{3D-unitcell-reflec.msh}
-		\item Transient problem.
-	\end{itemize}
-
-Figure \ref{fig:3D-unitcell-reflec-homo} displays the geometry.
-Figure \ref{fig:3D-unitcell-reflec-homo1} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\includegraphics[height=5cm]{3D-unitcell-reflec-homo-mesh}
-		\caption{\textit{3D-unitcell-reflec} scaled down geometry.}
-		\label{fig:3D-unitcell-reflec-homo}
-	\end{figure}
-
-	\begin{figure}[htbp!]
-		\centering
-		\includegraphics[height=8cm]{3D-unitcell-reflec-homo}
-		\caption{Group 1 and 2 fluxes at 10 msec.}
-		\label{fig:3D-unitcell-reflec-homo1}
-	\end{figure}
-
 \subsection{3D-assembly-homo-action}
 
 	\begin{itemize}
@@ -179,7 +64,7 @@ Figure \ref{fig:3D-assembly-homo1} shows the results.
 
 	\begin{figure}[htbp!]
 		\centering
-		\includegraphics[height=5cm]{3D-assembly-homo-mesh}
+		\includegraphics[height=5cm]{3D-assembly-30deg-reflec-meshB}
 		\caption{\textit{3D-assembly-30deg-reflec} scaled down geometry.}
 		\label{fig:3D-assembly-homo}
 	\end{figure}
@@ -190,7 +75,6 @@ Figure \ref{fig:3D-assembly-homo1} shows the results.
 		\caption{Group 1 and 2 axial flux at 1 msec.}
 		\label{fig:3D-assembly-homo1}
 	\end{figure}
-
 
 \subsection{3D-fullcore-120-homo}
 
@@ -207,12 +91,12 @@ Figure \ref{fig:3D-fullcore-homo1} shows the results.
 		\centering
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-		\includegraphics[height=5cm]{3D-fullcore-120-homo-mesh}
+		\includegraphics[height=5cm]{3D-fullcore-120-homo-meshB1}
 			\caption{XZ-plane.}
 		\end{subfigure}
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-		\includegraphics[height=5cm]{3D-fullcore-120-homo-mesh2}
+		\includegraphics[height=5cm]{3D-fullcore-120-homo-meshB2}
 			\caption{XY-plane.}
 		\end{subfigure}
 		\hfill
