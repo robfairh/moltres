@@ -1,0 +1,106 @@
+roberto@roberto-arfc:~/projects/moltres/problems/mhtgr350/bw$ ../../../moltres-opt -i try3.i
+
+
+
+*** Warning, This code is deprecated and will be removed in future versions:
+Please use the addVariable(var_type, var_name, params) API instead
+Stack frames: 13
+0: libMesh::print_trace(std::ostream&)
+1: _ZN5moose8internal21mooseDeprecatedStreamIK13ConsoleStreamIRA67_KcEEEvRT_bDpOT0_
+2: FEProblemBase::addVariable(std::string const&, libMesh::FEType const&, double, std::set<unsigned short, std::less<unsigned short>, std::allocator<unsigned short> > const*)
+3: VariableNotAMooseObjectAction::addVariable(std::string const&)
+4: NtAction::act()
+5: Action::timedAct()
+6: ActionWarehouse::executeActionsWithAction(std::string const&)
+7: ActionWarehouse::executeAllActions()
+8: MooseApp::runInputFile()
+9: MooseApp::run()
+10: ../../../moltres-opt() [0x40230c]
+11: __libc_start_main
+12: ../../../moltres-opt() [0x402599]
+
+Initializing equation system .........................................                     [ 42.33 s]
+
+Framework Information:
+MOOSE Version:           git commit f052e46 on 2019-11-13
+LibMesh Version:         143b57032761c71a1df09c59ffc692bb4f198a0c
+PETSc Version:           3.9.4
+Current Time:            Fri Jul  3 11:55:32 2020
+Executable Timestamp:    Tue Mar  3 15:33:18 2020
+
+Parallelism:
+  Num Processors:          1
+  Num Threads:             1
+
+Mesh: 
+  Parallel Type:           replicated
+  Mesh Dimension:          3
+  Spatial Dimension:       3
+  Nodes:                   
+    Total:                 27573
+    Local:                 27573
+  Elems:                   
+    Total:                 49050
+    Local:                 49050
+  Num Subdomains:          232
+  Num Partitions:          1
+
+Nonlinear System:
+  Num DOFs:                716898
+  Num Local DOFs:          716898
+  Variables:               { "group1" "group2" "group3" "group4" "group5" "group6" "group7" "group8" 
+                             "group9" "group10" "group11" "group12" "group13" "group14" "group15" "group16" 
+                             "group17" "group18" "group19" "group20" "group21" "group22" "group23" "group24" 
+                             "group25" "group26" } 
+  Finite Element Types:    "LAGRANGE" 
+  Approximation Orders:    "FIRST" 
+
+Relationship Managers:
+  Default:                 libMesh::DefaultCoupling x 2
+
+Execution Information:
+  Executioner:             Transient
+  TimeStepper:             IterationAdaptiveDT
+  Solver Mode:             NEWTON
+  MOOSE Preconditioner:    SMP
+
+Projecting initial condition ..                                                            [  3.43 s]
+Computing initial stateful property values                                                 [  1.18 s]
+
+
+*** Warning ***
+/home/roberto/projects/moltres/problems/mhtgr350/bw/try3.i:6: unused parameter 'GlobalParams/group_fluxes'
+
+
+Time Step 0, time = 0
+
+Time Step 1, time = 1e-06, dt = 1e-06
+Computing initial residual ...............................................................
+.......................                                                                    [ 87.62 s]
+ 0 Nonlinear |R| = 3.533740e+05
+[0]PETSC ERROR: --------------------- Error Message --------------------------------------------------------------
+[0]PETSC ERROR: Out of memory. This could be due to allocating
+[0]PETSC ERROR: too large an object or bleeding by not properly
+[0]PETSC ERROR: destroying unneeded objects.
+[0]PETSC ERROR: Memory allocated 0 Memory used by process 12121915392
+[0]PETSC ERROR: Try running with -malloc_dump or -malloc_log for info.
+[0]PETSC ERROR: Memory requested 8589934192
+[0]PETSC ERROR: See http://www.mcs.anl.gov/petsc/documentation/faq.html for trouble shooting.
+[0]PETSC ERROR: Petsc Release Version 3.9.4, Sep, 11, 2018 
+[0]PETSC ERROR: ../../../moltres-opt on a  named roberto-arfc by roberto Fri Jul  3 11:54:45 2020
+[0]PETSC ERROR: Configure options --prefix=/opt/moose/petsc/mpich_petsc-3.8.3/gcc-opt --download-hypre=1 --with-ssl=0 --with-debugging=no --with-pic=1 --with-shared-libraries=1 --with-cc=mpicc --with-cxx=mpicxx --with-fc=mpif90 --download-fblaslapack=1 --download-metis=1 --download-parmetis=1 --download-superlu_dist=1 --download-mumps=1 --download-scalapack=1 CC=mpicc CXX=mpicxx FC=mpif90 F77=mpif77 F90=mpif90 CFLAGS="-fPIC -fopenmp" CXXFLAGS="-fPIC -fopenmp" FFLAGS="-fPIC -fopenmp" FCFLAGS="-fPIC -fopenmp" F90FLAGS="-fPIC -fopenmp" F77FLAGS="-fPIC -fopenmp" PETSC_DIR=/home/roberto/projects/src/petsc-3.9.4
+[0]PETSC ERROR: #1 PetscFreeSpaceGet() line 11 in /home/roberto/projects/src/petsc-3.9.4/src/mat/utils/freespace.c
+[0]PETSC ERROR: #2 PetscMallocA() line 390 in /home/roberto/projects/src/petsc-3.9.4/src/sys/memory/mal.c
+[0]PETSC ERROR: #3 PetscFreeSpaceGet() line 11 in /home/roberto/projects/src/petsc-3.9.4/src/mat/utils/freespace.c
+[0]PETSC ERROR: #4 MatLUFactorSymbolic_SeqAIJ() line 349 in /home/roberto/projects/src/petsc-3.9.4/src/mat/impls/aij/seq/aijfact.c
+[0]PETSC ERROR: #5 MatLUFactorSymbolic() line 2981 in /home/roberto/projects/src/petsc-3.9.4/src/mat/interface/matrix.c
+[0]PETSC ERROR: #6 PCSetUp_LU() line 95 in /home/roberto/projects/src/petsc-3.9.4/src/ksp/pc/impls/factor/lu/lu.c
+[0]PETSC ERROR: #7 PCSetUp() line 923 in /home/roberto/projects/src/petsc-3.9.4/src/ksp/pc/interface/precon.c
+[0]PETSC ERROR: #8 KSPSetUp() line 381 in /home/roberto/projects/src/petsc-3.9.4/src/ksp/ksp/interface/itfunc.c
+[0]PETSC ERROR: #9 KSPSolve() line 612 in /home/roberto/projects/src/petsc-3.9.4/src/ksp/ksp/interface/itfunc.c
+[0]PETSC ERROR: #10 SNESSolve_NEWTONLS() line 224 in /home/roberto/projects/src/petsc-3.9.4/src/snes/impls/ls/ls.c
+[0]PETSC ERROR: #11 SNESSolve() line 4343 in /home/roberto/projects/src/petsc-3.9.4/src/snes/interface/snes.c
+application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0
+[unset]: write_line error; fd=-1 buf=:cmd=abort exitcode=1
+:
+system msg for write_line failure : Bad file descriptor
