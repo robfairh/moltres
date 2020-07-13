@@ -17,7 +17,7 @@
 []
 
 [Mesh]
-  file = '1D-fuel-reflec.msh'
+  file = '1D-fuel-reflecA.msh'
 [../]
 
 [MeshModifiers]
@@ -156,13 +156,25 @@
   [../]
 []
 
+[VectorPostprocessors]
+  [./tocsv]
+    type = LineValueSampler
+    variable = 'group1 group2'
+    start_point = '0 0 0'
+    end_point = '0 1073 0'
+    sort_by = y
+    num_points = 100
+    execute_on = timestep_end
+  [../]
+[]
+
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  [./exodus]
-    type = Exodus
-    file_base = '1D-fuel-reflec-eig1'
-  [../]
+  file_base = '1D-fuel-reflec-eig1'
+  execute_on = timestep_end
+  exodus = true
+  csv = true
 []
 
 [Debug]

@@ -22,7 +22,8 @@
 
 
 * 1D-fuel-reflec.i
-	- 1D-fuel-reflec.msh
+	- 1D-fuel-reflecA.msh: 265 elements
+	- 1D-fuel-reflecB.msh: 1070 elements
 	- Transient problem.
 
 * 1D-fuel-refleci-eig1.i
@@ -143,6 +144,10 @@ scripts/
 --------
 * auxiliary.py
 	- adds legengs to figures of the geometries
+
+* plotcsv.py
+	- paraview reades exodus, exports values to csv, plots those values
+	- moose output to csv, plots those values
 
 * plotexodus.py
 	- adds legengs to figures of the geometries
@@ -331,4 +336,27 @@ How to make side sets from nodal sets (points in gmsh):
               0  793  0'
     new_boundary = 'fuel_bot fuel_top'
   [../]
+[]
+
+How to export to the csv the values of a variable over a line:
+--------------------------------------------------------------
+[VectorPostprocessors]
+  [./tocsv]
+    type = LineValueSampler
+    variable = 'group1 group2'
+    start_point = '0 0 0'
+    end_point = '0 1073 0'
+    sort_by = y
+    num_points = 100
+    execute_on = timestep_end
+  [../]
+[]
+
+[Outputs]
+  perf_graph = true
+  print_linear_residuals = true
+  file_base = '1D-fuel-reflec-eig1'
+  execute_on = timestep_end
+  exodus = true
+  csv = true
 []
