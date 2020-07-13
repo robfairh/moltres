@@ -23,7 +23,7 @@
 
 * 1D-fuel-reflec.i
 	- 1D-fuel-reflecA.msh: 265 elements
-	- 1D-fuel-reflecB.msh: 1070 elements
+	- 1D-fuel-reflecB.msh: 1070 elements (this mesh can be deleted eventually)
 	- Transient problem.
 
 * 1D-fuel-refleci-eig1.i
@@ -146,7 +146,7 @@ scripts/
 	- adds legengs to figures of the geometries
 
 * plotcsv.py
-	- paraview reades exodus, exports values to csv, plots those values
+	- paraview reads exodus, exports values to csv, plots those values
 	- moose output to csv, plots those values
 
 * plotexodus.py
@@ -220,12 +220,7 @@ thermo-hydraulics/
 
 Things to look into: Neutronics
 -------------------------------
-- Compare reults if I use precursors and delayed neutrons and if I don't ...
-- Eigenvalue calculation fails when I have the reflector
-- Transient calculation gives garbage when I have the coolant:
-	* Homogenize the cross section in the fuel.
-	* Meshe shouldn't change
-	* Definition of materials in moltres input file will change, different materials will have same XS.
+- I am not sure the eigenvalue calculations are correct
 
 Things to look into: Thermo-hydraulics
 --------------------------------------
@@ -329,6 +324,7 @@ How to define periodic BCs:
 
 How to make side sets from nodal sets (points in gmsh):
 -------------------------------------------------------
+(This version is deprecated and will be removed)
 [MeshModifiers]
   [./add_side_sets]
     type = SideSetsFromPoints
@@ -337,6 +333,24 @@ How to make side sets from nodal sets (points in gmsh):
     new_boundary = 'fuel_bot fuel_top'
   [../]
 []
+
+How to make side sets from nodal sets (points in gmsh):
+-------------------------------------------------------
+(This is the best way to do it)
+[Mesh]
+  [mymesh]
+    type = FileMeshGenerator
+    file = '1D-fuel-reflecA.msh'
+  [../]
+
+  [./add_side_sets]
+    type = SideSetsFromPointsGenerator
+    input = mymesh
+    points = '0    0  0
+              0  1073  0'
+    new_boundary = 'ref_bot ref_top'
+  [../]
+[../]
 
 How to export to the csv the values of a variable over a line:
 --------------------------------------------------------------

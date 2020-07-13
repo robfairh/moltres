@@ -163,7 +163,7 @@
     start_point = '0 0 0'
     end_point = '0 1073 0'
     sort_by = y
-    num_points = 100
+    num_points = 250
     execute_on = timestep_end
   [../]
 []
