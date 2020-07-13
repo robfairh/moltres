@@ -17,17 +17,19 @@
 []
 
 [Mesh]
-  file = '1D-fuel-reflecA.msh'
-[../]
+  [mymesh]
+    type = FileMeshGenerator
+    file = '1D-fuel-reflec.msh'
+  [../]
 
-[MeshModifiers]
   [./add_side_sets]
-    type = SideSetsFromPoints
-    points = '0    0  0
-              0  1073  0'
+    type = SideSetsFromPointsGenerator
+    input = mymesh
+    points = '0     0  0
+              0  2400  0'
     new_boundary = 'ref_bot ref_top'
   [../]
-[]
+[../]
 
 [Kernels]
   [./diff_group1]
@@ -95,7 +97,7 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
+    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -103,7 +105,7 @@
   [../]
   [./refl1]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_brefl_'
+    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -111,7 +113,7 @@
   [../]
   [./refl2]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_trefl_'
+    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -147,12 +149,14 @@
   [./bnorm]
     type = ElmIntegTotFissNtsPostprocessor
     execute_on = linear
+    block = 'fuel'
   [../]
   [./group1diff]
     type = ElementL2Diff
     variable = group1
     execute_on = 'linear timestep_end'
     use_displaced_mesh = false
+    block = 'fuel'
   [../]
 []
 
@@ -161,9 +165,9 @@
     type = LineValueSampler
     variable = 'group1 group2'
     start_point = '0 0 0'
-    end_point = '0 1073 0'
+    end_point = '0 2400 0'
     sort_by = y
-    num_points = 250
+    num_points = 500
     execute_on = timestep_end
   [../]
 []

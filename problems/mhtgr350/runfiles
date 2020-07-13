@@ -1,9 +1,9 @@
 
-# cd 1D-neutronics/
-# $MOLTRES/moltres-opt -i 1D-fuel-reflec-eig1.i
-# cd ../scripts/
-# python plotcsv.py
-
-$MOLTRES/moltres-opt -i try2.i
-cd scripts/
+cd 1D-neutronics/
+$MOLTRES/moltres-opt -i 1D-fuel-reflec-eig1.i
+cd ../scripts/
 python plotcsv.py
+
+# $MOLTRES/moltres-opt -i try2.i
+# cd scripts/
+# python plotcsv.py
