@@ -183,7 +183,7 @@ def main():
     
     dict_type = {'fuel': [], 'coolant': [], 'moderator': []}
 
-    c, l, ns, ls = add_lines(f, ftf)
+    c, l, ns, ls = add_lines(f, ftf, 1)
     c, l, ns, ls, dict_type = cooling_channels(f, d_x, rc, p_c, c, l, ns, ls, dict_type)
     c, l, ns, ls, dict_type = fuel_channels(f, d_x, rf, p_c, c, l, ns, ls, dict_type)
     ns, ls, dict_type = define_moderator(f, H, ns, ls, dict_type)
