@@ -141,7 +141,11 @@ benchmark/
 
 scripts/
 --------
-* 
+* auxiliary.py
+	- adds legengs to figures of the geometries
+
+* plotexodus.py
+	- adds legengs to figures of the geometries
 
 
 thermo-hydraulics/
