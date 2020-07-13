@@ -1,9 +1,8 @@
 import yt
-# import matplotlib.pyplot as plt
 
 
 def plotter(file, p1, p2, save, mode='both'):
-    ds = yt.load(file+'.e', step=-1)
+    ds = yt.load(file, step=-1)
 
     if mode == 'group1':
         vec = [('all', 'group1')]
@@ -36,21 +35,9 @@ def main():
     base = '/home/roberto/projects/moltres/problems/mhtgr350/archive/'
 
     # 2D-fuel-action
-    file = base + 'pseudo-1D-neutronics/2D-fuel-reflec-action'
+    file = base + 'pseudo-1D-neutronics/2D-fuel-reflec-action.e'
     save = base + 'pseudo-1D-neutronics/2D-fuel-reflec-action-g2'
     plotter(file, [0, 0, 0], [0, 1073, 0], save, 'group2')
-
-    # 2D-fuel-reflec-action
-    # file = base + 'pseudo-1D-neutronics/2D-fuel-reflec-action'
-    # save = base + 'pseudo-1D-neutronics/2D-fuel-reflec-action'
-    # plotter(file, [0, 0, 0], [0, 1073, 0], save, 'both')
-    # save = base + 'pseudo-1D-neutronics/2D-fuel-reflec-action-g2'
-    # plotter(file, [0, 0, 0], [0, 1073, 0], save, 'group2')
-
-    # 2D-fuel-reflec-action-eig
-    # file = base + 'pseudo-1D-neutronics/2D-fuel-reflec-action-eig'
-    # save = base + 'pseudo-1D-neutronics/2D-fuel-reflec-action-eig'
-    # plotter(file, [0, 0, 0], [0, 1073, 0], save, 'both')
 
 
 if __name__ == "__main__":
