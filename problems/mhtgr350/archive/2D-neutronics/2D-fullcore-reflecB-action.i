@@ -9,64 +9,130 @@
   temperature = 750
 []
 
+[Variables]
+  [./group1]
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = 1e-4
+  [../]
+  [./group2]
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = 1e-4
+  [../]
+[]
+
 [Problem]
   coord_type = RZ
 []
 
 [Mesh]
-  file = 'meshes/2D-fullcore-reflecB.msh'
+  file = '2D-fullcore-reflecB.msh'
 [../]
 
-[Nt]
-  var_name_base = group
-  vacuum_boundaries = 'ref_bot ref_top cool_bot cool_top outerwall'
-  create_temperature_var = false
-  pre_blocks = 'fuel'
-  dg_for_temperature = false
+[Kernels]
+  [./time_group1]
+    type = NtTimeDerivative
+    variable = group1
+    group_number = 1
+  [../]
+  [./diff_group1]
+    type = GroupDiffusion
+    variable = group1
+    group_number = 1
+  [../]
+  [./sigma_r_group1]
+    type = SigmaR
+    variable = group1
+    group_number = 1
+  [../]
+  [./inscatter_group1]
+    type = InScatter
+    variable = group1
+    group_number = 1
+  [../]
+  [./fission_source_group1]
+    type = CoupledFissionKernel
+    variable = group1
+    group_number = 1
+    block = 'fuel'
+  [../]
+
+  [./time_group2]
+    type = NtTimeDerivative
+    variable = group2
+    group_number = 2
+  [../]
+  [./diff_group2]
+    type = GroupDiffusion
+    variable = group2
+    group_number = 2
+  [../]
+  [./sigma_r_group2]
+    type = SigmaR
+    variable = group2
+    group_number = 2
+  [../]
+  [./inscatter_group2]
+    type = InScatter
+    variable = group2
+    group_number = 2
+  [../]
+  [./fission_source_group2]
+    type = CoupledFissionKernel
+    variable = group2
+    group_number = 2
+    block = 'fuel'
+  [../]
+[]
+
+[BCs]
+  [./vacuum_group1]
+    type = VacuumConcBC
+    # type = DirichletBC
+    # value = 0
+    boundary = 'ref_bot ref_top cool_bot cool_top'
+    variable = group1
+  [../]
+  [./vacuum_group2]
+    type = VacuumConcBC
+    # type = DirichletBC
+    # value = 0
+    boundary = 'ref_bot ref_top cool_bot cool_top'
+    variable = group2
+  [../]
 []
 
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_fuel_'
+    property_tables_root = 'xs/6/xs800000-500-100/htgr_2g_fuel_'
     interp_type = 'linear'
     block = 'fuel'
   [../]
   [./moderator]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_moderator_'
+    property_tables_root = 'xs/6/xs800000-500-100/htgr_2g_moderator_'
     interp_type = 'linear'
     block = 'moderator'
   [../]
   [./coolant]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_coolant_'
+    property_tables_root = 'xs/6/xs800000-500-100/htgr_2g_coolant_'
     interp_type = 'linear'
     block = 'coolant'
   [../]
   [./breflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_brefl_'
+    property_tables_root = 'xs/6/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
     block = 'breflector'
   [../]
   [./treflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_trefl_'
+    property_tables_root = 'xs/6/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
     block = 'treflector'
-  [../]
-  [./ireflector]
-    type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_irefl_'
-    interp_type = 'linear'
-    block = 'ireflector'
-  [../]
-  [./oreflector]
-    type = GenericMoltresMaterial
-    property_tables_root = 'xs/8/xs800000-500-100/htgr_2g_orefl_'
-    interp_type = 'linear'
-    block = 'oreflector'
   [../]
 []
 
@@ -130,7 +196,6 @@
   print_linear_residuals = true
   [./exodus]
     type = Exodus
-    file_base = '2D-fullcore-reflec-actionB'
   [../]
 []
 
