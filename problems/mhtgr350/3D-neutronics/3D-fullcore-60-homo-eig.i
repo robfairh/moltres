@@ -64,6 +64,19 @@
   [../]
 []
 
+[BCs]
+  [./vacuum_group1]
+    type = VacuumConcBC
+    boundary = 'ref_bot ref_top wall3'
+    variable = group1
+  [../]
+  [./vacuum_group2]
+    type = VacuumConcBC
+    boundary = 'ref_bot ref_top wall3'
+    variable = group2
+  [../]
+[]
+
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
@@ -107,6 +120,8 @@
   pfactor = 1e-4
   l_max_its = 300
 
+  eig_check_tol = 1e-08
+
   # solve_type = 'PJFNK'
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
@@ -135,13 +150,31 @@
 []
 
 [VectorPostprocessors]
-  [./line1]
+  [./axial1]
     type = LineValueSampler
     variable = 'group1 group2'
-    start_point = '0 0 0'
-    end_point = '0 0 1073'
+    start_point = '85 55 0'
+    end_point = '85 55 1073'
     sort_by = z
-    num_points = 250
+    num_points = 300
+    execute_on = timestep_end
+  [../]
+  [./axial3]
+    type = LineValueSampler
+    variable = 'group1 group2'
+    start_point = '130 80 0'
+    end_point = '130 80 1073'
+    sort_by = z
+    num_points = 300
+    execute_on = timestep_end
+  [../]
+  [./radial1]
+    type = LineValueSampler
+    variable = 'group1 group2'
+    start_point = '0 0 400'
+    end_point = '259 149 400'
+    sort_by = x
+    num_points = 300
     execute_on = timestep_end
   [../]
 []
