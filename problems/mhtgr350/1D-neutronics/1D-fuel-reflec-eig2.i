@@ -19,17 +19,19 @@ nt_scale = 1e10
 []
 
 [Mesh]
-  file = '1D-fuel-reflec.msh'
-[../]
+  [mymesh]
+    type = FileMeshGenerator
+    file = '1D-fuel-reflecA.msh'
+  [../]
 
-[MeshModifiers]
   [./add_side_sets]
-    type = SideSetsFromPoints
+    type = SideSetsFromPointsGenerator
+    input = mymesh
     points = '0    0  0
               0  1073  0'
     new_boundary = 'ref_bot ref_top'
   [../]
-[]
+[../]
 
 [Kernels]
   [./diff_group1]
@@ -148,13 +150,25 @@ nt_scale = 1e10
   [../]
 []
 
+[VectorPostprocessors]
+  [./tocsv]
+    type = LineValueSampler
+    variable = 'group1 group2'
+    start_point = '0 0 0'
+    end_point = '0 1073 0'
+    sort_by = y
+    num_points = 250
+    execute_on = timestep_end
+  [../]
+[]
+
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  [./exodus]
-    type = Exodus
-    file_base = '1D-fuel-reflec-eig2'
-  [../]
+  file_base = '1D-fuel-reflec-eig2'
+  execute_on = timestep_end
+  exodus = true
+  csv = true
 []
 
 [Debug]

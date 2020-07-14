@@ -17,17 +17,19 @@
 []
 
 [Mesh]
-  file = '1D-fuel-reflecA.msh'
-[../]
+  [mymesh]
+    type = FileMeshGenerator
+    file = '1D-fuel-reflecA.msh'
+  [../]
 
-[MeshModifiers]
   [./add_side_sets]
-    type = SideSetsFromPoints
+    type = SideSetsFromPointsGenerator
+    input = mymesh
     points = '0    0  0
               0  1073  0'
     new_boundary = 'ref_bot ref_top'
   [../]
-[]
+[../]
 
 [Kernels]
   [./diff_group1]

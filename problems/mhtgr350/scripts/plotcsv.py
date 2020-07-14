@@ -58,8 +58,8 @@ def plotcsv_frommoose(file, save):
     group2 = np.array(file['group2'].tolist())
 
     M = max(group1)
-    # group1 /= M
-    # group2 /= M
+    group1 /= M
+    group2 /= M
 
     plt.figure()
     plt.plot(x, group1, label='group1')
@@ -100,6 +100,11 @@ file = '../try2_tocsv_0001.csv'
 save = '../try2'
 # plotcsv_fromparaview2(file, save)
 # plotcsv_frommoose2(file, save)
+
 file = '../1D-fuel-reflec-eig1_tocsv_0001.csv'
 save = '../1D-fuel-reflec-eig1C'
+#plotcsv_frommoose(file, save)
+
+file = '../1D-neutronics/1D-fuel-reflec-eig2_tocsv_0002.csv'
+save = '../1D-neutronics/1D-fuel-reflec-eig2C'
 plotcsv_frommoose(file, save)
