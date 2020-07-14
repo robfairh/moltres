@@ -69,6 +69,11 @@
 	- Defines Nt action instead of kernels.
 	- Fuel, moderator, and coolant are homogenized.
 
+* 3D-assembly-30-homo-eig.i:
+	- 3D-assembly-30deg-reflec.msh
+	- Eigenvalue problem.
+	- Fuel, moderator, and coolant are homogenized.
+
 * 3D-fullcore-60-homo-eig.i
 	- 3D-fullcore-60-homo.msh
 	- Eigenvalue problem
