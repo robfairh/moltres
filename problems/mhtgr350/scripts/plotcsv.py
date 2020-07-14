@@ -53,9 +53,21 @@ def plotcsv_frommoose(file, save):
     '''
     file = pd.read_csv(file)
 
-    x = file['y'].tolist()
-    group1 = np.array(file['group1'].tolist())
-    group2 = np.array(file['group2'].tolist())
+    x = file['z'].tolist()
+    group1 = file['group1'].tolist()  
+    group2 = file['group2'].tolist()
+
+    group1 = [X for _,X in sorted(zip(x,group1))]
+    group1 = np.array(group1)
+
+    group2 = [X for _,X in sorted(zip(x,group2))]
+    group2 = np.array(group2)
+
+    x.sort()
+
+    # x = file['z'].tolist()
+    # group1 = np.array(file['group1'].tolist())
+    # group2 = np.array(file['group2'].tolist())
 
     M = max(group1)
     group1 /= M
@@ -123,7 +135,7 @@ def plotconvergence(file, save):
 
 file = '../1D-neutronics/1D-fuel-reflec-eig1_tocsv_0001.csv'
 save = '../1D-neutronics/1D-fuel-reflec-eig1C'
-plotcsv_frommoose(file, save)
+# plotcsv_frommoose(file, save)
 
 # file = '../try2_frompara.csv'
 file = '../try2_tocsv_0001.csv'
@@ -142,3 +154,7 @@ save = '../1D-neutronics/1D-fuel-reflec-eig2C'
 file = '../1D-neutronics/1D-eig.csv'
 save = '../1D-neutronics/1D-eig'
 # plotconvergence(file, save)
+
+file = '../bw/3D-assembly-30-homo-eig_axial_0001.csv'
+save = '../bw/3D-homo-eig_axial'
+plotcsv_frommoose(file, save)
