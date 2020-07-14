@@ -91,7 +91,7 @@ def plotcsv_frommoose2(file, save):
     file = pd.read_csv(file)
 
     x = file['y'].tolist()
-    temp = file['temp'].tolist()
+    temp = file['group1'].tolist()
 
     plt.figure()
     plt.plot(x, temp)
@@ -158,3 +158,8 @@ save = '../1D-neutronics/1D-eig'
 file = '../bw/3D-assembly-30-homo-eig_axial_0001.csv'
 save = '../bw/3D-homo-eig_axial'
 plotcsv_frommoose(file, save)
+
+file = '../1D-fuel-reflec-eig1_tocsv_0001.csv'
+save = '../1g-1d'
+# plotcsv_fromparaview2(file, save)
+plotcsv_frommoose2(file, save)
