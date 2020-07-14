@@ -2,6 +2,7 @@
 7/- XS for homogenized, and 4 reflector types (fullcore)
 8/- mixes 6/ and 7/
 oecd-nea/- contains XS to carry out Phase I: Exercise 1.
+assembly/- XS of the bottom reflector, top reflector, and homogenized fuel of the standard-column
 
 * to create xs/8/ do the following (in xs/):
 mkdir 8/
