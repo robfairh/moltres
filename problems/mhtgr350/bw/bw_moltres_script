@@ -47,8 +47,9 @@ source /projects/sciteam/bbcc/source_me_for_MOOSE
 #aprun -n 32 /projects/sciteam/bbcc/projects/moltres/moltres-opt -i 3D-assembly-action.i
 #aprun -n 32 /projects/sciteam/bbcc/projects/moltres/moltres-opt -i 3D-fullcore-120-homo.i
 #aprun -n 32 /projects/sciteam/bbcc/projects/moltres/moltres-opt -i 3D-fullcore-120-homo-bc.i
-aprun -n 32 /projects/sciteam/bbcc/projects/moltres/moltres-opt -i try5.i
+#aprun -n 32 /projects/sciteam/bbcc/projects/moltres/moltres-opt -i try5.i
 #aprun -n 32 /projects/sciteam/bbcc/projects/moltres/moltres-opt -i try3-ss.i
 #aprun -n 32 /projects/sciteam/bbcc/projects/moltres/moltres-opt -i try3-ss-k.i
+aprun -n 32 /projects/sciteam/bbcc/projects/moltres/moltres-opt -i 3D-fullcore-60-homo-eig.i
 
 ### For more information see the man page for aprun

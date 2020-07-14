@@ -89,12 +89,42 @@ def plotcsv_frommoose2(file, save):
     plt.savefig(save, dpi=300, bbox_inches="tight")
 
 
-file = '../1D-neutronics/1D-fuel-reflec-eig1-frompara.csv'
-save = '../1D-neutronics/1D-fuel-reflec-eig1_frompara'
-# plotcsv_fromparaview(file, save)
+def plotconvergence(file, save):
+    '''
+        This function plots eigenvalues vs power iteraions
+    '''
+    file = pd.read_csv(file)
+
+    x = file['iteration'].tolist()
+    eig = file['eigenvalue'].tolist()
+    sold = file['solution_difference'].tolist()
+
+    # plt.figure()
+    # plt.plot(x, eig, label='eigenvalue')
+    # plt.plot(x, sold, label='$\phi-\phi_{prev}$')
+    # plt.legend(loc='upper right')
+    # plt.ylabel('')
+    # plt.xlabel('Number of iteration')
+    # plt.title('Steady-state flux')
+    # plt.savefig(save, dpi=300, bbox_inches="tight")
+
+    fig, ax1 = plt.subplots()
+    ax1.plot(x[1:], eig[1:], marker='o', color='black')
+    ax1.set_ylabel("Eigenvalue", color='black')
+    ax1.set_xlabel("Iteration")    
+    ax1.tick_params(axis='y', labelcolor='black')
+    ax2 = ax1.twinx()
+    ax2.plot(x[1:], sold[1:], color='red', marker='o')
+    ax2.set_ylabel(r'$\phi_1-\phi_{1,prev}$', color='red')
+    ax2.tick_params(axis='y', labelcolor='red')
+    fig.tight_layout()
+    plt.savefig(save, dpi=300, bbox_inches="tight")
+
+
 file = '../1D-neutronics/1D-fuel-reflec-eig1_tocsv_0001.csv'
 save = '../1D-neutronics/1D-fuel-reflec-eig1C'
-# plotcsv_frommoose(file, save)
+plotcsv_frommoose(file, save)
+
 # file = '../try2_frompara.csv'
 file = '../try2_tocsv_0001.csv'
 save = '../try2'
@@ -103,8 +133,12 @@ save = '../try2'
 
 file = '../1D-fuel-reflec-eig1_tocsv_0001.csv'
 save = '../1D-fuel-reflec-eig1C'
-#plotcsv_frommoose(file, save)
+# plotcsv_frommoose(file, save)
 
 file = '../1D-neutronics/1D-fuel-reflec-eig2_tocsv_0002.csv'
 save = '../1D-neutronics/1D-fuel-reflec-eig2C'
-plotcsv_frommoose(file, save)
+# plotcsv_frommoose(file, save)
+
+file = '../1D-neutronics/1D-eig.csv'
+save = '../1D-neutronics/1D-eig'
+# plotconvergence(file, save)

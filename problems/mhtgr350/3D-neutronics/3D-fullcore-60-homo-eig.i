@@ -4,7 +4,7 @@
   num_precursor_groups = 8
   use_exp_form = false
   group_fluxes = 'group1 group2'
-  sss2_input = true
+  sss2_input = true 
   account_delayed = false
   temperature = 750
 []
@@ -17,18 +17,7 @@
 []
 
 [Mesh]
-  [mymesh]
-    type = FileMeshGenerator
-    file = '1D-fuel-reflecA.msh'
-  [../]
-
-  [./add_side_sets]
-    type = SideSetsFromPointsGenerator
-    input = mymesh
-    points = '0    0  0
-              0  1073  0'
-    new_boundary = 'ref_bot ref_top'
-  [../]
+  file = '3D-fullcore-60-homo.msh'
 [../]
 
 [Kernels]
@@ -51,7 +40,6 @@
     type = CoupledFissionEigenKernel
     variable = group1
     group_number = 1
-    # block = 'fuel'
   [../]
 
   [./diff_group2]
@@ -73,24 +61,6 @@
     type = CoupledFissionEigenKernel
     variable = group2
     group_number = 2
-    # block = 'fuel'
-  [../]
-[]
-
-[BCs]
-  [./vacuum_group1]
-    type = VacuumConcBC
-    # type = DirichletBC
-    # value = 0
-    boundary = 'ref_bot ref_top'
-    variable = group1
-  [../]
-  [./vacuum_group2]
-    type = VacuumConcBC
-    # type = DirichletBC
-    # value = 0
-    boundary = 'ref_bot ref_top'
-    variable = group2
   [../]
 []
 
@@ -99,25 +69,31 @@
     type = GenericMoltresMaterial
     property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
-    prop_names = 'k'
-    prop_values = '1.'
     block = 'fuel'
   [../]
-  [./refl1]
+  [./breflector]
     type = GenericMoltresMaterial
     property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
-    prop_names = 'k'
-    prop_values = '1.'
     block = 'breflector'
   [../]
-  [./refl2]
+  [./treflector]
     type = GenericMoltresMaterial
     property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
-    prop_names = 'k'
-    prop_values = '1.'
     block = 'treflector'
+  [../]
+  [./ireflector]
+    type = GenericMoltresMaterial
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_irefl_'
+    interp_type = 'linear'
+    block = 'ireflector'
+  [../]
+  [./oreflector]
+    type = GenericMoltresMaterial
+    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_orefl_'
+    interp_type = 'linear'
+    block = 'oreflector'
   [../]
 []
 
@@ -130,8 +106,6 @@
   k0 = 1.4
   pfactor = 1e-4
   l_max_its = 300
-
-  eig_check_tol = 1e-08
 
   # solve_type = 'PJFNK'
   solve_type = 'NEWTON'
@@ -161,12 +135,12 @@
 []
 
 [VectorPostprocessors]
-  [./tocsv]
+  [./line1]
     type = LineValueSampler
     variable = 'group1 group2'
     start_point = '0 0 0'
-    end_point = '0 1073 0'
-    sort_by = y
+    end_point = '0 0 1073'
+    sort_by = z
     num_points = 250
     execute_on = timestep_end
   [../]
@@ -175,7 +149,7 @@
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  file_base = '1D-fuel-reflec-eig1'
+  file_base = '3D-fullcore-60-homo-eig'
   execute_on = timestep_end
   exodus = true
   csv = true

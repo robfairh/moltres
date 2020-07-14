@@ -59,11 +59,19 @@
 	- 1/3 of the full core geometry.
 	- Fuel, coolant, and moderator are an homogeneous mixture.
 
+* 3D-fullcore-60-homo.geo:
+	- 1/6 of the full core geometry.
+	- Fuel, coolant, and moderator are an homogeneous mixture.
+
 
 * 3D-assembly-homo-action.i:
 	- Transient problem.
 	- Defines Nt action instead of kernels.
 	- Fuel, moderator, and coolant are homogenized.
+
+* 3D-fullcore-60-homo-eig.i
+	- 3D-fullcore-60-homo.msh
+	- Eigenvalue problem
 
 * 3D-fullcore-120-homo.i
 	- 3D-fullcore-120-homoA.msh
@@ -77,6 +85,7 @@
 	- Transient problem
 	- Fuel, moderator, and coolant are homogenized.
 	- Tries adding periodic BCs
+
 
 
 benchmark/

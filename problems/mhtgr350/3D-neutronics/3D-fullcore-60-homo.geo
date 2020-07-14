@@ -1,3 +1,4 @@
+// Gmsh geometry
 Geometry.CopyMeshingMethod = 1;
 
 Hb = 160;
