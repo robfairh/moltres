@@ -51,7 +51,6 @@
     type = CoupledFissionEigenKernel
     variable = group1
     group_number = 1
-    # block = 'fuel'
   [../]
 
   [./diff_group2]
@@ -73,7 +72,6 @@
     type = CoupledFissionEigenKernel
     variable = group2
     group_number = 2
-    # block = 'fuel'
   [../]
 []
 
@@ -97,7 +95,7 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
+    property_tables_root = 'xs/assembly/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -105,7 +103,7 @@
   [../]
   [./refl1]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_brefl_'
+    property_tables_root = 'xs/assembly/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -113,7 +111,7 @@
   [../]
   [./refl2]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_trefl_'
+    property_tables_root = 'xs/assembly/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -123,7 +121,7 @@
 
 [Executioner]
   type = InversePowerMethod
-  max_power_iterations = 200
+  max_power_iterations = 150
   xdiff = 'group1diff'
 
   bx_norm = 'bnorm'
