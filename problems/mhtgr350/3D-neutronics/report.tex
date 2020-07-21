@@ -50,24 +50,48 @@ fill=blue!30]
 
 \section{3D-neutronics}
 
-\subsection{3D-assembly-homo-action}
+\subsection{3D-assembly-30-homo-eig}
 
 	\begin{itemize}
-		\item Input file: \textit{3D-assembly-homo-action.i}
 		\item Mesh: \textit{3D-assembly-30deg-reflec.msh}
-		\item Transient problem.
-		\item Fuel, Moderator, and coolant are homogenized.
+		\item Eigenvalue problem.
 	\end{itemize}
 
-Figure \ref{fig:3D-assembly-homo} displays the geometry.
-Figure \ref{fig:3D-assembly-homo1} shows the results.
+Figure \ref{fig:3D-assembly-eig} displays the geometry.
+Figure \ref{fig:3D-assembly-eig1} shows the results.
+Figure \ref{fig:3D-assembly-eig2} shows the eigenvalue vs number of iterations.
 
 	\begin{figure}[htbp!]
 		\centering
 		\includegraphics[height=5cm]{3D-assembly-30deg-reflec-meshB}
 		\caption{\textit{3D-assembly-30deg-reflec} scaled down geometry.}
-		\label{fig:3D-assembly-homo}
+		\label{fig:3D-assembly-eig}
 	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=8cm]{3D-assembly-30-homo-eig_axial}
+		\caption{Group 1 and 2 steady-state axial flux.}
+		\label{fig:3D-assembly-eig1}
+	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=8cm]{3D-assembly-eig}
+		\caption{Eigenvalue calculation convergence.}
+		\label{fig:3D-assembly-eig2}
+	\end{figure}
+
+\subsection{3D-assembly-homo-action}
+
+	\begin{itemize}
+		\item Mesh: \textit{3D-assembly-30deg-reflec.msh}
+		\item Transient problem.
+		\item Fuel, Moderator, and coolant are homogenized.
+	\end{itemize}
+
+Figure \ref{fig:3D-assembly-eig} displays the geometry.
+Figure \ref{fig:3D-assembly-homo1} shows the results.
 
 	\begin{figure}[htbp!]
 		\centering
@@ -76,10 +100,53 @@ Figure \ref{fig:3D-assembly-homo1} shows the results.
 		\label{fig:3D-assembly-homo1}
 	\end{figure}
 
+\subsection{3D-fullcore-60-homo-eig}
+
+	\begin{itemize}
+		\item Mesh: \textit{3D-fullcore-60-homo.msh}
+		\item Eigenvalue problem.
+	\end{itemize}
+
+Figure \ref{fig:3D-fullcore-60-homo} displays the geometry.
+Figure \ref{fig:3D-fullcore-60-homo1} shows the results.
+
+	\begin{figure}[htbp!]
+		\centering
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+		\includegraphics[height=5cm]{3D-fullcore-60-homo-meshA2}
+			\caption{XZ-plane.}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+		\includegraphics[height=5cm]{3D-fullcore-60-homo-meshB2}
+			\caption{XY-plane.}
+		\end{subfigure}
+		\hfill
+		\caption{\textit{3D-fullcore-60-homo} geometry.}
+		\label{fig:3D-fullcore-60-homo}
+	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{3D-fullcore-60-radial1}
+			\caption{Radial flux between points (0,0,400) and (259,150,400).}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{3D-fullcore-60-axial1}
+			\caption{Axial flux between points (85,55,0) and (85,55,1073).}
+		\end{subfigure}
+		\hfill
+		\caption{Group 1 and 2 steady state axial fluxes. K$_{eff}$ = 1.430523.}
+		\label{fig:3D-fullcore-60-homo1}
+	\end{figure}
+
 \subsection{3D-fullcore-120-homo}
 
 	\begin{itemize}
-		\item Input file: \textit{3D-fullcore-120-homo.i}
 		\item Mesh: \textit{3D-fullcore-120-homo.msh}
 		\item Transient problem.
 	\end{itemize}

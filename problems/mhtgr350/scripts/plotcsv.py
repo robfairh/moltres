@@ -51,7 +51,7 @@ def plotcsv_frommoose_groups_Z(file, save):
     '''
     file = pd.read_csv(file)
 
-    x = file['y'].tolist()
+    x = file['z'].tolist()
     group1 = file['group1'].tolist()
     group2 = file['group2'].tolist()
 
@@ -148,13 +148,14 @@ def plotconvergence(file, save):
 
 
 file = '../1D-neutronics/1D-fuel-reflec-eig1_tocsv_0001.csv'
-save = '../1D-neutronics/1D-fuel-reflec-eig1C'
-plotcsv_frommoose_groups_Z(file, save)
-
-file = '../1D-fuel-reflec-eig1_tocsv_0001.csv'
-save = '../1D-fuel'
+save = '../1D-neutronics/1D-fuel-reflec-eig1D'
 # plotcsv_frommoose_groups_Z(file, save)
 
-file = '../1D-eig1.csv'
-save = '../1D-eig'
-# plotconvergence(file, save)
+
+file = '../bw/3D-fullcore-60-homo-eig_axial1_0001.csv'
+save = '../bw/3D-fullcore-60-axial1'
+# plotcsv_frommoose_groups_Z(file, save)
+
+file = '../bw/3D-fullcore-60-eig.csv'
+save = '../bw/3D-fullcore-60-eig'
+plotconvergence(file, save)
