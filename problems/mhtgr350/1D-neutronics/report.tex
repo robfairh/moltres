@@ -146,7 +146,7 @@ Figure \ref{fig:1D-fuel-reflec} shows the results.
 	\end{itemize}
 
 Figures \ref{fig:1D-fuel-reflec-eig1} and \ref{fig:1D-fuel-reflec-eig2} show the results.
-FDM $k_{eff}$ = 1.420210. Both fluxes are normalized to the maximum value of the group 1 flux.
+FDM $k_{eff}$ = 1.424280. Both fluxes are normalized to the maximum value of the group 1 flux.
 Moltres: 
 \begin{itemize}
 	\item Inverse power method $k_{eff}$ = 1.424621.
@@ -188,8 +188,18 @@ Figure \ref{fig:1D-assembly-eig} shows the results.
 
 	\begin{figure}[htbp!]
 		\centering
-		\includegraphics[height=5cm]{1D-assembly}
-		\caption{Steady state Group 1 and 2 fluxes.}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{1D-assembly-eig-FDM}
+			\caption{1D FDM. k$_{eff}$ = 1.407314.}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{1D-assembly}
+			\caption{Moltres. k$_{eff}$ = 1.407798.}
+		\end{subfigure}
+		\hfill
+		\caption{Steady state Group 1 and 2 fluxes for different methods.}
 		\label{fig:1D-assembly-eig}
 	\end{figure}
 
