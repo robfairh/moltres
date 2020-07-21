@@ -153,7 +153,7 @@ plotcsv_frommoose_groups_Z(file, save)
 
 file = '../1D-fuel-reflec-eig1_tocsv_0001.csv'
 save = '../1D-fuel'
-plotcsv_frommoose_groups_Z(file, save)
+# plotcsv_frommoose_groups_Z(file, save)
 
 file = '../1D-eig1.csv'
 save = '../1D-eig'
