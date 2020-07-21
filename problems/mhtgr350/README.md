@@ -7,6 +7,10 @@
 	- Fuel, bottom, and top reflectors. 
 	- Bottom and top reflector are different materials.
 
+* 1D-assembly-eig.i
+	- 1D-fuel-reflecA.msh: 265 elements
+	- Eigenvalue problem: InversePowerMethod
+	- Fuel column cross sections.
 
 * 1D-fuel.i
 	- 1D-fuel.msh
