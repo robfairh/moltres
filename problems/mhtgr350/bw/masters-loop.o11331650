@@ -1,0 +1,86 @@
+----------------------------------------
+Begin Torque Prologue on nid27636
+at Fri Jul  3 11:10:48 CDT 2020
+Job Id:			11331650.bw
+Username:		froberto
+Group:			ILL_bbcc
+Job name:		masters-loop
+Requested resources:	nodes=1:ppn=32:xe,walltime=01:00:00,neednodes=1:ppn=32:xe
+Queue:			normal
+Account:		bbcc
+End Torque Prologue:  0.087 elapsed
+----------------------------------------
+
+
+
+
+/var/spool/torque/mom_priv/jobs/11331650.bw.SC: line 56: /projects/sciteam/bbcc/source_me_for_MOOSE: Permission denied
+
+Building mesh .                                                                            [[33m  2.65 s[39m]
+
+[33m
+*** Warning, This code is deprecated and will be removed in future versions:
+Please use the addVariable(var_type, var_name, params) API instead[39m
+
+Initializing equation system ......                                                        [[33m  7.31 s[39m]
+
+Framework Information:
+MOOSE Version:           git commit f052e463d8 on 2019-11-13
+LibMesh Version:         143b57032761c71a1df09c59ffc692bb4f198a0c
+PETSc Version:           3.9.3
+Current Time:            Fri Jul  3 11:12:05 2020
+Executable Timestamp:    Fri Jul  3 11:10:51 2020
+
+Parallelism:
+  Num Processors:          32
+  Num Threads:             1
+
+Mesh: 
+  Parallel Type:           replicated
+  Mesh Dimension:          3
+  Spatial Dimension:       3
+  Nodes:                   
+    Total:                 27573
+    Local:                 1201
+  Elems:                   
+    Total:                 49050
+    Local:                 1556
+  Num Subdomains:          232
+  Num Partitions:          32
+  Partitioner:             metis
+
+Nonlinear System:
+  Num DOFs:                716898
+  Num Local DOFs:          31226
+  Variables:               { "group1" "group2" "group3" "group4" "group5" "group6" "group7" "group8" 
+                             "group9" "group10" "group11" "group12" "group13" "group14" "group15" "group16" 
+                             "group17" "group18" "group19" "group20" "group21" "group22" "group23" "group24" 
+                             "group25" "group26" } 
+  Finite Element Types:    "LAGRANGE" 
+  Approximation Orders:    "FIRST" 
+
+Relationship Managers:
+  Default:                 libMesh::DefaultCoupling x 2
+
+Execution Information:
+  Executioner:             Transient
+  TimeStepper:             IterationAdaptiveDT
+  Solver Mode:             NEWTON
+  MOOSE Preconditioner:    SMP
+
+
+[33m
+*** Warning ***
+/mnt/a/u/sciteam/froberto/mhtgr-moltres/try3.i:6: unused parameter 'GlobalParams/group_fluxes'
+[39m
+
+Time Step 0, time = 0
+Outputing exodus .                                                                         [[33m  2.13 s[39m]
+
+Time Step 1, time = 1e-06, dt = 1e-06
+Computing initial residual ....                                                            [[33m  5.12 s[39m]
+ 0 Nonlinear |R| = [32m6.197090e+04[39m
+[NID 17185] 2020-07-03 11:15:27 Apid 91693798: initiated application termination
+[NID 17185] 2020-07-03 11:15:28 Apid 91693798: OOM killer terminated this process.
+Application 91693798 exit signals: Killed
+Application 91693798 resources: utime ~9s, stime ~94s, Rss ~34720, inblocks ~15104, outblocks ~69
