@@ -1,0 +1,93 @@
+----------------------------------------
+Begin Torque Prologue on nid25435
+at Wed Jul 22 18:35:28 CDT 2020
+Job Id:			11413791.bw
+Username:		froberto
+Group:			ILL_bbcc
+Job name:		masters-loop
+Requested resources:	nodes=1:ppn=32:xe,walltime=01:00:00,neednodes=1:ppn=32:xe
+Queue:			normal
+Account:		bbcc
+End Torque Prologue:  0.081 elapsed
+----------------------------------------
+
+
+
+
+/var/spool/torque/mom_priv/jobs/11413791.bw.SC: line 56: /projects/sciteam/bbcc/source_me_for_MOOSE: Permission denied
+
+Building mesh .                                                                            [[33m  2.59 s[39m]
+
+[33m
+*** Warning, This code is deprecated and will be removed in future versions:
+Please use the addVariable(var_type, var_name, params) API instead[39m
+
+Initializing equation system ......                                                        [[33m  7.18 s[39m]
+
+Framework Information:
+MOOSE Version:           git commit f052e463d8 on 2019-11-13
+LibMesh Version:         143b57032761c71a1df09c59ffc692bb4f198a0c
+PETSc Version:           3.9.3
+Current Time:            Wed Jul 22 18:37:37 2020
+Executable Timestamp:    Wed Jul 22 18:35:32 2020
+
+Parallelism:
+  Num Processors:          32
+  Num Threads:             1
+
+Mesh: 
+  Parallel Type:           replicated
+  Mesh Dimension:          3
+  Spatial Dimension:       3
+  Nodes:                   
+    Total:                 27573
+    Local:                 1201
+  Elems:                   
+    Total:                 49050
+    Local:                 1556
+  Num Subdomains:          232
+  Num Partitions:          32
+  Partitioner:             metis
+
+Nonlinear System:
+  Num DOFs:                716898
+  Num Local DOFs:          31226
+  Variables:               { "group1" "group2" "group3" "group4" "group5" "group6" "group7" "group8" 
+                             "group9" "group10" "group11" "group12" "group13" "group14" "group15" "group16" 
+                             "group17" "group18" "group19" "group20" "group21" "group22" "group23" "group24" 
+                             "group25" "group26" } 
+  Finite Element Types:    "LAGRANGE" 
+  Approximation Orders:    "FIRST" 
+
+Relationship Managers:
+  Default:                 libMesh::DefaultCoupling x 2
+
+Execution Information:
+  Executioner:             InversePowerMethod
+  Solver Mode:             Preconditioned JFNK
+  MOOSE Preconditioner:    SMP
+
+
+|Bx| = 1.5000000000
+
+Time Step 0, time = 0
+
+Postprocessor Values:
++----------------+----------------+----------------+----------------+
+| time           | bnorm          | eigenvalue     | group1diff     |
++----------------+----------------+----------------+----------------+
+|   0.000000e+00 |   1.500000e+00 |   1.500000e+00 |   4.583708e-03 |
++----------------+----------------+----------------+----------------+
+
+Outputing exodus 
+.                                                                                          [[33m  2.16 s[39m]
+
+ Power iterations starts
+ ________________________________________________________________________________ 
+ Power iteration= 0
+Computing initial residual .......                                                         [[33m  8.11 s[39m]
+ 0 Nonlinear |R| = [32m2.387656e-02[39m
+[NID 26887] 2020-07-22 18:42:44 Apid 92416534: initiated application termination
+[NID 26887] 2020-07-22 18:42:45 Apid 92416534: OOM killer terminated this process.
+Application 92416534 exit signals: Killed
+Application 92416534 resources: utime ~8s, stime ~72s, Rss ~34720, inblocks ~15104, outblocks ~69
