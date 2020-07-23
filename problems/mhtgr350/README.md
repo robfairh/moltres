@@ -96,7 +96,6 @@
 	- Tries adding periodic BCs
 
 
-
 benchmark/
 ----------
 * 3D-fullcore-120B.msh:
@@ -105,9 +104,7 @@ benchmark/
 
 * 120.geo:
 	- 1/3rd of the reactor
-
 	* 120A.msh: Lb = 20, Lf = 5, Lt = 20, h = 40
-
 	* 120B.msh: Lb = 30, Lf = 10, Lt = 30, h = 20
 
 * small120.geo
@@ -121,24 +118,29 @@ benchmark/
 * try1.i: 
 	- tries continuity between materials
 	- 3D-fullcore-120B.msh
+	- solves heat equation
 	- can be deleted eventually
 
 * try2.i: 
 	- tries continuity between materials
 	- 120A.msh
+	- solves heat equation
 	- can be deleted eventually
 
 * try3.i: 
 	- 120A.msh
 	- define cross sections for all the materials
 	- transient problem
-	- it crashes for some reason
+	- it crashes: out of memory
 	- try-er is the error thrown on the arfc local
 
-* try3-ss.i: 
+* try3-ss.i:
 	- 120A.msh
 	- eigenvalue problem
 	- define cross sections for all the materials
+	- it crashes: out of memory
+	- define cross sections for all the materials
+	- uses actions
 
 * try3-ss-k.i: 
 	- 120A.msh
@@ -149,11 +151,13 @@ benchmark/
 * try4.i: 
 	- tries continuity between materials
 	- 120A.msh
+	- solves heat equation
 	- tries periodic BCs in wall1 and wall2
 	- can be deleted eventually
 
 * try5.i: 
 	- small120.msh
+	- this is a reduced problem, it works
 	- can be deleted eventually
 	- Materials: M1, M221, M225, M227, M228
 

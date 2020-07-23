@@ -12,6 +12,8 @@ try3-ss:
   [../]
 []
 
+OOM
+
 try3-ss-a:
 
   solve_type = 'PJFNK'
@@ -25,3 +27,6 @@ try3-ss-a:
     full = false
   [../]
 []
+
+runs, hits walltime
+Keff tends  to 3.7 e-2 ...
