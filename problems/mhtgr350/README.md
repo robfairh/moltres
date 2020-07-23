@@ -126,23 +126,17 @@ scripts/
 
 thermo-hydraulics/
 ------------------
-* advecss-1.i
-	- 1D
-	- Scalar advection equation
-	- Uses DGKernels
-	- Outflow BC
-	- Steady-state problem
-
-* advect-1.i:
+* advec1-t.i:
     - 1D
-	- Advection equation, advects density initial condition out of the domain
+	- Advection equation
+	- Advects BC
 	- Uses DGKernels
 	- Transient problem
-	- Inflow and outflow BCs
+	- InflowBC and OutflowBC
 
-* advect-1-bc.i:
+* advec1-t-bc.i:
 	- 1D
-	- Advection equation, advects density
+	- Advection equation
 	- Uses DGKernels
 	- Transient problem
 	- Periodic BCs
@@ -150,21 +144,41 @@ thermo-hydraulics/
 	- Periodic BCs do not work for CONSTANT MONOMIAL variables.
 	- And DG only works with CONSTANT MONOMIAL variables.
 
-* advect-2.i:
+* advec2-ss.i
 	- 1D
+	- Same as advec2-t but steady state
+	- Uses DGKernels
+	- Steady-state problem
+	- Outflow BC
+
+* advec2-t.i:
+    - 1D
+	- Advection equation
 	- Advects BC
+	- Adds a source
+	- Uses DGKernels
+	- Transient problem
+	- InflowBC and OutflowBC
+
+
+
+
+* advec3-t.i:
+	- 1D
 	- Advection equation for temperature
+	- Advects BC
 	- Uses DG kernels
 	- Transient problem
+	- TemperatureInflowBC and TemperatureOutflowBC
 
-* advect-3.i:
+* advec4-t.i:
 	- 1D
 	- Advects temperature from a point source
 	- Point source changes over time
 	- Uses DG kernels
 	- Transient problem
 
-* advect-4.i:
+* advec5-t.i:
 	- pseudo-1D
 	- q'' on one of the walls
 	- Uses DG kernels
