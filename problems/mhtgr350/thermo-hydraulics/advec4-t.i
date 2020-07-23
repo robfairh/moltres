@@ -22,6 +22,12 @@ velocity = 0.5
     type = MatINSTemperatureTimeDerivative
     variable = temp
   [../]
+
+  [./source]
+    type = BodyForce
+    variable = temp
+    value = 1.
+  [../]
 []
 
 [DGKernels]
@@ -29,31 +35,6 @@ velocity = 0.5
     type = DGTemperatureAdvection
     variable = temp
     velocity = '${velocity} 0 0'
-  [../]
-[]
-
-[DiracKernels]
-  [./heat_exchanger]
-    type = DiracHX
-    variable = temp
-    power = 100
-    point = '10 0 0'
-  [../]
-[]
-
-[Controls]
-  [./hxFuncCtrl]
-    type = RealFunctionControl
-    parameter = DiracKernels/heat_exchanger/power
-    function = heatRemovalFcn
-    execute_on = 'initial timestep_begin'
-  [../]
-[]
-
-[Functions]
-  [./heatRemovalFcn]
-    type = ParsedFunction
-    value = '1e2 + 1e2 * sin(t/5) ' # start losing cooling at t=50s
   [../]
 []
 
@@ -79,13 +60,13 @@ velocity = 0.5
   [./coolant]
     type = GenericConstantMaterial
     prop_names = 'k cp rho'
-    prop_values = '.1 1967 1e-2'
+    prop_values = '.1 2e3 1e-2'
   [../]
 []
 
 [Executioner]
   type = Transient
-  end_time = 100
+  end_time = 250
 
   nl_rel_tol = 1e-8
   nl_abs_tol = 1e-8
@@ -109,20 +90,30 @@ velocity = 0.5
   [../]
 []
 
-[Postprocessors]
-  [./temp_fuel]
-    type = ElementAverageValue
-    variable = temp
-    outputs = 'exodus console'
+#[Postprocessors]
+#  [./dens_fuel]
+#    type = ElementAverageValue
+#    variable = temp
+#    outputs = 'exodus console'
+#  [../]
+#[]
+
+[VectorPostprocessors]
+  [./axial]
+    type = LineValueSampler
+    variable = 'temp'
+    start_point = '0 0 0'
+    end_point = '100 0 0'
+    sort_by = x
+    num_points = 200
+    # execute_on = 'timestep_end'
+    execute_on = 'initial final'
   [../]
 []
 
 [Outputs]
-  perf_graph = true
-  print_linear_residuals = true
-  [./exodus]
-    type = Exodus
-    file_base = 'advec3'
-    execute_on = 'timestep_begin'
-  [../]
+  file_base = 'advec4-t'
+  execute_on = 'initial final'
+  exodus = true
+  csv = true
 []

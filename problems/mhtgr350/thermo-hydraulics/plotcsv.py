@@ -11,16 +11,20 @@ def plotcsv_frommoose_temp(file, save):
     file = pd.read_csv(file)
 
     x = file['x'].tolist()
-    temp = file['dens'].tolist()
+    temp = file['temp'].tolist()
 
     plt.figure()
     plt.plot(x, temp)
-    plt.ylabel('Density')
+    plt.ylabel('Temperature')
     plt.xlabel('x [cm]')
     # plt.title('Steady-state flux')
     plt.savefig(save, dpi=300, bbox_inches="tight")
 
 
-file = 'advec2-t_axial_0251.csv'
-save = 'advec2-t-251'
+file = 'advec4-t_axial_0000.csv'
+save = 'advec4-t-0'
+plotcsv_frommoose_temp(file, save)
+
+file = 'advec4-t_axial_0251.csv'
+save = 'advec4-t-251'
 plotcsv_frommoose_temp(file, save)

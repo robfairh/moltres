@@ -130,10 +130,19 @@ fill=blue!30]
     Very similar to \textit{advec1-t.i}.
     Adds volumetric source.
     Figure \ref{fig:advec2-t} shows the results.
+    It is correct. $\rho(L, t \rightarrow \infty) - \rho(0, t) = q/v*L = 200$
 
 	\begin{equation}
     \frac{\partial}{\partial t}\rho + v \frac{\partial}{\partial x} \rho = \dot{q}
 	\end{equation}
+
+	\begin{itemize}
+		\item IC: $\rho(x, 0) = 100 + 10 sin(\frac{\pi}{L} x)$
+		\item BC: $\rho(0, t) = 100$
+		\item $v = 0.5$
+		\item $L = 100$
+		\item $q = 1$
+	\end{itemize}
 
 	\begin{figure}[htbp!]
 		\centering
@@ -164,10 +173,18 @@ fill=blue!30]
 
     Same as \textit{advec2-t} but steady state.
     Figure \ref{fig:advec2-ss} shows the results.
+    It is correct. $\rho(L) - \rho(0) = q/v*L = 200$
 
 	\begin{equation}
     v \frac{\partial}{\partial x} \rho = \dot{q}
 	\end{equation}
+
+	\begin{itemize}
+		\item BC: $\rho(0, t) = 100$
+		\item $v = 0.5$
+		\item $L = 100$
+		\item $q = 1$
+	\end{itemize}
 
 	\begin{figure}[htbp!]
 		\centering
@@ -175,7 +192,6 @@ fill=blue!30]
 		\caption{Steady state solution.}
 		\label{fig:advec2-ss}
 	\end{figure}
-
 
 	\subsection{advec3-t}
 
@@ -194,6 +210,15 @@ fill=blue!30]
 	\begin{equation}
     \rho c_p \frac{\partial}{\partial t}T + \rho c_p v \frac{\partial}{\partial x} T = 0
 	\end{equation}
+
+	\begin{itemize}
+		\item BC: $T(0, t) = 930$
+		\item IC: $T(x, 0) = 930$
+		\item $\rho = 1e-2$
+		\item $c_p = 2e3$
+		\item $v = 0.5$
+		\item $L = 100$
+	\end{itemize}
 
 	\begin{figure}[htbp!]
 		\centering
@@ -215,11 +240,36 @@ fill=blue!30]
     Similar to \textit{advec4-t.i}
     Adds a point source and solves for temperature.
     Figure \ref{fig:advec4-t} shows the results.
+    It is correct. $T(L) - T(0) = q/(\rho c_p v )*L = 10$
+
+	\begin{equation}
+    \rho c_p \frac{\partial}{\partial t}T + \rho c_p v \frac{\partial}{\partial x} T = \dot{q}
+	\end{equation}
+
+	\begin{itemize}
+		\item BC: $T(0, t) = 930$
+		\item IC: $T(x, 0) = 930$
+		\item $\rho = 1e-2$
+		\item $c_p = 2e3$
+		\item $v = 0.5$
+		\item $L = 100$
+		\item $q = 1$
+	\end{itemize}
 
 	\begin{figure}[htbp!]
 		\centering
-		\includegraphics[height=5cm]{advec4-t}
-		\caption{Advected temperature from point source.}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{advec4-t-0}
+			\caption{t=0.}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{advec4-t-251}
+			\caption{t=250.}
+		\end{subfigure}
+		\hfill
+		\caption{Advected temperature with volumentric source.}
 		\label{fig:advec4-t}
 	\end{figure}
 
