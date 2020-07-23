@@ -1,4 +1,6 @@
 
+nt_scale = 1e10
+
 [GlobalParams]
   num_groups = 2
   num_precursor_groups = 8
@@ -19,7 +21,7 @@
 [Mesh]
   [mymesh]
     type = FileMeshGenerator
-    file = '1D-fuel-reflecA.msh'
+    file = '1D-fuel-reflec.msh'
   [../]
 
   [./add_side_sets]
@@ -51,7 +53,7 @@
     type = CoupledFissionEigenKernel
     variable = group1
     group_number = 1
-    # block = 'fuel'
+    block = 'fuel'
   [../]
 
   [./diff_group2]
@@ -73,7 +75,7 @@
     type = CoupledFissionEigenKernel
     variable = group2
     group_number = 2
-    # block = 'fuel'
+    block = 'fuel'
   [../]
 []
 
@@ -122,19 +124,12 @@
 []
 
 [Executioner]
-  type = InversePowerMethod
-  max_power_iterations = 200
-  xdiff = 'group1diff'
-
+  type = NonlinearEigen
   bx_norm = 'bnorm'
-  k0 = 1.4
+  free_power_iterations = 4
   pfactor = 1e-4
-  l_max_its = 300
+  k0 = 1.4
 
-  # eig_check_tol = 1e-09
-  sol_check_tol = 1e-08
-
-  # solve_type = 'PJFNK'
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
   petsc_options_iname = '-pc_type -sub_pc_type'
@@ -153,12 +148,6 @@
     type = ElmIntegTotFissNtsPostprocessor
     execute_on = linear
   [../]
-  [./group1diff]
-    type = ElementL2Diff
-    variable = group1
-    execute_on = 'linear timestep_end'
-    use_displaced_mesh = false
-  [../]
 []
 
 [VectorPostprocessors]
@@ -176,7 +165,7 @@
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  file_base = '1D-fuel-reflec-eig1'
+  file_base = '1D-fuel-reflec-eig2'
   execute_on = timestep_end
   exodus = true
   csv = true

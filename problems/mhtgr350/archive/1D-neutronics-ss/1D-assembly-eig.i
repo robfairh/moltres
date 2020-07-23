@@ -1,6 +1,4 @@
 
-nt_scale = 1e10
-
 [GlobalParams]
   num_groups = 2
   num_precursor_groups = 8
@@ -21,7 +19,7 @@ nt_scale = 1e10
 [Mesh]
   [mymesh]
     type = FileMeshGenerator
-    file = '1D-fuel-reflecA.msh'
+    file = '1D-fuel-reflec.msh'
   [../]
 
   [./add_side_sets]
@@ -53,7 +51,6 @@ nt_scale = 1e10
     type = CoupledFissionEigenKernel
     variable = group1
     group_number = 1
-    block = 'fuel'
   [../]
 
   [./diff_group2]
@@ -75,7 +72,6 @@ nt_scale = 1e10
     type = CoupledFissionEigenKernel
     variable = group2
     group_number = 2
-    block = 'fuel'
   [../]
 []
 
@@ -99,7 +95,7 @@ nt_scale = 1e10
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_homoge_'
+    property_tables_root = 'xs/assembly/xs800000-500-100/htgr_2g_homoge_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -107,7 +103,7 @@ nt_scale = 1e10
   [../]
   [./refl1]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_brefl_'
+    property_tables_root = 'xs/assembly/xs800000-500-100/htgr_2g_brefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -115,7 +111,7 @@ nt_scale = 1e10
   [../]
   [./refl2]
     type = GenericMoltresMaterial
-    property_tables_root = '../xs/8/xs800000-500-100/htgr_2g_trefl_'
+    property_tables_root = 'xs/assembly/xs800000-500-100/htgr_2g_trefl_'
     interp_type = 'linear'
     prop_names = 'k'
     prop_values = '1.'
@@ -124,12 +120,19 @@ nt_scale = 1e10
 []
 
 [Executioner]
-  type = NonlinearEigen
-  bx_norm = 'bnorm'
-  free_power_iterations = 4
-  pfactor = 1e-4
-  k0 = 1.4
+  type = InversePowerMethod
+  max_power_iterations = 150
+  xdiff = 'group1diff'
 
+  bx_norm = 'bnorm'
+  k0 = 1.4
+  pfactor = 1e-4
+  l_max_its = 300
+
+  # eig_check_tol = 1e-09
+  sol_check_tol = 1e-08
+
+  # solve_type = 'PJFNK'
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
   petsc_options_iname = '-pc_type -sub_pc_type'
@@ -148,6 +151,12 @@ nt_scale = 1e10
     type = ElmIntegTotFissNtsPostprocessor
     execute_on = linear
   [../]
+  [./group1diff]
+    type = ElementL2Diff
+    variable = group1
+    execute_on = 'linear timestep_end'
+    use_displaced_mesh = false
+  [../]
 []
 
 [VectorPostprocessors]
@@ -165,7 +174,7 @@ nt_scale = 1e10
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  file_base = '1D-fuel-reflec-eig2'
+  file_base = '1D-fuel-reflec-eig1'
   execute_on = timestep_end
   exodus = true
   csv = true

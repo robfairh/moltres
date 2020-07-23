@@ -49,39 +49,7 @@ fill=blue!30]
 
 \begin{document}
 
-\section{1D-neutronics}
-
-\subsection{1D-fuel}
-
-	\begin{itemize}
-		\item Mesh: \textit{1D-fuel.msh}
-		\item Transient problem.
-	\end{itemize}
-
-Figure \ref{fig:1D-fuel} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\includegraphics[height=5cm]{1D-fuel}
-		\caption{Group 1 and 2 fluxes at 10 msec.}
-		\label{fig:1D-fuel}
-	\end{figure}
-
-\subsection{1D-fuel-action}
-
-	\begin{itemize}
-		\item Mesh: GeneratedMesh
-		\item Transient problem.
-	\end{itemize}
-
-Figure \ref{fig:1D-fuel-action} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\includegraphics[height=5cm]{1D-fuel-action}
-		\caption{Group 1 and 2 fluxes at 10 msec.}
-		\label{fig:1D-fuel-action}
-	\end{figure}
+\section{1D-neutronics-ss}
 
 \subsection{1D-fuel-eig}
 
@@ -111,32 +79,6 @@ Moltres: $k_{eff}$ = 1.415418.
 		\label{fig:1D-fuel-eig}
 	\end{figure}
 
-\subsection{1D-fuel-reflec}
-
-	\begin{itemize}
-		\item Mesh: \textit{1D-fuel-reflec.msh}
-		\item Transient problem.
-	\end{itemize}
-
-Figure \ref{fig:1D-fuel-reflec} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{1D-fuel-reflec}
-			\caption{Group 1 and 2 fluxes at 10 msec.}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{1D-fuel-reflec-g2}
-			\caption{Group 2 flux at 10 msec.}
-		\end{subfigure}
-		\hfill
-		\caption{Transient problem fluxes.}
-		\label{fig:1D-fuel-reflec}
-	\end{figure}
-
 \subsection{1D-fuel-reflec-eig}
 
 	\begin{itemize}
@@ -164,12 +106,12 @@ Moltres:
 		\centering
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{1D-fuel-reflec-eig1C}
+			\includegraphics[width=\linewidth]{1D-fuel-reflec-eig1B}
 			\caption{Inverse Power Method.}
 		\end{subfigure}
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{1D-fuel-reflec-eig2B}
+			\includegraphics[width=\linewidth]{1D-fuel-reflec-eig2}
 			\caption{Non Linear Eigen.}
 		\end{subfigure}
 		\hfill
@@ -180,7 +122,7 @@ Moltres:
 \subsection{1D-assembly-eig}
 
 	\begin{itemize}
-		\item Mesh: \textit{1D-fuel-reflecA.msh}
+		\item Mesh: \textit{1D-fuel-reflec.msh}
 		\item Eigenvalue problem.
 	\end{itemize}
 
