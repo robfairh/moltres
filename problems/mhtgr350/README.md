@@ -181,6 +181,12 @@ thermo-hydraulics/
 	- Uses DG kernels
 	- Transient problem
 
+* advec5-ss.i:
+	- pseudo-1D
+	- q'' on one of the walls
+	- Uses DG kernels
+	- Steady-state problem
+
 
 * burguers.i:
 	- Burguers equation
