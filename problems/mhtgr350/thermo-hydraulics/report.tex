@@ -50,34 +50,34 @@ fill=blue!30]
 
 \section{Advection}
 
-	\subsection{advec1}
+	\subsection{advect-1}
 
 	\begin{itemize}
-		\item \textit{advec1.i}
+		\item \textit{advect-1.i}
 		\item 1D generated mesh with libmesh
 		\item Uses DG Kernels
 		\item InflowBC and OutflowBC
 		\item Transient problem
 	\end{itemize}
 
-    Figure \ref{fig:advec1} shows the results.
+    Figure \ref{fig:advect-1} shows the results.
     It seems like the variable has to be a CONSTANT MONOMIAL.
 
 	\begin{figure}[htbp!]
 		\centering
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{advec1A}
+			\includegraphics[width=\linewidth]{advect-1A}
 			\caption{t=0.}
 		\end{subfigure}
 		\begin{subfigure}[t]{0.4\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{advec1B}
+			\includegraphics[width=\linewidth]{advect-1B}
 			\caption{t=100.}
 		\end{subfigure}
 		\hfill
 		\caption{Advected density.}
-		\label{fig:advec1}
+		\label{fig:advect-1}
 	\end{figure}
 
 	\subsection{periodic\_bc2}
@@ -89,7 +89,7 @@ fill=blue!30]
 		\item Transient problem
 	\end{itemize}
 
-    In \textit{advec1-bc.i} I tried to add periodicBCs to the previous problem and it does not work.
+    In \textit{advect-1-bc.i} I tried to add periodicBCs to the previous problem and it does not work.
     Here I tried to isolate the problem.
     Figure \ref{fig:periodic} shows the results.
     It does not work if the valiable is a CONSTANT MONOMIAL.
@@ -112,10 +112,10 @@ fill=blue!30]
 		\label{fig:periodic}
 	\end{figure}
 
-	\subsection{advec1-ss}
+	\subsection{advecss-1}
 
 	\begin{itemize}
-		\item \textit{advec1-ss.i}
+		\item \textit{advecss-1.i}
 		\item 1D generated mesh with libmesh
 		\item Uses DG Kernels
 		\item Inflow and OutflowBC
@@ -123,95 +123,75 @@ fill=blue!30]
 	\end{itemize}
 
     Same as previos problem but steady state and adds a source.
-    Figure \ref{fig:advec1-ss} shows the results.
+    Figure \ref{fig:advecss-1} shows the results.
 
 	\begin{figure}[htbp!]
 		\centering
 		\includegraphics[height=5cm]{advec1-ss}
 		\caption{Steady state solution.}
-		\label{fig:advec1-ss}
+		\label{fig:advecss-1}
 	\end{figure}
 
-	\subsection{advec2}
+	\subsection{advect-2}
 
 	\begin{itemize}
-		\item \textit{advec2.i}
+		\item \textit{advect-2.i}
 		\item 1D generated mesh with libmesh
 		\item Uses DG Kernels
 		\item TemperatureInflowBC and TemperatureOutflowBC
 		\item Transient problem
 	\end{itemize}
 
-    Very similar to \textit{advec1.i}
+    Very similar to \textit{advect-1.i}
     Advects BC.
-    Figure \ref{fig:advec2} shows the results.
+    Figure \ref{fig:advect-2} shows the results.
 
 	\begin{figure}[htbp!]
 		\centering
 		\includegraphics[height=5cm]{advec2}
 		\caption{Advects BC.}
-		\label{fig:advec2}
+		\label{fig:advect-2}
 	\end{figure}
 
-	\subsection{advec3}
+	\subsection{advect-3}
 
 	\begin{itemize}
-		\item \textit{advec3.i}
+		\item \textit{advect-3.i}
 		\item 1D generated mesh with libmesh
 		\item Uses DG Kernels
 		\item TemperatureInflowBC and TemperatureOutflowBC
 		\item Transient problem
 	\end{itemize}
 
-    Similar to \textit{advec1.i}
+    Similar to \textit{advect-1.i}
     Adds a point source and solves for temperature.
-    Figure \ref{fig:advec3} shows the results.
+    Figure \ref{fig:advect-3} shows the results.
 
 	\begin{figure}[htbp!]
 		\centering
-		\includegraphics[height=5cm]{advec3}
+		\includegraphics[height=5cm]{advect-3}
 		\caption{Advected temperature from point source.}
-		\label{fig:advec3}
+		\label{fig:advect-3}
 	\end{figure}
 
-	\subsection{advec4}
+	\subsection{advect-4}
 
 	\begin{itemize}
-		\item \textit{advec4.i}
+		\item \textit{advect-4.i}
 		\item pseudo-1D: 2D-coolant.msh
 		\item Uses DG Kernels
 		\item TemperatureInflowBC and TemperatureOutflowBC
 		\item Transient problem
 	\end{itemize}
 
-    Similar to \textit{advec3.i} but has a $q''$ on the wall.
-    Figure \ref{fig:advec4} shows the results.
+    Similar to \textit{advect-3.i} but has a $q''$ on the wall.
+    Figure \ref{fig:advect-4} shows the results.
 
 	\begin{figure}[htbp!]
 		\centering
 		\includegraphics[height=5cm]{advec4}
 		\caption{Advects temperature while wall is been heated.}
-		\label{fig:advec4}
-	\end{figure}
-
-	\subsection{TH-temp}
-
-	\begin{itemize}
-		\item \textit{advec4.i}
-		\item pseudo-1D: 2D-coolant.msh
-		\item Uses DG Kernels
-		\item TemperatureInflowBC and TemperatureOutflowBC
-		\item Transient problem
-	\end{itemize}
-
-    Similar to \textit{advec3.i} but has a $q''$ on the wall.
-    Figure \ref{fig:advec4} shows the results.
-
-	\begin{figure}[htbp!]
-		\centering
-		\includegraphics[height=5cm]{advec4}
-		\caption{Advects temperature while wall is been heated.}
-		\label{fig:advec4}
+		\label{fig:advect-4}
 	\end{figure}
 
 \pagebreak
