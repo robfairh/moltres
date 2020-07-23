@@ -33,7 +33,7 @@ cool_surfaces[] = {1};
 cool_bots[] = {2};
 cool_tops[] = {3};
 
-Physical Line("bot") = {2};
+Physical Line("bottom") = {2};
 Physical Line("top") = {3};
 Physical Line("left") = {1};
 Physical Line("right") = {4};

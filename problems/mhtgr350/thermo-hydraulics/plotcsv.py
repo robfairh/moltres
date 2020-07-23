@@ -10,7 +10,7 @@ def plotcsv_frommoose_temp(file, save):
     '''
     file = pd.read_csv(file)
 
-    x = file['x'].tolist()
+    x = file['y'].tolist()
     temp = file['temp'].tolist()
 
     plt.figure()
@@ -21,10 +21,10 @@ def plotcsv_frommoose_temp(file, save):
     plt.savefig(save, dpi=300, bbox_inches="tight")
 
 
-file = 'advec4-t_axial_0000.csv'
-save = 'advec4-t-0'
-plotcsv_frommoose_temp(file, save)
+file = 'advec5-t_axial_0000.csv'
+save = 'advec5-t-0'
+# plotcsv_frommoose_temp(file, save)
 
-file = 'advec4-t_axial_0251.csv'
-save = 'advec4-t-251'
+file = 'advec5-t_axial_0251.csv'
+save = 'advec5-t-251'
 plotcsv_frommoose_temp(file, save)

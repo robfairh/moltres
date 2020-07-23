@@ -258,18 +258,8 @@ fill=blue!30]
 
 	\begin{figure}[htbp!]
 		\centering
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{advec4-t-0}
-			\caption{t=0.}
-		\end{subfigure}
-		\begin{subfigure}[t]{0.4\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{advec4-t-251}
-			\caption{t=250.}
-		\end{subfigure}
-		\hfill
-		\caption{Advected temperature with volumentric source.}
+		\includegraphics[height=5cm]{advec4-t-251}
+		\caption{t=250.}
 		\label{fig:advec4-t}
 	\end{figure}
 
@@ -277,7 +267,7 @@ fill=blue!30]
 
 	\begin{itemize}
 		\item \textit{advec5-t.i}
-		\item pseudo-1D: 2D-coolant.msh
+		\item pseudo-1D: GeneratedMesh
 		\item Uses DG Kernels
 		\item TemperatureInflowBC and TemperatureOutflowBC
 		\item Transient problem
@@ -286,9 +276,28 @@ fill=blue!30]
     Similar to \textit{advec5-t.i} but has a $q''$ on the wall.
     Figure \ref{fig:advec5-t} shows the results.
 
+	\begin{equation}
+    \rho c_p \frac{\partial}{\partial t}T + \rho c_p v \frac{\partial}{\partial x} T = 0
+	\end{equation}
+
+	\begin{itemize}
+		\item IC: $T(x, y, 0) = 930$
+		\item BC: $T(x, 0, t) = 930$
+		\item BC: $q''(0, y, t) = 10 sin (\pi/L y)$
+		\item $\rho = 1e-2$
+		\item $c_p = 2e3$
+		\item $v = 0.5$
+		\item $L = 100$
+		\item $\Delta_x = 2$
+	\end{itemize}
+
+	\begin{equation}
+	T(L) - T(0) = \frac{1}{\rho c_p v}\frac{1}{\Delta_x}\int^L_0 q'' dx = \frac{1}{10} \frac{1}{2} \frac{10 \times 2 \times L}{\pi}
+	\end{equation}
+
 	\begin{figure}[htbp!]
 		\centering
-		\includegraphics[height=5cm]{advec5-t}
+		\includegraphics[height=5cm]{advec5-t-251}
 		\caption{Advects temperature while wall is been heated.}
 		\label{fig:advec5-t}
 	\end{figure}

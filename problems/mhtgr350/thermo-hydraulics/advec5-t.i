@@ -2,7 +2,13 @@
 velocity = 0.5
 
 [Mesh]
-  file = '2D-coolant.msh'
+  type = GeneratedMesh
+  dim = 2
+  nx = 1
+  ny = 100
+  xmax = 2
+  ymax = 100
+  elem_type = QUAD4
 [../]
 
 [Variables]
@@ -30,7 +36,7 @@ velocity = 0.5
 
 [BCs]
   [./fuel_bottoms_looped]
-    boundary = 'bot'
+    boundary = 'bottom'
     type = TemperatureInflowBC
     variable = temp
     uu = 0
@@ -61,7 +67,8 @@ velocity = 0.5
 [Functions]
   [./heat_flux]
     type = ParsedFunction
-    value = '10 * sin( 3.141592/100 * y)'
+    #value = '10 * sin( 3.141592/100 * y)'
+    value = '10 * sin( pi/100 * y)'
   [../]
 []
 
@@ -69,13 +76,13 @@ velocity = 0.5
   [./coolant]
     type = GenericConstantMaterial
     prop_names = 'k cp rho'
-    prop_values = '.1 1967 1e-2'
+    prop_values = '1 2e3 1e-2'
   [../]
 []
 
 [Executioner]
   type = Transient
-  end_time = 200
+  end_time = 250
 
   nl_rel_tol = 1e-8
   nl_abs_tol = 1e-8
@@ -99,20 +106,29 @@ velocity = 0.5
   [../]
 []
 
-[Postprocessors]
-  [./temp_fuel]
-    type = ElementAverageValue
-    variable = temp
-    outputs = 'exodus console'
+#[Postprocessors]
+#  [./dens_fuel]
+#    type = ElementAverageValue
+#    variable = temp
+#    outputs = 'exodus console'
+#  [../]
+#[]
+
+[VectorPostprocessors]
+  [./axial]
+    type = LineValueSampler
+    variable = 'temp'
+    start_point = '0 0 0'
+    end_point = '0 100 0'
+    sort_by = y
+    num_points = 200
+    execute_on = 'initial final'
   [../]
 []
 
 [Outputs]
-  perf_graph = true
-  print_linear_residuals = true
-  [./exodus]
-    type = Exodus
-    file_base = 'advec4'
-    execute_on = 'timestep_begin'
-  [../]
+  file_base = 'advec5-t'
+  execute_on = 'initial final'
+  exodus = true
+  csv = true
 []
