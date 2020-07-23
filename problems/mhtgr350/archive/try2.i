@@ -1,4 +1,4 @@
-# This file is a simple input file with the purpose of debugging
+# This file is a simple input file with the purpose of debugging the Integrated BC
 
 [Variables]
   [./temp]
@@ -10,7 +10,7 @@
 [Mesh]
   [mymesh]
     type = FileMeshGenerator
-    file = '1D-fuel-reflecC.msh'
+    file = '1D-fuel-reflec.msh'
   [../]
 
   [./add_side_sets]
