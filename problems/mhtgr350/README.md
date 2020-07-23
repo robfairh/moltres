@@ -18,6 +18,10 @@
 	- geometry of 1/6 of the fuel assembly.
 	- coolant channels don't go through the reflector
 
+* 3D-assembly-30deg-reflecB.geo:
+	- geometry of 1/6 of the fuel assembly.
+	- coolant channels go through the reflector
+
 * 3D-fullcore-120-homo.geo:
 	- 1/3 of the full core geometry.
 	- Fuel, coolant, and moderator are an homogeneous mixture.

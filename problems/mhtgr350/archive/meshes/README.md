@@ -6,14 +6,21 @@ Geo & Meshes:
 
 * 3D-assembly.geo:
 	- Fuel assembly without reflector.
+	- It can be deleted eventually
 
 * 3D-assembly-30deg.geo:
 	- geometry of 1/6 of the fuel assembly.
 	- No reflector
+	- It can be deleted eventually
 
 * 3D-assembly-reflec.geo:
 	- Fuel assembly column with reflectors.
 	- Moderator and reflectors are the same material.
+	- It can be deleted eventually
+
+* 3D-fullcore-homo.geo:
+	- full core geometry.
+	- Fuel, coolant, and moderator are an homogeneous mixture.
 
 
 * cut2D.py:
@@ -33,3 +40,7 @@ Geo & Meshes:
 	- it would produce the mmr fuel assembly geometry (I think)
 	- it can be deleted eventually
 
+
+* plotter.i:
+	- It is just to get the diagram in paraview. 'Converts' from .msh to .e by running the moltres input file.
+	- It can be deleted eventually
