@@ -13,10 +13,27 @@ velocity = 0.5
   [./dens]
     order = CONSTANT
     family = MONOMIAL
+    [./InitialCondition]
+      type = FunctionIC
+      function = 'initial_func'
+    [../]
   [../]
 []
 
 [Kernels]
+  [./dens_time_derivative]
+    type = TimeDerivative
+    variable = dens
+  [../]
+
+  # Not sure if this is necessary or not, the solution does not change
+  #[./adv_dens]
+  #  implicit = false
+  #  type = ConservativeAdvection
+  #  variable = dens
+  #  velocity = '${velocity} 0 0'
+  #[../]
+
   [./source]
     type = BodyForce
     variable = dens
@@ -42,26 +59,38 @@ velocity = 0.5
     ww = 0
     inlet_conc = 100
   [../]
-
-  [./u_adv]
-    type = OutflowBC
-    #boundary = 'left right' # If I use this option it is like Inflow/inlet_conc=0
+  [./dens_advection_outlet]
     boundary = 'right'
+    type = OutflowBC
     variable = dens
     velocity = '${velocity} 0 0'
   [../]
 []
 
+[Functions]
+  [./initial_func]
+    type = ParsedFunction
+    value = '1e2 + 1e1 * sin(3.141592/100 * x)'
+  [../]
+[]
+
 [Executioner]
-  type = Steady
-  nl_rel_tol = 1e-6
-  nl_abs_tol = 1e-5
+  type = Transient
+  end_time = 250
+
+  nl_rel_tol = 1e-8
+  nl_abs_tol = 1e-8
+  scheme = crank-nicolson
+
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
   petsc_options_iname = '-pc_type -sub_pc_type -pc_asm_overlap -sub_ksp_type -snes_linesearch_minlambda'
   petsc_options_value = 'asm      lu           1               preonly       1e-3'
-  nl_max_its = 30
-  l_max_its = 100
+
+  [./TimeStepper]
+    type = ConstantDT
+    dt = 1
+  [../]
 []
 
 [Preconditioning]
@@ -71,6 +100,14 @@ velocity = 0.5
   [../]
 []
 
+#[Postprocessors]
+#  [./dens_fuel]
+#    type = ElementAverageValue
+#    variable = dens
+#    outputs = 'exodus console'
+#  [../]
+#[]
+
 [VectorPostprocessors]
   [./axial]
     type = LineValueSampler
@@ -79,13 +116,14 @@ velocity = 0.5
     end_point = '100 0 0'
     sort_by = x
     num_points = 200
-    execute_on = timestep_end
+    # execute_on = 'timestep_end'
+    execute_on = 'initial final'
   [../]
 []
 
 [Outputs]
-  file_base = 'advec2-ss'
-  execute_on = timestep_end
+  file_base = 'advec2-t'
+  execute_on = 'initial final'
   exodus = true
   csv = true
 []

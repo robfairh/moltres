@@ -160,9 +160,6 @@ thermo-hydraulics/
 	- Transient problem
 	- InflowBC and OutflowBC
 
-
-
-
 * advec3-t.i:
 	- 1D
 	- Advection equation for temperature
@@ -177,6 +174,9 @@ thermo-hydraulics/
 	- Point source changes over time
 	- Uses DG kernels
 	- Transient problem
+
+
+
 
 * advec5-t.i:
 	- pseudo-1D
