@@ -5,16 +5,15 @@ Geometry.CopyMeshingMethod = 1;
 Rc = 0.794;  // 0.794 cm
 
 h = 4.;
-H = 100;
-
-L = 100;
+H = 793;
+L = 200;
 
 R = 0;
 Point(1) = {R, 0, 0, h};
 Point(2) = {R, H, 0, h};
 Line(1) = {1, 2};
 
-R += 2*Rc;
+R += Rc;
 Point(3) = {R, 0, 0, h};
 Point(4) = {R, H, 0, h};
 Line(2) = {1, 3};

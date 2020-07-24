@@ -23,8 +23,8 @@ def plotcsv_frommoose_temp(file, save):
 
 file = 'advec5-ss_axial_0002.csv'
 save = 'advec5-ss'
-plotcsv_frommoose_temp(file, save)
+# plotcsv_frommoose_temp(file, save)
 
-file = 'advec5-t_axial_0251.csv'
-save = 'advec5-t-251'
-#plotcsv_frommoose_temp(file, save)
+file = 'advec6-tB_axial_0251.csv'
+save = 'advec6-tB-251'
+plotcsv_frommoose_temp(file, save)

@@ -188,6 +188,24 @@ thermo-hydraulics/
 	- Steady-state problem
 
 
+
+* advec6-t.i:
+	- pseudo-1D: uses GeneratedMesh
+	- q'' on one of the walls
+	- Uses DG kernels
+	- Transient problem
+	- values of the PMR600 (or almost)
+
+* advec6-t.i:
+	- pseudo-1D: uses mesh file
+	- q'' on one of the walls
+	- Uses DG kernels
+	- Transient problem
+	- values of the PMR600 (or almost)
+
+
+
+
 * burguers.i:
 	- Burguers equation
 	- Uses DGKernels

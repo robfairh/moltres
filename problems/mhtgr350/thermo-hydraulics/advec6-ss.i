@@ -1,20 +1,15 @@
 
-velocity = 2.657e3  # [cm/s]
+velocity = 0.5
 
 [Mesh]
   type = GeneratedMesh
   dim = 2
   nx = 1
   ny = 100
-  xmax = 0.794
-  # xmax = 1
-  ymax = 793
+  xmax = 2
+  ymax = 100
   elem_type = QUAD4
 [../]
-
-#[Problem]
-#  coord_type = RZ
-#[]
 
 [Variables]
   [./temp]
@@ -25,9 +20,10 @@ velocity = 2.657e3  # [cm/s]
 []
 
 [Kernels]
-  [./time_derivative]
-    type = MatINSTemperatureTimeDerivative
+  [./source]
+    type = BodyForce
     variable = temp
+    value = 0
   [../]
 []
 
@@ -66,9 +62,7 @@ velocity = 2.657e3  # [cm/s]
 [Functions]
   [./heat_flux]
     type = ParsedFunction
-    # value = '70.64 * sin( pi/793 * y)'
-    value = '43.55 * sin( pi/793 * y)'
-    # value = '14.16'
+    value = '10 * sin( pi/100 * y)'
   [../]
 []
 
@@ -76,27 +70,20 @@ velocity = 2.657e3  # [cm/s]
   [./coolant]
     type = GenericConstantMaterial
     prop_names = 'k cp rho'
-    prop_values = '1 5.188e3 4.368e-6' # [] [J/kg/K] [kg/cm3]
+    prop_values = '1 2e3 1e-2'
   [../]
 []
 
 [Executioner]
-  type = Transient
-  end_time = 250
-
-  nl_rel_tol = 1e-8
-  nl_abs_tol = 1e-8
-  scheme = crank-nicolson
-
+  type = Steady
+  nl_rel_tol = 1e-6
+  nl_abs_tol = 1e-5
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
   petsc_options_iname = '-pc_type -sub_pc_type -pc_asm_overlap -sub_ksp_type -snes_linesearch_minlambda'
   petsc_options_value = 'asm      lu           1               preonly       1e-3'
-
-  [./TimeStepper]
-    type = ConstantDT
-    dt = 1
-  [../]
+  nl_max_its = 30
+  l_max_its = 100
 []
 
 [Preconditioning]
@@ -111,18 +98,16 @@ velocity = 2.657e3  # [cm/s]
     type = LineValueSampler
     variable = 'temp'
     start_point = '0 0 0'
-    end_point = '0 793 0'
+    end_point = '0 100 0'
     sort_by = y
     num_points = 200
-    execute_on = 'initial final'
-    #execute_on = 'timestep_end'
+    execute_on = 'final'
   [../]
 []
 
 [Outputs]
-  file_base = 'advec6-t'
-  #execute_on = 'initial final'
-  execute_on = 'linear timestep_end'
+  file_base = 'advec5-ss'
+  execute_on = 'final'
   exodus = true
   csv = true
 []

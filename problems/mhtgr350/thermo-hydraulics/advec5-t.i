@@ -128,7 +128,8 @@ velocity = 0.5
 
 [Outputs]
   file_base = 'advec5-t'
-  execute_on = 'initial final'
+  #execute_on = 'initial final'
+  execute_on = 'timestep_end'
   exodus = true
   csv = true
 []
