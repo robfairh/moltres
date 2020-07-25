@@ -44,8 +44,8 @@ Physical Surface("fuel") = {9};
 Physical Surface("moder") = {11};
 
 Physical Line("outer_wall") = {7};
-Physical Line("all_top") = {3, 4};
-Physical Line("all_bottom") = {1, 2};
+//Physical Line("all_top") = {3, 4};
+//Physical Line("all_bottom") = {1, 2};
 Physical Line("fuel_bottom") = {1};
 Physical Line("fuel_top") = {3};
 Physical Line("graphite_bottom") = {2};

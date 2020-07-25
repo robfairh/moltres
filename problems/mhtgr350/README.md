@@ -180,6 +180,13 @@ thermo-hydraulics/
 	- Uses DG kernels
 	- Transient problem
 
+* advec5-ss.i:
+	- pseudo-1D
+	- GeneratedMesh
+	- q'' on one of the walls
+	- Uses DG kernels
+	- Steady-state problem
+
 * advec5-t.i:
 	- pseudo-1D
 	- GeneratedMesh
@@ -187,12 +194,13 @@ thermo-hydraulics/
 	- Uses DG kernels
 	- Transient problem
 
-* advec5-ss.i:
+* advec6-ss.i:
 	- pseudo-1D
-	- GeneratedMesh
+	- 2D-coolant.msh
 	- q'' on one of the walls
 	- Uses DG kernels
 	- Steady-state problem
+	- values of the PMR600
 
 * advec6-t.i:
 	- pseudo-1D
@@ -203,6 +211,11 @@ thermo-hydraulics/
 	- values of the PMR600
 
 
+
+* diff1-ss.i
+	- it has only diffusion
+	- uses DG kernels
+	- steady state problem
 
 
 

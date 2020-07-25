@@ -14,6 +14,8 @@ sigma_val=6
   u_def = 0
   v_def = ${flow_velocity}
   w_def = 0
+  account_delayed = false
+  sss2_input = false 
 [../]
 
 [Mesh]
@@ -84,7 +86,7 @@ sigma_val=6
   [./fuel]
     type = CammiFuel
     block = 'fuel'
-    property_tables_root = '../property_file_dir/newt_fuel_'
+    property_tables_root = '../../property_file_dir/newt_fuel_'
     prop_names = 'cp'
     prop_values = '1357' # Cammi 2011 at 908 K
     interp_type = 'spline'
@@ -93,7 +95,7 @@ sigma_val=6
   [./moder]
     type = CammiModerator
     block = 'moder'
-    property_tables_root = '../property_file_dir/newt_mod_'
+    property_tables_root = '../../property_file_dir/newt_mod_'
     prop_names = 'rho cp'
     prop_values = '1.843e-3 1760' # Cammi 2011 at 908 K
     interp_type = 'spline'
