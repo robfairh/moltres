@@ -25,18 +25,15 @@ def plotcsv_frommoose_temp(file, save, dire='x'):
 # save = 'advec7-t-251-c'
 # plotcsv_frommoose_temp(file, save)
 
-file = 'advec7-t_outer_0101.csv'
-save = 'advec7-t-101-o'
-# plotcsv_frommoose_temp(file, save, 'y')
-
-file = 'advec7-t_across_0011.csv'
-save = 'advec7-t-251-a'
-# plotcsv_frommoose_temp(file, save, 'x')
-
-file = 'diff1-ss_across_0001.csv'
-save = 'diff1-ss_across'
-# plotcsv_frommoose_temp(file, save, 'x')
-
-file = 'advec6-ss_axial_0002.csv'
-save = 'advec6-ss'
+t = '0002'
+file = 'advec7-ss_outer_' + t + '.csv'
+save = 'advec7-ss-' + t + '-o'
 plotcsv_frommoose_temp(file, save, 'y')
+
+file = 'advec7-ss_across_' + t + '.csv'
+save = 'advec7-ss-' + t + '-a'
+plotcsv_frommoose_temp(file, save, 'x')
+
+# file = 'diff1-ss_across_0001.csv'
+# save = 'diff1-ss_across'
+# plotcsv_frommoose_temp(file, save, 'x')

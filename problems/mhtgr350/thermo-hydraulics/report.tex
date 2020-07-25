@@ -385,6 +385,62 @@ fill=blue!30]
 		\label{fig:advec6-t}
 	\end{figure}
 
+	\subsection{advec6-ss}
+
+	\begin{itemize}
+		\item \textit{advec6-ss.i}
+		\item Mesh: 2D-coolant.msh
+		\item Uses DG Kernels
+		\item TemperatureInflowBC and TemperatureOutflowBC
+		\item Steady-state problem
+	\end{itemize}
+
+    Like \textit{advec6-t.i} but steady state.
+    Figure \ref{fig:advec6-ss} shows the results.
+
+	\begin{equation}
+    \rho c_p v \frac{\partial}{\partial x} T = 0
+	\end{equation}
+
+	This is not the real equation. When using the Galerkin method, a new term appears due to the neumann BC.
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{advec6-ss}
+		\caption{Advects temperature while wall is been heated.}
+		\label{fig:advec6-t}
+	\end{figure}
+
+	\subsection{diff1-ss}
+
+	\begin{itemize}
+		\item \textit{diff1-ss.i}
+		\item GeneratedMesh
+		\item Uses DG Kernels
+		\item DGFunctionDiffusionDirichletBC
+		\item Steady-state problem
+	\end{itemize}
+
+    Figure \ref{fig:diff1-ss} shows the results.
+
+	\begin{equation}
+    	k \nabla^2 T + q = 0
+	\end{equation}
+
+	\begin{itemize}
+		\item BC: $T(2, y) = 490^{\circ}C$
+		\item $k = 1$
+		\item $q = 1$
+		\item $\Delta_x = 2$
+	\end{itemize}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{diff1-ss_across}
+		\caption{Diffusion using DG Kernels.}
+		\label{fig:diff1-ss}
+	\end{figure}
+
 \pagebreak
 \bibliographystyle{plain}
 % \bibliography{bibliography}
