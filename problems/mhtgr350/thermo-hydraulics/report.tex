@@ -294,7 +294,7 @@ fill=blue!30]
 	\end{itemize}
 
 	\begin{equation}
-	T(L) - T(0) = \frac{1}{\rho c_p v}\frac{1}{\Delta_x}\int^L_0 q'' dx = \frac{1}{10} \frac{1}{2} \frac{10 \times 2 \times L}{\pi}
+	T(L) - T(0) = \frac{1}{\rho c_p v}\frac{1}{\Delta_x \Delta_z}\int^L_0 q'' dy \Delta_z= \frac{1}{10} \frac{1}{2} \frac{10 \times 2 \times L}{\pi}
 	\end{equation}
 
 	\begin{figure}[htbp!]
@@ -334,7 +334,7 @@ fill=blue!30]
 	\end{itemize}
 
 	\begin{equation}
-	T(L) - T(0) = \frac{1}{\rho c_p v}\frac{1}{\Delta_x}\int^L_0 q'' dx = \frac{1}{10} \frac{1}{2} \frac{10 \times 2 \times L}{\pi}
+	T(L) - T(0) = \frac{1}{\rho c_p v}\frac{1}{\Delta_x \Delta_z}\int^L_0 q'' dy \Delta_z= \frac{1}{10} \frac{1}{2} \frac{10 \times 2 \times L}{\pi}
 	\end{equation}
 
 	\begin{figure}[htbp!]
@@ -342,6 +342,47 @@ fill=blue!30]
 		\includegraphics[height=5cm]{advec5-ss}
 		\caption{Advects temperature while wall is been heated.}
 		\label{fig:advec5-ss}
+	\end{figure}
+
+	\subsection{advec6-t}
+
+	\begin{itemize}
+		\item \textit{advec6-t.i}
+		\item Mesh: 2D-coolant.msh
+		\item Uses DG Kernels
+		\item TemperatureInflowBC and TemperatureOutflowBC
+		\item Transient problem
+	\end{itemize}
+
+    Like \textit{advec5-t.i} but uses the values of the PMR600 (or close values).
+    Figure \ref{fig:advec6-t} shows the results.
+    Constanst came from \cite{tak_numerical_2008} and \cite{tak_development_2014}.
+
+	\begin{equation}
+    \rho c_p \frac{\partial}{\partial t}T + \rho c_p v \frac{\partial}{\partial x} T = 0
+	\end{equation}
+
+	This is not the real equation. When using the Galerkin method, a new term appears due to the neumann BC.
+
+	\begin{itemize}
+		\item BC: $T(x, 0) = 490^{\circ}C$
+		\item BC: $q''(0, y) = 22.24 sin (\pi/L y)$
+		\item $\rho (7 MPa, 490^{\circ}C) = 4.368 kg/m^3 = 4.368e-6 kg/cm^3$
+		\item $c_p (7 MPa, 490^{\circ}C) = 5.188 J/g/K = 5.188e3 J/kg/K $
+		\item $v = 26.57 m/s = 2657 cm/s$
+		\item $L = 793 cm$
+		\item $R = 0.794 cm$
+	\end{itemize}
+
+	\begin{equation}
+	T(L) - T(0) = \frac{1}{\rho c_p v}\frac{1}{\pi R^2}\int^L_0 q'' dy 2 \pi R = \frac{1}{60.2} \frac{2}{R} \frac{20 \times 2 \times L}{\pi}
+	\end{equation}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{advec6-t-251}
+		\caption{Advects temperature while wall is been heated.}
+		\label{fig:advec6-t}
 	\end{figure}
 
 \pagebreak

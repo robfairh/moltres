@@ -128,6 +128,7 @@ thermo-hydraulics/
 ------------------
 * advec1-t.i:
     - 1D
+    - GeneratedMesh
 	- Advection equation
 	- Advects BC
 	- Uses DGKernels
@@ -136,6 +137,7 @@ thermo-hydraulics/
 
 * advec1-t-bc.i:
 	- 1D
+	- GeneratedMesh
 	- Advection equation
 	- Uses DGKernels
 	- Transient problem
@@ -153,6 +155,7 @@ thermo-hydraulics/
 
 * advec2-t.i:
     - 1D
+    - GeneratedMesh
 	- Advection equation
 	- Advects BC
 	- Adds a source
@@ -162,6 +165,7 @@ thermo-hydraulics/
 
 * advec3-t.i:
 	- 1D
+	- GeneratedMesh
 	- Advection equation for temperature
 	- Advects BC
 	- Uses DG kernels
@@ -170,6 +174,7 @@ thermo-hydraulics/
 
 * advec4-t.i:
 	- 1D
+	- GeneratedMesh
 	- Advects temperature from a point source
 	- Point source changes over time
 	- Uses DG kernels
@@ -177,31 +182,27 @@ thermo-hydraulics/
 
 * advec5-t.i:
 	- pseudo-1D
+	- GeneratedMesh
 	- q'' on one of the walls
 	- Uses DG kernels
 	- Transient problem
 
 * advec5-ss.i:
 	- pseudo-1D
+	- GeneratedMesh
 	- q'' on one of the walls
 	- Uses DG kernels
 	- Steady-state problem
 
-
-
 * advec6-t.i:
-	- pseudo-1D: uses GeneratedMesh
+	- pseudo-1D
+	- 2D-coolant.msh
 	- q'' on one of the walls
 	- Uses DG kernels
 	- Transient problem
-	- values of the PMR600 (or almost)
+	- values of the PMR600
 
-* advec6-t.i:
-	- pseudo-1D: uses mesh file
-	- q'' on one of the walls
-	- Uses DG kernels
-	- Transient problem
-	- values of the PMR600 (or almost)
+
 
 
 

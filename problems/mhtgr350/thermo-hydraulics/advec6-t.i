@@ -2,19 +2,12 @@
 velocity = 2.657e3  # [cm/s]
 
 [Mesh]
-  type = GeneratedMesh
-  dim = 2
-  nx = 1
-  ny = 100
-  xmax = 0.794
-  # xmax = 1
-  ymax = 793
-  elem_type = QUAD4
+  file = 2D-coolant.msh
 [../]
 
-#[Problem]
-#  coord_type = RZ
-#[]
+[Problem]
+  coord_type = RZ
+[]
 
 [Variables]
   [./temp]
@@ -56,7 +49,7 @@ velocity = 2.657e3  # [cm/s]
     velocity = '0 ${velocity} 0'
   [../]
   [./heat_wall]
-    boundary = 'left'
+    boundary = 'right'
     type = FunctionNeumannBC
     variable = temp
     function = 'heat_flux'
@@ -66,9 +59,7 @@ velocity = 2.657e3  # [cm/s]
 [Functions]
   [./heat_flux]
     type = ParsedFunction
-    # value = '70.64 * sin( pi/793 * y)'
-    value = '43.55 * sin( pi/793 * y)'
-    # value = '14.16'
+    value = '22.24 * sin( pi/793 * y)'
   [../]
 []
 
@@ -121,8 +112,8 @@ velocity = 2.657e3  # [cm/s]
 
 [Outputs]
   file_base = 'advec6-t'
-  #execute_on = 'initial final'
-  execute_on = 'linear timestep_end'
+  execute_on = 'initial final'
+  #execute_on = 'timestep_end'
   exodus = true
   csv = true
 []
