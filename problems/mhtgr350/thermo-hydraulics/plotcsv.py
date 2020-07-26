@@ -34,7 +34,7 @@ file = 'advec7-ss_across_' + t + '.csv'
 save = 'advec7-ss-' + t + '-a'
 #plotcsv_frommoose_temp(file, save, 'x')
 
-name = 'cg-advec3-ss'
+name = 'cg-advec4-ss'
 
 file = name + '_center_0002.csv'
 save = name + 'A'
