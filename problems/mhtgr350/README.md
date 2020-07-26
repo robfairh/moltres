@@ -218,6 +218,11 @@ thermo-hydraulics/
 	- steady state problem
 
 
+* cg-advec1-ss.i
+    - very weird results
+    - temperature in x=0 increases
+    - temperature in x=2 decreases
+
 
 * burguers.i:
 	- Burguers equation
