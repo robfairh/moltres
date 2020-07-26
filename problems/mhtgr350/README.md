@@ -126,6 +126,18 @@ scripts/
 
 thermo-hydraulics/
 ------------------
+* 2D-coolant.geo:
+	- R = 0.794
+	- L = 793
+	- nx = 1
+    - ny = 200
+
+* 2D-coolantB.geo:
+	- R = 0.794
+	- L = 793
+	- nx = 5
+    - ny = 200
+
 * advec1-t.i:
     - 1D
     - GeneratedMesh
@@ -210,18 +222,44 @@ thermo-hydraulics/
 	- Transient problem
 	- values of the PMR600
 
-
-
 * diff1-ss.i
 	- it has only diffusion
 	- uses DG kernels
 	- steady state problem
 
 
+
+
+
 * cg-advec1-ss.i
+    - temperature in x=0 increases
+    - it works for the parameters I chose
+    - temperature in x=2 decreases
+
+* cg-advec2-ss.i
     - very weird results
     - temperature in x=0 increases
     - temperature in x=2 decreases
+
+
+
+Not working or not sure they are working:
+-----------------------------------------
+* advec7-t.i:
+	- 2D Generated Mesh
+	- q'' on one of the walls
+	- Uses DG kernels
+	- Transient problem
+	- values of the PMR600
+	- I need to run it on BW and see how it evolves over time with a small dt
+
+* advec7-ss.i:
+	- 2D Generated Mesh
+	- q'' on one of the walls
+	- Uses DG kernels
+	- Steady-state problem
+	- values of the PMR600
+	- the results are wrong
 
 
 * burguers.i:
@@ -231,7 +269,6 @@ thermo-hydraulics/
 	- Inflow and outflow BCs ??
 	- This does not work
 	- Need to define the OutflowBC kernel ??
-
 
 * TH-temp3.i
 	- 2D-unitcell

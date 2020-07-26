@@ -1,9 +1,9 @@
 // Just a cylinder
 SetFactory("OpenCASCADE");
 
-Rc = 1;
-Hc = 100;
-Lc = 100;
+Rc = 0.794;
+Hc = 793;
+Lc = 32;
 
 Circle(1) = {0, 0, 0, Rc, 0, 2*Pi};
 
@@ -14,7 +14,7 @@ Extrude {0, 0, Hc} {
   Surface{1}; Layers{Lc};
 }
 
-Physical Surface("bot") = {1};
+Physical Surface("bottom") = {1};
 Physical Surface("top") = {3};
 Physical Surface("wall") = {2};
 

@@ -1,29 +1,24 @@
 
-velocity = 0.5
+velocity = 2.657e3  # [cm/s]
 
 [Mesh]
-  type = GeneratedMesh
-  dim = 2
-  nx = 5
-  ny = 100
-  xmax = 2
-  ymax = 100
-  elem_type = QUAD4
+  file = 3D-coolant.msh
 [../]
 
 [Variables]
   [./temp]
     order = FIRST
     family = LAGRANGE
-    initial_condition = 930
+    initial_condition = 490
   [../]
 []
 
 [Kernels]
   [./advection]
     type = ConservativeTemperatureAdvection
-    velocity = '0 ${velocity} 0'
+    velocity = '0 0 ${velocity}'
     variable = temp
+    # upwinding_type = full
   [../]
   [./diffusion]
     type = MatDiffusion
@@ -43,18 +38,18 @@ velocity = 0.5
     type = TemperatureInflowBC
     variable = temp
     uu = 0
-    vv = ${velocity}
-    ww = 0
-    inlet_conc = 930
+    vv = 0
+    ww = ${velocity}
+    inlet_conc = 490
   [../]
   [./temp_advection_outlet]
     boundary = 'top'
     type = TemperatureOutflowBC
     variable = temp
-    velocity = '0 ${velocity} 0'
+    velocity = '0 0 ${velocity}'
   [../]
   [./heat_wall]
-    boundary = 'right'
+    boundary = 'wall'
     type = FunctionNeumannBC
     variable = temp
     function = 'heat_flux'
@@ -64,7 +59,8 @@ velocity = 0.5
 [Functions]
   [./heat_flux]
     type = ParsedFunction
-    value = '10 * sin( pi/100 * y)'
+    value = '22.24 * sin(pi/793 * z)'
+    #value = '11.12 * sin(pi/793 * z)'
   [../]
 []
 
@@ -72,7 +68,9 @@ velocity = 0.5
   [./coolant]
     type = GenericConstantMaterial
     prop_names = 'k cp rho'
-    prop_values = '1 2e3 1e-2'
+    #prop_values = '2.23e-3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
+    #prop_values = '1e3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
+    prop_values = '1e3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
   [../]
 []
 
@@ -81,11 +79,11 @@ velocity = 0.5
   nl_rel_tol = 1e-6
   nl_abs_tol = 1e-5
   solve_type = 'NEWTON'
-  # petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
-  # petsc_options_iname = '-pc_type -sub_pc_type -pc_asm_overlap -sub_ksp_type -snes_linesearch_minlambda'
-  # petsc_options_value = 'asm      lu           1               preonly       1e-3'
-  # nl_max_its = 30
-  # l_max_its = 100
+  petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
+  petsc_options_iname = '-pc_type -sub_pc_type -pc_asm_overlap -sub_ksp_type -snes_linesearch_minlambda'
+  petsc_options_value = 'asm      lu           1               preonly       1e-3'
+  nl_max_its = 30
+  l_max_its = 100
 []
 
 [Preconditioning]
@@ -100,8 +98,8 @@ velocity = 0.5
     type = LineValueSampler
     variable = 'temp'
     start_point = '0 0 0'
-    end_point = '0 100 0'
-    sort_by = y
+    end_point = '0 0 793'
+    sort_by = z
     num_points = 100
     execute_on = final
   [../]
@@ -109,9 +107,9 @@ velocity = 0.5
   [./outer]
     type = LineValueSampler
     variable = 'temp'
-    start_point = '2 0 0'
-    end_point = '2 100 0'
-    sort_by = y
+    start_point = '0.794 0 0'
+    end_point = '0.794 0 793'
+    sort_by = z
     num_points = 100
     execute_on = final
   [../]
@@ -119,8 +117,8 @@ velocity = 0.5
   [./across]
     type = LineValueSampler
     variable = 'temp'
-    start_point = '0 50 0'
-    end_point = '2 50 0'
+    start_point = '0 0 400'
+    end_point = '0.794 0 400'
     sort_by = x
     num_points = 10
     execute_on = final
@@ -128,7 +126,7 @@ velocity = 0.5
 []
 
 [Outputs]
-  file_base = 'cg-advec1-ss'
+  file_base = 'cg-advec3-ss'
   execute_on = 'final'
   exodus = true
   csv = true

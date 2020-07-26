@@ -334,7 +334,7 @@ fill=blue!30]
 	\end{itemize}
 
 	\begin{equation}
-	T(L) - T(0) = \frac{1}{\rho c_p v}\frac{1}{\Delta_x \Delta_z}\int^L_0 q'' dy \Delta_z= \frac{1}{10} \frac{1}{2} \frac{10 \times 2 \times L}{\pi}
+	T(L) = T(0) + \frac{1}{\rho c_p v}\frac{1}{\Delta_x \Delta_z}\int^L_0 q'' dy \Delta_z = T(0) + \frac{1}{10} \frac{1}{2} \frac{10 \times 2 \times L}{\pi} = 961
 	\end{equation}
 
 	\begin{figure}[htbp!]
@@ -408,7 +408,7 @@ fill=blue!30]
 		\centering
 		\includegraphics[height=5cm]{advec6-ss}
 		\caption{Advects temperature while wall is been heated.}
-		\label{fig:advec6-t}
+		\label{fig:advec6-ss}
 	\end{figure}
 
 	\subsection{diff1-ss}
@@ -441,15 +441,111 @@ fill=blue!30]
 		\label{fig:diff1-ss}
 	\end{figure}
 
+	\subsection{cg-advec1-ss}
+
+	\begin{itemize}
+		\item \textit{cg-advec1-ss.i}
+		\item 2D GeneratedMesh
+		\item Uses DG Kernels
+		\item DGFunctionDiffusionDirichletBC
+		\item Steady-state problem
+	\end{itemize}
+
+    Figure \ref{fig:cg-advec1-ssA} and \ref{fig:cg-advec1-ssB} shows the results.
+
+	\begin{equation}
+    	k \nabla^2 T + q = 0
+	\end{equation}
+
+	\begin{itemize}
+		\item BC: $T(x, 0) = 930^{\circ}C$
+		\item $q = 10 sin (\pi/L y)$
+		\item $L = 100$
+		\item $\Delta_x = 2$
+		\item $\rho = 1e-2$
+		\item $c_p = 2e3$
+		\item $k = 1$
+	\end{itemize}
+
+	\begin{figure}[htbp!]
+		\centering
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{cg-advec1-ssA}
+			\caption{(0,0,0)-(0,100,0).}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+	        \includegraphics[width=\linewidth]{cg-advec1-ssB}
+			\caption{(2,0,0)-(2,100,0).}
+		\end{subfigure}
+		\hfill
+		\caption{Steady state advection diffusion.}
+		\label{fig:cg-advec1-ssA}
+	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{cg-advec1-ssC}
+		\caption{Steady state advection diffusion on (0,50,0)-(2,50,0).}
+		\label{fig:cg-advec1-ssB}
+	\end{figure}
+
+	\subsection{cg-advec2-ss}
+
+	\begin{itemize}
+		\item \textit{cg-advec2-ss.i}
+		\item 2D GeneratedMesh
+		\item Uses DG Kernels
+		\item DGFunctionDiffusionDirichletBC
+		\item Steady-state problem
+	\end{itemize}
+
+    Figure \ref{fig:cg-advec2-ssA} and \ref{fig:cg-advec2-ssB} shows the results.
+
+	\begin{equation}
+    \rho c_p v \frac{\partial}{\partial x} T = 0
+	\end{equation}
+
+	This is not the real equation. When using the Galerkin method, a new term appears due to the neumann BC.
+
+	\begin{itemize}
+		\item BC: $T(x, 0) = 490^{\circ}C$
+		\item $q''(0, y) = 22.24 sin (\pi/L y) W/cm^2$
+		\item $L = 793 cm$
+		\item $R_C = 0.794 cm$
+		\item $\rho (7 MPa, 490^{\circ}C) = 4.368 kg/m^3 = 4.368e-6 kg/cm^3$
+		\item $c_p (7 MPa, 490^{\circ}C) = 5.188 J/g/K = 5.188e3 J/kg/K$
+		\item $v = 26.57 m/s = 2657 cm/s$
+		\item $k = 10 W/m/K = 1e3 W/cm/K$
+	\end{itemize}
+
+	\begin{figure}[htbp!]
+		\centering
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{cg-advec2-ssA}
+			\caption{(0,0,0)-(0,793,0).}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+	        \includegraphics[width=\linewidth]{cg-advec2-ssB}
+			\caption{(0.794,793,0)-(0.794,793,0).}
+		\end{subfigure}
+		\hfill
+		\caption{Steady state advection diffusion.}
+		\label{fig:cg-advec2-ssA}
+	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{cg-advec2-ssC}
+		\caption{Steady state advection diffusion on (0,400,0)-(0.794,400,0).}
+		\label{fig:cg-advec2-ssB}
+	\end{figure}
+
 \pagebreak
 \bibliographystyle{plain}
 % \bibliography{bibliography}
 
 \end{document}
-
-	% \begin{figure}[htbp!]
-	% 	\centering
-	% 	\includegraphics[height=5cm]{1D-fuel-eig}
-	% 	\caption{Steady state Group 1 and 2 fluxes.}
-	% 	\label{fig:1D-fuel-eig}
-	% \end{figure}

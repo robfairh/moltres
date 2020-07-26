@@ -34,10 +34,16 @@ file = 'advec7-ss_across_' + t + '.csv'
 save = 'advec7-ss-' + t + '-a'
 #plotcsv_frommoose_temp(file, save, 'x')
 
-# file = 'diff1-ss_across_0001.csv'
-# save = 'diff1-ss_across'
-# plotcsv_frommoose_temp(file, save, 'x')
+name = 'cg-advec3-ss'
 
-file = 'cg-advec1-ss_axial_0002.csv'
-save = 'cg-advec1-ss'
-plotcsv_frommoose_temp(file, save, 'y')
+file = name + '_center_0002.csv'
+save = name + 'A'
+plotcsv_frommoose_temp(file, save, 'z')
+
+file = name + '_outer_0002.csv'
+save = name + 'B'
+plotcsv_frommoose_temp(file, save, 'z')
+
+file = name + '_across_0002.csv'
+save = name + 'C'
+plotcsv_frommoose_temp(file, save, 'x')
