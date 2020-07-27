@@ -3,7 +3,7 @@ SetFactory("OpenCASCADE");
 
 Rc = 0.794;
 Hc = 793;
-Lc = 32;
+Lc = 256;
 
 Circle(1) = {0, 0, 0, Rc, 0, 2*Pi};
 
