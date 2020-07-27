@@ -60,26 +60,42 @@ velocity = 2.657e3  # [cm/s]
 []
 
 [Materials]
-  [./coolant]
-    type = GenericConstantMaterial
-    prop_names = 'k cp rho'
-    #prop_values = '2.23e-3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
-    #prop_values = '1e3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
-    prop_values = '1e3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
-    block = 'coolant'
-  [../]
   [./moderator]
-    type = GenericConstantMaterial
-    prop_names = 'k'
-    prop_values = '1' # [W/cm/K]
+    type = PiecewiseLinearInterpolationMaterial
+    property = 'k'
+    variable = temp
+    x = ' 400  500  600  700  800  900 1000 1100' # [C]
+    y = '0.26 0.27 0.28 0.30 0.31 0.32 0.33 0.34' # [W/cm/K]
     block = 'moderator'
   [../]
+
   [./fuel]
-    type = GenericConstantMaterial
-    prop_names = 'k'
-    prop_values = '1' # [W/cm/K]
+    type = PiecewiseLinearInterpolationMaterial
+    property = 'k'
+    variable = temp
+    x = ' 400  500  600  700  800  900 1000 1100' # [C]
+    y = '0.06 0.06 0.07 0.07 0.07 0.08 0.08 0.08' # [W/cm/K]
     block = 'fuel'
   [../]
+
+  [./coolant2]
+    type = PiecewiseLinearInterpolationMaterial
+    property = 'k'
+    variable = temp
+    x = ' 400 1100' # [C]
+    y = ' 1e3  1e3' # [W/cm/K]
+    block = 'coolant'
+  [../]
+
+  [./coolant]
+    type = GenericConstantMaterial
+    prop_names = 'cp rho'
+    #prop_values = '2.23e-3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
+    #prop_values = '1e3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
+    prop_values = '5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
+    block = 'coolant'
+  [../]
+
 []
 
 [Executioner]

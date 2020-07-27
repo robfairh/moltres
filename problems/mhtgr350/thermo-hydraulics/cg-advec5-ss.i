@@ -19,10 +19,11 @@ velocity = 2.657e3  # [cm/s]
 
 [Kernels]
   [./advection]
-    type = ConservativeTemperatureAdvection
-    velocity = '0 vel 0'
+    type = VelocityFunctionTemperatureAdvection
+    vel_x_func = vel_x_func
+    vel_y_func = vel_y_func
+    vel_z_func = vel_z_func
     variable = temp
-    # upwinding_type = full
   [../]
   [./diffusion]
     type = MatDiffusion
@@ -38,20 +39,21 @@ velocity = 2.657e3  # [cm/s]
 
 [BCs]
   [./fuel_bottoms_looped]
+    type = DirichletBC
+    variable = temp
     boundary = 'bottom'
-    type = TemperatureInflowBC
-    variable = temp
-    uu = 0
-    vv = vel
-    ww = 0
-    inlet_conc = 490
+    value = 490
   [../]
+
   [./temp_advection_outlet]
+    type = VelocityFunctionTemperatureOutflowBC
     boundary = 'top'
-    type = TemperatureOutflowBC
     variable = temp
-    velocity = '0 vel 0'
+    vel_x_func = vel_x_func
+    vel_y_func = vel_y_func
+    vel_z_func = vel_z_func
   [../]
+
   [./heat_wall]
     boundary = 'right'
     type = FunctionNeumannBC
@@ -65,18 +67,37 @@ velocity = 2.657e3  # [cm/s]
     type = ParsedFunction
     value = '22.24 * sin(pi/793 * y)'
   [../]
-  [./vel]
+
+  [./vel_x_func]
     type = ParsedFunction
+    value = '0'
+  [../]
+  [./vel_y_func]
+    type = ParsedFunction
+    # value = '2 * ${velocity} * (1 - x*x/0.794/0.794)'
     value = '2 * ${velocity} * (1 - x*x/0.794/0.794)'
+  [../]
+  [./vel_z_func]
+    type = ParsedFunction
+    value = '0'
   [../]
 []
 
 [Materials]
   [./coolant]
     type = GenericConstantMaterial
-    prop_names = 'k cp rho'
-    #prop_values = '2.23e-3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
-    prop_values = '1e3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
+    prop_names = 'k cp'
+    # prop_values = '2.23e-3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
+    # prop_values = '1e-3 5.188e3 4.368e-6' # [W/cm/K] [J/kg/K] [kg/cm3]
+    prop_values = '1e-3 5.188e3' # [W/cm/K] [J/kg/K]
+  [../]
+
+  [./linear_interp]
+    type = PiecewiseLinearInterpolationMaterial
+    property = 'rho'
+    variable = temp
+    x = '450 500 550 600 650 700 750 800 850 900 950 1000 1050' # [C]
+    y = '4.603e-6 4.312e-6 4.053e-6 3.824e-6 3.619e-6 3.435e-6 3.268e-6 3.117e-6 2.980e-6 2.854e-6 2.738e-6 2.631e-6 2.532e-6' # [kg/cm3]
   [../]
 []
 
@@ -132,7 +153,7 @@ velocity = 2.657e3  # [cm/s]
 []
 
 [Outputs]
-  file_base = 'cg-advec2-ss'
+  file_base = 'cg-advec5-ss'
   execute_on = 'final'
   exodus = true
   csv = true
