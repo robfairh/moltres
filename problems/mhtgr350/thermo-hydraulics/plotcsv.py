@@ -54,17 +54,15 @@ file = 'advec7-ss_across_' + t + '.csv'
 save = 'advec7-ss-' + t + '-a'
 #plotcsv_frommoose_temp(file, save, 'x')
 
-name = 'cg-advec4-ss'
-# file = name + '_center_0002.csv'
-# save = name + 'A'
-# plotcsv_frommoose_temp(file, save, 'z')
+name = 'cg-advec6-ss'
+file = name + '_center_0002.csv'
+save = name + 'A'
+plotcsv_frommoose_temp(file, save, 'y')
 
-# file = name + '_outer_0002.csv'
-# save = name + 'B'
-# plotcsv_frommoose_temp(file, save, 'z')
+file = name + '_outer_0002.csv'
+save = name + 'B'
+plotcsv_frommoose_temp(file, save, 'y')
 
-# file = name + '_across_0002.csv'
-# save = name + 'C'
-# plotcsv_frommoose_temp(file, save, 'x')
-
-cg_advec3_convergence()
+file = name + '_across_0002.csv'
+save = name + 'C'
+plotcsv_frommoose_temp(file, save, 'x')

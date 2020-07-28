@@ -275,13 +275,7 @@ Not working or not sure they are working:
 	- the results are wrong
 
 
-* burguers.i:
-	- Burguers equation
-	- Uses DGKernels
-	- Transient problem
-	- Inflow and outflow BCs ??
-	- This does not work
-	- Need to define the OutflowBC kernel ??
+
 
 * TH-temp3.i
 	- 2D-unitcell
