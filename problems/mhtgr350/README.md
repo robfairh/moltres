@@ -138,6 +138,12 @@ thermo-hydraulics/
 	- nx = 5
     - ny = 200
 
+* 3D-coolant.geo:
+	- R = 0.794
+	- L = 793
+    - nz = 256
+
+
 * advec1-t.i:
     - 1D
     - GeneratedMesh
@@ -240,6 +246,13 @@ thermo-hydraulics/
     - very weird results
     - temperature in x=0 increases
     - temperature in x=2 decreases
+
+
+* cg-advec3-ss.i
+    - 3D-coolant.msh
+
+* cg-advec4-ss.i
+    - 3D-cell.msh
 
 
 

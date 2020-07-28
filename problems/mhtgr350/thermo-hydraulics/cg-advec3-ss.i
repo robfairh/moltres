@@ -60,7 +60,6 @@ velocity = 2.657e3  # [cm/s]
   [./heat_flux]
     type = ParsedFunction
     value = '22.24 * sin(pi/793 * z)'
-    #value = '11.12 * sin(pi/793 * z)'
   [../]
 []
 
