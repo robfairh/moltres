@@ -98,3 +98,7 @@ Physical Volume("moderator") = {8};
 Physical Surface("cool_top") = {10};
 Physical Surface("fuel_top") = {14, 18, 22, 26, 30, 34};
 Physical Surface("mod_top") = {41};
+
+Color Green{Surface{10};}
+Color Red{Surface{14, 18, 22, 26,30, 34};}
+Color Blue{Surface{41};}

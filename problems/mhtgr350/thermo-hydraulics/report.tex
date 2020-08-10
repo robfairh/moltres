@@ -446,8 +446,7 @@ fill=blue!30]
 	\begin{itemize}
 		\item \textit{cg-advec1-ss.i}
 		\item 2D GeneratedMesh
-		\item Uses DG Kernels
-		\item DGFunctionDiffusionDirichletBC
+		\item Uses CG Kernels
 		\item Steady-state problem
 	\end{itemize}
 
@@ -495,9 +494,8 @@ fill=blue!30]
 
 	\begin{itemize}
 		\item \textit{cg-advec2-ss.i}
-		\item 2D GeneratedMesh
-		\item Uses DG Kernels
-		\item DGFunctionDiffusionDirichletBC
+		\item mesh: 2D-coolantB.msh
+		\item Uses CG Kernels
 		\item Steady-state problem
 	\end{itemize}
 
@@ -544,8 +542,114 @@ fill=blue!30]
 		\label{fig:cg-advec2-ssB}
 	\end{figure}
 
+	\subsection{cg-advec3-ss}
+
+	\begin{itemize}
+		\item \textit{cg-advec3-ss.i}
+		\item mesh: 3D-coolant.msh
+		\item Uses CG Kernels
+		\item Steady-state problem
+	\end{itemize}
+
+    Figure \ref{fig:cg-advec3-ss} shows the results.
+
+	\begin{equation}
+    \rho c_p v \frac{\partial}{\partial x} T = 0
+	\end{equation}
+
+	This is not the real equation. When using the Galerkin method, a new term appears due to the neumann BC.
+
+	\begin{itemize}
+		\item BC: $T(r, 0) = 490^{\circ}C$
+		\item $q''(R, z) = 22.24 sin (\pi/L z) W/cm^2$
+		\item $L = 793 cm$
+		\item $R_C = 0.794 cm$
+		\item $\rho (7 MPa, 490^{\circ}C) = 4.368 kg/m^3 = 4.368e-6 kg/cm^3$
+		\item $c_p (7 MPa, 490^{\circ}C) = 5.188 J/g/K = 5.188e3 J/kg/K$
+		\item $v = 26.57 m/s = 2657 cm/s$
+		\item $k = 10 W/m/K = 1e3 W/cm/K$
+	\end{itemize}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{cg-advec3-ssA}
+		\caption{Steady state advection diffusion on (0,0,0)-(0,0,793).}
+		\label{fig:cg-advec3-ss}
+	\end{figure}
+
+	\subsection{cg-advec4-ss}
+
+	\begin{itemize}
+		\item \textit{cg-advec4-ss.i}
+		\item mesh: 3D-cell.msh
+		\item Uses CG Kernels
+		\item Steady-state problem
+	\end{itemize}
+
+    Figure \ref{fig:unitcell} displays the geometry of the unit cell.
+    Figure \ref{fig:cg-advec4} shows the thermal conductivities of the fuel and moderator results.
+    Figure \ref{fig:cg-advec4-ssA} and \ref{fig:cg-advec4-ssB} show the results.
+
+	\begin{equation}
+    \rho c_p v \frac{\partial}{\partial x} T = 0
+	\end{equation}
+
+	This is not the real equation. When using the Galerkin method, a new term appears due to the neumann BC.
+
+	\begin{itemize}
+		\item BC: $T(r, 0) = 490^{\circ}C$
+		\item $q''(R, z) = 43.8 sin (\pi/L z) W/cm^3$
+		\item $L = 793 cm$
+		\item $R_C = 0.794 cm$
+		\item $R_F = 0.635 cm$
+		\item $\rho_C (7 MPa, 490^{\circ}C) = 4.368 kg/m^3 = 4.368e-6 kg/cm^3$
+		\item $c_{p,C} (7 MPa, 490^{\circ}C) = 5.188 J/g/K = 5.188e3 J/kg/K$
+		\item $v = 26.57 m/s = 2657 cm/s$
+		\item $k_C = 10 W/m/K = 1e3 W/cm/K$
+		\item $k_F(T)$
+		\item $k_M(T)$
+	\end{itemize}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{pmr-K}
+		\caption{Thermal conductivity of the fuel and the moderator.}
+		\label{fig:cg-advec4}
+	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{standard2}
+		\caption{Unit cell geometry.}
+		\label{fig:unitcell}
+	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{cg-advec4-ssA}
+			\caption{Coolant centerline: (0,0,0)-(0,793,0).}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+	        \includegraphics[width=\linewidth]{cg-advec4-ssB}
+			\caption{Fuel centerline: (1.88,0,0)-(1.88,793,0).}
+		\end{subfigure}
+		\hfill
+		\caption{Steady state advection diffusion.}
+		\label{fig:cg-advec4-ssA}
+	\end{figure}
+
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[height=5cm]{cg-advec4-ssC}
+		\caption{Across coolant, moderator, and fuel: (0,0,400)-(1.88,0,400).}
+		\label{fig:cg-advec4-ssB}
+	\end{figure}
+
 \pagebreak
 \bibliographystyle{plain}
-% \bibliography{bibliography}
+\bibliography{bibliography}
 
 \end{document}

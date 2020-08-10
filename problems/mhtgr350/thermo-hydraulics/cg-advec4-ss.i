@@ -144,7 +144,7 @@ velocity = 2.657e3  # [cm/s]
     start_point = '0 0 400'
     end_point = '1.88 0 400'
     sort_by = x
-    num_points = 10
+    num_points = 100
     execute_on = final
   [../]
 []

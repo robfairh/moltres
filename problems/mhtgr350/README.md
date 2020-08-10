@@ -138,6 +138,12 @@ thermo-hydraulics/
 	- nx = 5
     - ny = 200
 
+* 3D-coolant.geo:
+	- R = 0.794
+	- L = 793
+    - nz = 256
+
+
 * advec1-t.i:
     - 1D
     - GeneratedMesh
@@ -242,6 +248,14 @@ thermo-hydraulics/
     - temperature in x=2 decreases
 
 
+* cg-advec3-ss.i
+    - 3D-coolant.msh
+
+* cg-advec4-ss.i
+    - 3D-cell.msh
+
+
+
 
 Not working or not sure they are working:
 -----------------------------------------
@@ -262,13 +276,7 @@ Not working or not sure they are working:
 	- the results are wrong
 
 
-* burguers.i:
-	- Burguers equation
-	- Uses DGKernels
-	- Transient problem
-	- Inflow and outflow BCs ??
-	- This does not work
-	- Need to define the OutflowBC kernel ??
+
 
 * TH-temp3.i
 	- 2D-unitcell
